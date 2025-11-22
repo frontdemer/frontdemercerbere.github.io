@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Front de Mer, Cerbère</title>
+<style>
+body { font-family:'Helvetica Neue',Arial,sans-serif; margin:0; padding:0; color:#333; line-height:1.6; }
+a { text-decoration:none; color: inherit; }
+img { max-width:100%; display:block; border-radius:8px; }
+
+/* Header / Hero */
+header { position:relative; height:80vh; background:url('hero.jpg') center/cover no-repeat; display:flex; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; }
+header h1 { font-size:3rem; text-shadow:2px 2px 8px rgba(0,0,0,0.6); margin:0.5rem; }
+.lang-btn { margin:0 0.5rem; padding:0.4rem 0.8rem; background:rgba(255,255,255,0.8); color:#2E8B57; border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:0.3s; }
+.lang-btn:hover { background:white; }
+
+header {
+  position: relative;
+  height: 80vh;
+  background: url('hero.jpg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5); /* zwarte overlay, 50% transparant */
+  z-index: 1;
+}
+
+header h1, header nav, header .lang-btn {
+  position: relative;
+  z-index: 2; /* tekst boven overlay */
+}
+
+
+/* Navigatie */
+nav { margin-top:1rem; }
+nav a { margin:0 1rem; font-weight:bold; cursor:pointer; transition:0.3s; }
+nav a:hover { color:#FFD700; }
+
+/* Secties */
+section { padding:4rem 2rem; max-width:1000px; margin:auto; }
+section h2 { text-align:center; margin-bottom:2rem; color:#2E8B57; }
+
+/* Grid fotogalerij */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery img {
+  width: 100%;
+  height: 200px;       /* vaste hoogte voor consistente rijen */
+  object-fit: cover;   /* vult volledig het kader, snijdt bij indien nodig */
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* Footer */
+footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5rem; }
+
+/* Verborgen taal-secties */
+.hidden { display:none; }
+
+/* Responsive hero text */
+@media(max-width:768px){ header h1{ font-size:2rem; } }
+</style>
+</head>
+<body>
+
+<header>
+<h1>Front de Mer, Cerbère</h1>
+<div>
+<button class="lang-btn" onclick="showLang('nl')">NL</button>
+<button class="lang-btn" onclick="showLang('fr')">FR</button>
+<button class="lang-btn" onclick="showLang('en')">EN</button>
+</div>
+<nav>
+<a onclick="scrollToSection('over')">Over / À propos / About</a>
+<a onclick="scrollToSection('galerij')">Galerij / Galerie / Gallery</a>
+<a onclick="scrollToSection('prijzen')">Prijzen / Tarifs / Prices</a>
+<a onclick="scrollToSection('reservering')">Reserveren / Réserver / Book</a>
+<a onclick="scrollToSection('contact')">Contact</a>
+</nav>
+</header>
+
+<!-- ====================== Nederlands ====================== -->
+<section id="over-nl" class="lang-section">
+<h2>Over het huis</h2>
+<p>Ons vakantiehuis <strong>Front de Mer</strong> ligt direct aan zee in Cerbère. Het huis beschikt over 3 slaapkamers, een ruime woonkamer, volledig uitgeruste keuken en zonnige tuin met uitzicht op het water.</p>
+</section>
+
+<section id="galerij-nl" class="lang-section">
+<h2>Galerij</h2>
+<div class="gallery">
+<img src="huis1.jpg" alt="Woonkamer Front de Mer">
+<img src="huis2.jpg" alt="Tuin Front de Mer">
+<img src="huis3.jpg" alt="Slaapkamer Front de Mer">
+<img src="huis4.jpg" alt="Strand voor het huis">
+<img src="huis5.jpg" alt="Uitzicht op zee">
+</div>
+</section>
+
+<section id="prijzen-nl" class="lang-section">
+<h2>Prijzen & Beschikbaarheid</h2>
+<table style="width:100%; border-collapse:collapse; margin:auto;">
+<tr style="background:#2E8B57; color:white;"><th>Seizoen</th><th>Prijs per week</th></tr>
+<tr><td>Laagseizoen (Jan - Mrt, Okt - Dec)</td><td>€700</td></tr>
+<tr><td>Middenseizoen (Apr - Jun, Sep)</td><td>€1.100</td></tr>
+<tr><td>Hoogseizoen (Jul - Aug)</td><td>€1.800</td></tr>
+</table>
+</section>
+
+<section id="reservering-nl" class="lang-section">
+<h2>Reserveer uw verblijf</h2>
+<p>Kies een week en vul uw gegevens in om een reservering aan te vragen.</p>
+<form id="form-nl" onsubmit="return sendMail('nl')" style="display:flex; flex-direction:column; max-width:400px; margin:auto;">
+<label for="week-nl">Kies uw week:</label>
+<select id="week-nl" required style="padding:0.5rem; margin:0.5rem 0;">
+<option value="">-- Selecteer een week --</option>
+</select>
+<input type="text" id="name-nl" placeholder="Uw naam" required style="padding:0.5rem; margin:0.5rem 0;">
+<input type="email" id="email-nl" placeholder="Uw e-mail" required style="padding:0.5rem; margin:0.5rem 0;">
+<textarea id="message-nl" placeholder="Extra info / Opmerkingen" rows="4" style="padding:0.5rem; margin:0.5rem 0;"></textarea>
+<button type="submit" style="padding:0.6rem; background:#2E8B57; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-top:0.5rem;">Verstuur</button>
+</form>
+</section>
+
+<section id="contact-nl" class="lang-section">
+<h2>Contact</h2>
+<p>Email: <a href="mailto:cerbere@waagmeester.net">cerbere@waagmeester.net</a></p>
+</section>
+
+<!-- ====================== Frans ====================== -->
+<section id="over-fr" class="lang-section hidden">
+<h2>À propos de la maison</h2>
+<p>Notre maison de vacances <strong>Front de Mer</strong> est située directement en bord de mer à Cerbère. La maison dispose de 3 chambres, grand salon, cuisine équipée et jardin ensoleillé avec vue sur la mer.</p>
+</section>
+
+<section id="galerij-fr" class="lang-section hidden">
+<h2>Galerie</h2>
+<div class="gallery">
+<img src="huis1.jpg" alt="Salon Front de Mer">
+<img src="huis2.jpg" alt="Jardin Front de Mer">
+<img src="huis3.jpg" alt="Chambre Front de Mer">
+<img src="huis4.jpg" alt="Plage devant la maison">
+<img src="huis5.jpg" alt="Vue sur la mer">
+</div>
+</section>
+
+<section id="prijzen-fr" class="lang-section hidden">
+<h2>Tarifs & Disponibilité</h2>
+<table style="width:100%; border-collapse:collapse; margin:auto;">
+<tr style="background:#2E8B57; color:white;"><th>Saison</th><th>Prix par semaine</th></tr>
+<tr><td>Basse saison (Jan - Mar, Oct - Dec)</td><td>€700</td></tr>
+<tr><td>Moyenne saison (Avr - Juin, Sep)</td><td>€1.100</td></tr>
+<tr><td>Haute saison (Juil - Août)</td><td>€1.800</td></tr>
+</table>
+</section>
+
+<section id="reservering-fr" class="lang-section hidden">
+<h2>Réservez votre séjour</h2>
+<p>Choisissez une semaine et remplissez vos informations pour réserver.</p>
+<form id="form-fr" onsubmit="return sendMail('fr')" style="display:flex; flex-direction:column; max-width:400px; margin:auto;">
+<label for="week-fr">Choisissez votre semaine :</label>
+<select id="week-fr" required style="padding:0.5rem; margin:0.5rem 0;">
+<option value="">-- Sélectionnez une semaine --</option>
+</select>
+<input type="text" id="name-fr" placeholder="Votre nom" required style="padding:0.5rem; margin:0.5rem 0;">
+<input type="email" id="email-fr" placeholder="Votre e-mail" required style="padding:0.5rem; margin:0.5rem 0;">
+<textarea id="message-fr" placeholder="Informations supplémentaires" rows="4" style="padding:0.5rem; margin:0.5rem 0;"></textarea>
+<button type="submit" style="padding:0.6rem; background:#2E8B57; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-top:0.5rem;">Envoyer</button>
+</form>
+</section>
+
+<section id="contact-fr" class="lang-section hidden">
+<h2>Contact</h2>
+<p>Email: <a href="mailto:cerbere@waagmeester.net">cerbere@waagmeester.net</a></p>
+<p>Téléphone: +33 6 12 34 56 78</p>
+</section>
+
+<!-- ====================== Engels ====================== -->
+<section id="over-en" class="lang-section hidden">
+<h2>About the house</h2>
+<p>Our vacation home <strong>Front de Mer</strong> is located directly on the sea in Cerbère. The house has 3 bedrooms, spacious living room, fully equipped kitchen, and sunny garden with sea view.</p>
+</section>
+
+<section id="galerij-en" class="lang-section hidden">
+<h2>Gallery</h2>
+<div class="gallery">
+<img src="huis1.jpg" alt="Living room Front de Mer">
+<img src="huis2.jpg" alt="Garden Front de Mer">
+<img src="huis3.jpg" alt="Bedroom Front de Mer">
+<img src="huis4.jpg" alt="Beach in front of the house">
+<img src="huis5.jpg" alt="Sea view">
+</div>
+</section>
+
+<section id="prijzen-en" class="lang-section hidden">
+<h2>Prices & Availability</h2>
+<table style="width:100%; border-collapse:collapse; margin:auto;">
+<tr style="background:#2E8B57; color:white;"><th>Season</th><th>Price per week</th></tr>
+<tr><td>Low season (Jan - Mar, Oct - Dec)</td><td>€700</td></tr>
+<tr><td>Mid season (Apr - Jun, Sep)</td><td>€1.100</td></tr>
+<tr><td>High season (Jul - Aug)</td><td>€1.800</td></tr>
+</table>
+</section>
+
+<section id="reservering-en" class="lang-section hidden">
+<h2>Book your stay</h2>
+<p>Select a week and fill in your details to request a booking.</p>
+<form id="form-en" onsubmit="return sendMail('en')" style="display:flex; flex-direction:column; max-width:400px; margin:auto;">
+<label for="week-en">Select your week:</label>
+<select id="week-en" required style="padding:0.5rem; margin:0.5rem 0;">
+<option value="">-- Select a week --</option>
+</select>
+<input type="text" id="name-en" placeholder="Your name" required style="padding:0.5rem; margin:0.5rem 0;">
+<input type="email" id="email-en" placeholder="Your email" required style="padding:0.5rem; margin:0.5rem 0;">
+<textarea id="message-en" placeholder="Additional info" rows="4" style="padding:0.5rem; margin:0.5rem 0;"></textarea>
+<button type="submit" style="padding:0.6rem; background:#2E8B57; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-top:0.5rem;">Send</button>
+</form>
+</section>
+
+<section id="contact-en" class="lang-section hidden">
+<h2>Contact</h2>
+<p>Email: <a href="mailto:cerbere@waagmeester.net">cerbere@waagmeester.net</a></p>
+<p>Phone: +33 6 12 34 56 78</p>
+</section>
+
+<footer>
+<p>&copy; 2025 Front de Mer, Cerbère</p>
+</footer>
+
+<script>
+// ================= Meertaligheid =================
+function showLang(lang) {
+const sections = document.querySelectorAll('.lang-section');
+sections.forEach(sec => sec.classList.add('hidden'));
+const visibleSections = document.querySelectorAll(`#over-${lang}, #galerij-${lang}, #prijzen-${lang}, #reservering-${lang}, #contact-${lang}`);
+visibleSections.forEach(sec => sec.classList.remove('hidden'));
+}
+function scrollToSection(id) {
+const lang = document.querySelector('.lang-section:not(.hidden)').id.split('-')[1];
+const section = document.getElementById(`${id}-${lang}`);
+section.scrollIntoView({behavior:'smooth'});
+}
+
+// ================= Beschikbare weken =================
+const availableWeeks = ["2025-W12","2025-W13","2025-W14","2025-W18","2025-W19","2025-W20","2025-W25","2025-W26","2025-W27","2025-W30","2025-W31","2025-W32"];
+function getDateOfISOWeek(w, y) {
+    const simple = new Date(y,0,1 + (w -1)*7);
+    const dow = simple.getDay();
+    const ISOweekStart = simple;
+    if(dow <=4) ISOweekStart.setDate(simple.getDate() - simple.getDay() +1);
+    else ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+    return ISOweekStart;
+}
+function populateWeekDropdown(lang) {
+    const select = document.getElementById(`week-${lang}`);
+    select.innerHTML = '<option value="">-- Selecteer een week --</option>';
+    availableWeeks.forEach(week => {
+        const [year, w] = week.split("-W");
+        const startDate = getDateOfISOWeek(parseInt(w), parseInt(year));
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate()+6);
+        const label = `${startDate.toLocaleDateString()} t/m ${endDate.toLocaleDateString()}`;
+        const option = document.createElement("option");
+        option.value = week;
+        option.textContent = label;
+        select.appendChild(option);
+    });
+}
+["nl","fr","en"].forEach(lang => populateWeekDropdown(lang));
+
+// ================= Mailfunctie =================
+function sendMail(lang) {
+    const weekInput = document.getElementById(`week-${lang}`);
+    const nameInput = document.getElementById(`name-${lang}`);
+    const emailInput = document.getElementById(`email-${lang}`);
+    const messageInput = document.getElementById(`message-${lang}`);
+    if(!weekInput.value){alert("Selecteer een week."); weekInput.focus(); return false;}
+    if(!nameInput.value.trim()){alert("Vul uw naam in."); nameInput.focus(); return false;}
+    if(!emailInput.value.trim()){alert("Vul uw e-mail in."); emailInput.focus(); return false;}
+    const [year,w] = weekInput.value.split("-W");
+    const startDate = getDateOfISOWeek(parseInt(w),parseInt(year));
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate()+6);
+    const weekFormatted = `${startDate.toLocaleDateString()} t/m ${endDate.toLocaleDateString()}`;
+    const subject = encodeURIComponent(`Reservering Front de Mer - ${weekFormatted}`);
+    const body = encodeURIComponent(`Naam: ${nameInput.value}\nE-mail: ${emailInput.value}\nWeek: ${weekFormatted}\n\nExtra info:\n${messageInput.value}`);
+    alert("Uw e-mail wordt geopend in uw mail-app. Controleer deze en klik op verzenden!");
+    window.location.href = `mailto:info@frontdemer-cerbere.fr?subject=${subject}&body=${body}`;
+    return false;
+}
+
+// ================= Default taal =================
+showLang('nl');
+</script>
+</body>
+</html>
