@@ -33,7 +33,12 @@ SELECT * WHERE {
 # List of OSM URIs you want to start from
 OSM_IDS = [
     "https://www.openstreetmap.org/node/11287250673",
-    "https://www.openstreetmap.org/node/664092519"
+    "https://www.openstreetmap.org/node/664092519",
+    "https://www.openstreetmap.org/node/1996185459",
+    "https://www.openstreetmap.org/node/915674609",
+    "https://www.openstreetmap.org/node/848853711",
+    "https://www.openstreetmap.org/node/9965537517",
+    "https://www.openstreetmap.org/way/64083386"
     # add more if you like
 ]
 
