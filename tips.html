@@ -95,9 +95,9 @@ function extractFeaturesFromStore(store) {
 
     let label = name || (street && housenr ? `${street} ${housenr}` : subject.value);
     let type = 'poi';
-    if (tourism === 'hotel') type = 'hotel';
-    else if (tourism === 'museum') type = 'museum';
+    if (tourism === 'museum') type = 'museum';
     else if (leisure === 'sports_centre') type = 'sports';
+    else if (tourism === 'restaurant') type = 'restaurant';
 
     features.push({
       uri: subject.value,
@@ -182,6 +182,7 @@ function getMarkerColor(type){
     case 'hotel': return 'purple';
     case 'museum': return 'orange';
     case 'sports': return 'red';
+    case 'restaurant': return 'green';
     default: return 'blue';
   }
 }
