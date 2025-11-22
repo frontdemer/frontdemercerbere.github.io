@@ -38,7 +38,9 @@ OSM_IDS = [
     "https://www.openstreetmap.org/node/915674609",
     "https://www.openstreetmap.org/node/848853711",
     "https://www.openstreetmap.org/node/9965537517",
-    "https://www.openstreetmap.org/way/64083386"
+    "https://www.openstreetmap.org/way/64083386",
+    "https://www.openstreetmap.org/relation/8312159",
+    "https://www.openstreetmap.org/relation/8312160"
     # add more if you like
 ]
 
