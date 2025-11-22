@@ -31,84 +31,86 @@ li { cursor:pointer; margin:0.5rem 0; }
 <h2>Locaties</h2>
 <ul id="tips-list"></ul>
 
-<!-- Mapbox JS moet eerst geladen worden -->
+<!-- Mapbox JS -->
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.19.0/mapbox-gl.js'></script>
 
 <script>
-// Mapbox token
-mapboxgl.accessToken = 'pk.eyJ1IjoiYW5kcmF3YWFnIiwiYSI6ImNtaWFkcjRxMTBiaTAya3FwcjJodzl1bDIifQ.Eb3w10-AlZPCvvcn5R8QJA'; // <--- vervang door jouw token
+document.addEventListener('DOMContentLoaded', async () => {
+    // Mapbox token
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYW5kcmF3YWFnIiwiYSI6ImNtaWFkcjRxMTBiaTAya3FwcjJodzl1bDIifQ.Eb3w10-AlZPCvvcn5R8QJA';
 
-// Maak de kaart
-const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v12',
-    center: [3.0850, 42.465],
-    zoom: 13
-});
-
-let tipsData = [];
-let currentLang = 'nl';
-map.markers = [];
-
-// JSON laden
-async function loadTips() {
-  try {
-    const resp = await fetch('tips-mapbox.json');
-    tipsData = await resp.json();
-    renderTips(currentLang);
-  } catch(e){
-    console.error("Kon tips niet laden:", e);
-  }
-}
-
-// Render markers + lijst
-function renderTips(lang){
-  currentLang = lang;
-  const list = document.getElementById('tips-list');
-  list.innerHTML = '';
-
-  // Oude markers verwijderen
-  map.markers.forEach(m => m.remove());
-  map.markers = [];
-
-  tipsData[lang].forEach(item => {
-    // Marker
-    const marker = new mapboxgl.Marker({color:getMarkerColor(item.type)})
-      .setLngLat([item.lon, item.lat])
-      .setPopup(new mapboxgl.Popup({offset:25}).setText(item.naam))
-      .addTo(map);
-    map.markers.push(marker);
-
-    // Lijst-item
-    const li = document.createElement('li');
-    li.textContent = item.naam;
-    li.dataset.lat = item.lat;
-    li.dataset.lon = item.lon;
-    li.addEventListener('click', () => {
-      map.flyTo({center:[item.lon, item.lat], zoom:15});
-      marker.togglePopup();
+    // Maak de kaart
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [3.0850, 42.465],
+        zoom: 13
     });
-    list.appendChild(li);
-  });
-}
 
-function getMarkerColor(type){
-  switch(type){
-    case 'wandeling': return 'green';
-    case 'toerisme': return 'blue';
-    case 'wijn': return 'purple';
-    case 'parkeren': return 'orange';
-    default: return 'red';
-  }
-}
+    let tipsData = [];
+    let currentLang = 'nl';
+    map.markers = [];
 
-// Taal wisselen
-function showLang(lang){
-  renderTips(lang);
-}
+    // JSON laden
+    async function loadTips() {
+      try {
+        const resp = await fetch('tips-mapbox.json');
+        tipsData = await resp.json();
+        renderTips(currentLang);
+      } catch(e){
+        console.error("Kon tips niet laden:", e);
+      }
+    }
 
-// Start
-loadTips();
+    // Render markers + lijst
+    function renderTips(lang){
+      currentLang = lang;
+      const list = document.getElementById('tips-list');
+      list.innerHTML = '';
+
+      // Oude markers verwijderen
+      map.markers.forEach(m => m.remove());
+      map.markers = [];
+
+      tipsData[lang].forEach(item => {
+        // Marker
+        const marker = new mapboxgl.Marker({color:getMarkerColor(item.type)})
+          .setLngLat([item.lon, item.lat])
+          .setPopup(new mapboxgl.Popup({offset:25}).setText(item.naam))
+          .addTo(map);
+        map.markers.push(marker);
+
+        // Lijst-item
+        const li = document.createElement('li');
+        li.textContent = item.naam;
+        li.dataset.lat = item.lat;
+        li.dataset.lon = item.lon;
+        li.addEventListener('click', () => {
+          map.flyTo({center:[item.lon, item.lat], zoom:15});
+          marker.togglePopup();
+        });
+        list.appendChild(li);
+      });
+    }
+
+    function getMarkerColor(type){
+      switch(type){
+        case 'wandeling': return 'green';
+        case 'toerisme': return 'blue';
+        case 'wijn': return 'purple';
+        case 'parkeren': return 'orange';
+        default: return 'red';
+      }
+    }
+
+    // Taal wisselen
+    window.showLang = function(lang){
+      renderTips(lang);
+    }
+
+    // Start
+    loadTips();
+});
 </script>
 
 </body>
