@@ -20,10 +20,10 @@ li { cursor:pointer; margin:0.5rem 0; }
 <body>
 
 <header>
-<h1>Front de Mer - Tips & Activiteiten</h1>
-<button class="lang-btn" onclick="showLang('nl')">NL</button>
-<button class="lang-btn" onclick="showLang('fr')">FR</button>
-<button class="lang-btn" onclick="showLang('en')">EN</button>
+  <h1>Front de Mer - Tips & Activiteiten</h1>
+  <button class="lang-btn" onclick="showLang('nl')">NL</button>
+  <button class="lang-btn" onclick="showLang('fr')">FR</button>
+  <button class="lang-btn" onclick="showLang('en')">EN</button>
 </header>
 
 <div id="map"></div>
@@ -32,6 +32,8 @@ li { cursor:pointer; margin:0.5rem 0; }
 <ul id="tips-list"></ul>
 
 <script src='https://api.mapbox.com/mapbox-gl-js/v3.17.0-beta.1/mapbox-gl.js'></script>
+<!-- N3.js voor RDF/Turtle parsing -->
+<script src="https://unpkg.com/n3@1.17.3/browser/n3.min.js"></script>
 
 <script>
 // Mapbox token
@@ -45,24 +47,95 @@ const map = new mapboxgl.Map({
     zoom: 13
 });
 
-let tipsData = [];
-let currentLang = 'nl';
 map.markers = [];
+let currentLang = 'nl';  // nog niet echt gebruikt voor labels, maar kan later
 
-// JSON laden
-async function loadTips() {
+// Namespaces
+const GEO = 'http://www.opengis.net/ont/geosparql#';
+const OSM_KEY = 'https://www.openstreetmap.org/wiki/Key:';
+const OSM_ADDR = 'https://www.openstreetmap.org/wiki/Key:addr:';
+
+// RDF laden i.p.v. JSON
+async function loadRdf() {
   try {
-    const resp = await fetch('mapboxTips.json');
-    tipsData = await resp.json();
-    renderTips(currentLang);
+    const resp = await fetch('osm.ttl');
+    const ttl = await resp.text();
+
+    const parser = new N3.Parser();
+    const store = new N3.Store();
+    store.addQuads(parser.parse(ttl));
+
+    const features = extractFeaturesFromStore(store);
+    renderFeatures(features);
   } catch(e){
-    console.error("Kon tips niet laden:", e);
+    console.error("Kon RDF niet laden/parsen:", e);
   }
 }
 
-// Render markers + lijst
-function renderTips(lang){
-  currentLang = lang;
+// RDF → interne feature-structuur
+function extractFeaturesFromStore(store) {
+  const features = [];
+
+  // alle ?node geo:hasGeometry ?geom
+  const quadsHasGeom = store.getQuads(null, GEO + 'hasGeometry', null, null);
+
+  for (const q of quadsHasGeom) {
+    const subject = q.subject;  // OSM node
+    const geom = q.object;      // geometry-node
+
+    // zoek geo:asWKT
+    const wktQuad = store.getQuads(geom, GEO + 'asWKT', null, null)[0];
+    if (!wktQuad) continue;
+
+    const wktLiteral = wktQuad.object.value; // "POINT(3.165895 42.440632)"
+    const coords = parseWKTPoint(wktLiteral);
+    if (!coords) continue;
+    const [lon, lat] = coords;
+
+    // extra info
+    const nameQuad = store.getQuads(subject, OSM_KEY + 'name', null, null)[0];
+    const tourismQuad = store.getQuads(subject, OSM_KEY + 'tourism', null, null)[0];
+    const streetQuad = store.getQuads(subject, OSM_ADDR + 'street', null, null)[0];
+    const housenrQuad = store.getQuads(subject, OSM_ADDR + 'housenumber', null, null)[0];
+
+    const name = nameQuad ? nameQuad.object.value : null;
+    const tourism = tourismQuad ? tourismQuad.object.value : null;
+    const street = streetQuad ? streetQuad.object.value : null;
+    const housenr = housenrQuad ? housenrQuad.object.value : null;
+
+    let label = name || subject.value || subject.id;
+    if (!name && street && housenr) {
+      label = `${street} ${housenr}`;
+    }
+
+    let type = 'poi';
+    if (tourism === 'hotel') type = 'hotel';
+
+    features.push({
+      uri: subject.value || subject.id,
+      lon,
+      lat,
+      label,
+      type,
+      street,
+      housenr
+    });
+  }
+
+  return features;
+}
+
+// heel simpele WKT-parser voor POINT(lon lat)
+function parseWKTPoint(wkt) {
+  const match = /POINT\s*\(\s*([0-9.\-+]+)\s+([0-9.\-+]+)\s*\)/i.exec(wkt);
+  if (!match) return null;
+  const lon = parseFloat(match[1]);
+  const lat = parseFloat(match[2]);
+  return [lon, lat];
+}
+
+// Features tekenen
+function renderFeatures(features){
   const list = document.getElementById('tips-list');
   list.innerHTML = '';
 
@@ -70,17 +143,15 @@ function renderTips(lang){
   map.markers.forEach(m => m.remove());
   map.markers = [];
 
-  tipsData[lang].forEach(item => {
-    // Marker
+  features.forEach(item => {
     const marker = new mapboxgl.Marker({color:getMarkerColor(item.type)})
       .setLngLat([item.lon, item.lat])
-      .setPopup(new mapboxgl.Popup({offset:25}).setText(item.naam))
+      .setPopup(new mapboxgl.Popup({offset:25}).setText(item.label))
       .addTo(map);
     map.markers.push(marker);
 
-    // Lijst-item
     const li = document.createElement('li');
-    li.textContent = item.naam;
+    li.textContent = `${item.label} (${item.type})`;
     li.dataset.lat = item.lat;
     li.dataset.lon = item.lon;
     li.addEventListener('click', () => {
@@ -93,21 +164,20 @@ function renderTips(lang){
 
 function getMarkerColor(type){
   switch(type){
-    case 'wandeling': return 'green';
-    case 'toerisme': return 'blue';
-    case 'wijn': return 'purple';
-    case 'parkeren': return 'orange';
-    default: return 'red';
+    case 'hotel': return 'purple';
+    default: return 'blue';
   }
 }
 
-// Taal wisselen
+// Taal wisselen – voor nu alleen state; later kun je hier bv. RDF met taal-tags gebruiken
 function showLang(lang){
-  renderTips(lang);
+  currentLang = lang;
+  console.log("Language switched to:", lang);
+  // als je straks labels per taal in RDF zet, kun je hier opnieuw renderen
 }
 
 // Start
-loadTips();
+loadRdf();
 </script>
 
 </body>
