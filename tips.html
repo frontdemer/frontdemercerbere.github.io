@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Front de Mer - Tips Map</title>
 
-<!-- Mapbox CSS -->
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.19.0/mapbox-gl.css' rel='stylesheet' />
 
 <style>
@@ -32,12 +31,14 @@ li { cursor:pointer; margin:0.5rem 0; }
 <h2>Locaties</h2>
 <ul id="tips-list"></ul>
 
-<!-- Mapbox JS -->
+<!-- Mapbox JS moet eerst geladen worden -->
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.19.0/mapbox-gl.js'></script>
 
 <script>
-mapboxgl.accessToken = 'JOUW_MAPBOX_ACCESS_TOKEN_HIER'; // <-- vervang door jouw token
+// Mapbox token
+mapboxgl.accessToken = 'JOUW_MAPBOX_ACCESS_TOKEN_HIER'; // <--- vervang door jouw token
 
+// Maak de kaart
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v12',
@@ -49,7 +50,7 @@ let tipsData = [];
 let currentLang = 'nl';
 map.markers = [];
 
-// Laad tips JSON
+// JSON laden
 async function loadTips() {
   try {
     const resp = await fetch('tips-mapbox.json');
@@ -60,13 +61,13 @@ async function loadTips() {
   }
 }
 
-// Render markers en lijst
+// Render markers + lijst
 function renderTips(lang){
   currentLang = lang;
   const list = document.getElementById('tips-list');
   list.innerHTML = '';
 
-  // Verwijder oude markers
+  // Oude markers verwijderen
   map.markers.forEach(m => m.remove());
   map.markers = [];
 
@@ -101,6 +102,7 @@ function getMarkerColor(type){
   }
 }
 
+// Taal wisselen
 function showLang(lang){
   renderTips(lang);
 }
