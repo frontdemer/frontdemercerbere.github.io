@@ -1,0 +1,72 @@
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix ns1: <http://www.opengis.net/rdf#> .
+@prefix ns2: <https://www.openstreetmap.org/meta/> .
+@prefix ns3: <https://osm2rdf.cs.uni-freiburg.de/rdf#> .
+@prefix ns4: <https://www.openstreetmap.org/wiki/Key:> .
+@prefix ns5: <https://www.openstreetmap.org/wiki/Key:addr:> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://www.openstreetmap.org/node/11287250673> a <https://www.openstreetmap.org/node> ;
+    geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_11287250673> ;
+    ns1:sfIntersects <https://www.openstreetmap.org/relation/10570524>,
+        <https://www.openstreetmap.org/relation/11278320>,
+        <https://www.openstreetmap.org/relation/11745120>,
+        <https://www.openstreetmap.org/relation/11747082>,
+        <https://www.openstreetmap.org/relation/13433228>,
+        <https://www.openstreetmap.org/relation/1403916>,
+        <https://www.openstreetmap.org/relation/16467322>,
+        <https://www.openstreetmap.org/relation/16819467>,
+        <https://www.openstreetmap.org/relation/18375>,
+        <https://www.openstreetmap.org/relation/2202162>,
+        <https://www.openstreetmap.org/relation/2500328>,
+        <https://www.openstreetmap.org/relation/25884>,
+        <https://www.openstreetmap.org/relation/2767883>,
+        <https://www.openstreetmap.org/relation/2929099>,
+        <https://www.openstreetmap.org/relation/3792883>,
+        <https://www.openstreetmap.org/relation/4615586>,
+        <https://www.openstreetmap.org/relation/5962788>,
+        <https://www.openstreetmap.org/relation/7466>,
+        <https://www.openstreetmap.org/relation/8643>,
+        <https://www.openstreetmap.org/way/49834294>,
+        <https://www.openstreetmap.org/way/64228493>,
+        <https://www.openstreetmap.org/way/889341190> ;
+    ns3:facts 2 ;
+    ns2:changeset <https://www.openstreetmap.org/changeset/143084459> ;
+    ns2:timestamp "2023-10-24T21:17:31"^^xsd:dateTime ;
+    ns2:uid 11579673 ;
+    ns2:user "LySioS" ;
+    ns2:version 1 ;
+    ns5:housenumber "7" ;
+    ns5:street "Rue de l'Église" .
+
+<https://www.openstreetmap.org/node/664092519> a <https://www.openstreetmap.org/node> ;
+    geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_664092519> ;
+    ns1:sfIntersects <https://www.openstreetmap.org/relation/10548036>,
+        <https://www.openstreetmap.org/relation/11746917>,
+        <https://www.openstreetmap.org/relation/11747082>,
+        <https://www.openstreetmap.org/relation/1311341>,
+        <https://www.openstreetmap.org/relation/16819467>,
+        <https://www.openstreetmap.org/relation/17506020>,
+        <https://www.openstreetmap.org/relation/2177382>,
+        <https://www.openstreetmap.org/relation/2909262>,
+        <https://www.openstreetmap.org/relation/343217>,
+        <https://www.openstreetmap.org/relation/349023>,
+        <https://www.openstreetmap.org/relation/349053>,
+        <https://www.openstreetmap.org/relation/3870917>,
+        <https://www.openstreetmap.org/relation/6491134>,
+        <https://www.openstreetmap.org/relation/8312807>,
+        <https://www.openstreetmap.org/way/432939904>,
+        <https://www.openstreetmap.org/way/889341190> ;
+    ns3:facts 2 ;
+    ns2:changeset <https://www.openstreetmap.org/changeset/40996542> ;
+    ns2:timestamp "2016-07-24T19:05:15"^^xsd:dateTime ;
+    ns2:uid 3735848 ;
+    ns2:user "lanxana" ;
+    ns2:version 4 ;
+    ns4:name "TotsSomPops" ;
+    ns4:tourism "hotel" .
+
+<https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_11287250673> geo:asWKT "POINT(3.165895 42.440632)"^^geo:wktLiteral .
+
+<https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_664092519> geo:asWKT "POINT(3.147180 42.403352)"^^geo:wktLiteral .
+
