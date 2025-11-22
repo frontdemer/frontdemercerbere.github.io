@@ -52,7 +52,7 @@ map.markers = [];
 // JSON laden
 async function loadTips() {
   try {
-    const resp = await fetch('tips-mapbox.json');
+    const resp = await fetch('mapboxTips.json');
     tipsData = await resp.json();
     renderTips(currentLang);
   } catch(e){
