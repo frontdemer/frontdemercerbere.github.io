@@ -74,7 +74,6 @@ async function loadRdf() {
 function extractFeaturesFromStore(store) {
   const features = [];
 
-  // Handle nodes
   const quadsHasGeom = store.getQuads(null, GEO + 'hasGeometry', null, null);
   for (const q of quadsHasGeom) {
     const subject = q.subject;
@@ -86,16 +85,18 @@ function extractFeaturesFromStore(store) {
     const coords = parseWKT(wktQuad.object.value);
     if (!coords) continue;
 
-    // Extract common properties
     const name = firstValue(store.getQuads(subject, OSM_KEY + 'name', null, null));
     const tourism = firstValue(store.getQuads(subject, OSM_KEY + 'tourism', null, null));
     const leisure = firstValue(store.getQuads(subject, OSM_KEY + 'leisure', null, null));
+    const shop = firstValue(store.getQuads(subject, OSM_KEY + 'shop', null, null)); // <-- new
     const street = firstValue(store.getQuads(subject, OSM_ADDR + 'street', null, null));
     const housenr = firstValue(store.getQuads(subject, OSM_ADDR + 'housenumber', null, null));
 
     let label = name || (street && housenr ? `${street} ${housenr}` : subject.value);
+
     let type = 'poi';
-    if (tourism === 'museum') type = 'museum';
+    if (shop) type = 'shop';                    // <-- anything with a shop property
+    else if (tourism === 'museum') type = 'museum';
     else if (leisure === 'sports_centre') type = 'sports';
     else if (tourism === 'restaurant') type = 'restaurant';
 
@@ -183,6 +184,7 @@ function getMarkerColor(type){
     case 'museum': return 'orange';
     case 'sports': return 'red';
     case 'restaurant': return 'green';
+    case 'shop': return 'brown';   // <-- new color for shops
     default: return 'blue';
   }
 }
