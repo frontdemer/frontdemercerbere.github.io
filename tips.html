@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Front de Mer - Tips Map</title>
 
+<!-- Mapbox CSS -->
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.19.0/mapbox-gl.css' rel='stylesheet' />
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.19.0/mapbox-gl.js'></script>
 
 <style>
 body { margin:0; font-family:Arial,sans-serif; color:#333; }
@@ -32,19 +32,24 @@ li { cursor:pointer; margin:0.5rem 0; }
 <h2>Locaties</h2>
 <ul id="tips-list"></ul>
 
+<!-- Mapbox JS -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.19.0/mapbox-gl.js'></script>
+
 <script>
-mapboxgl.accessToken = 'pk.eyJ1IjoiYW5kcmF3YWFnIiwiYSI6ImNtaWFkcjRxMTBiaTAya3FwcjJodzl1bDIifQ.Eb3w10-AlZPCvvcn5R8QJA'; // <--- vervang door jouw token
-let map = new mapboxgl.Map({
+mapboxgl.accessToken = 'JOUW_MAPBOX_ACCESS_TOKEN_HIER'; // <-- vervang door jouw token
+
+const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v12',
     center: [3.0850, 42.465],
     zoom: 13
 });
 
-let currentLang = 'nl';
 let tipsData = [];
+let currentLang = 'nl';
+map.markers = [];
 
-// Laad JSON met tips
+// Laad tips JSON
 async function loadTips() {
   try {
     const resp = await fetch('tips-mapbox.json');
@@ -55,31 +60,31 @@ async function loadTips() {
   }
 }
 
-// Render lijst en markers
+// Render markers en lijst
 function renderTips(lang){
   currentLang = lang;
   const list = document.getElementById('tips-list');
   list.innerHTML = '';
 
-  // Verwijder bestaande markers
-  if(map.markers) map.markers.forEach(m => m.remove());
+  // Verwijder oude markers
+  map.markers.forEach(m => m.remove());
   map.markers = [];
 
   tipsData[lang].forEach(item => {
-    // Voeg marker toe
+    // Marker
     const marker = new mapboxgl.Marker({color:getMarkerColor(item.type)})
       .setLngLat([item.lon, item.lat])
       .setPopup(new mapboxgl.Popup({offset:25}).setText(item.naam))
       .addTo(map);
     map.markers.push(marker);
 
-    // Voeg lijst-item toe
+    // Lijst-item
     const li = document.createElement('li');
     li.textContent = item.naam;
     li.dataset.lat = item.lat;
     li.dataset.lon = item.lon;
-    li.addEventListener('click', ()=>{
-      map.flyTo({center:[item.lon,item.lat], zoom:15});
+    li.addEventListener('click', () => {
+      map.flyTo({center:[item.lon, item.lat], zoom:15});
       marker.togglePopup();
     });
     list.appendChild(li);
@@ -96,12 +101,11 @@ function getMarkerColor(type){
   }
 }
 
-// Taalwissel
 function showLang(lang){
   renderTips(lang);
 }
 
-// Init
+// Start
 loadTips();
 </script>
 
