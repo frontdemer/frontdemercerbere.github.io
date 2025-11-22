@@ -95,7 +95,7 @@ function extractFeaturesFromStore(store) {
 
     const wktQuad = store.getQuads(geom, GEO + 'asWKT', null, null)[0];
     if (!wktQuad) continue;
-    const coords = parseWKTPoint(wktQuad.object.value);
+    const coords = parseWKTGeom(wktQuad.object.value);
     if (!coords) continue;
     const [lon, lat] = coords;
 
@@ -130,11 +130,24 @@ function clusterFeaturesByType(features){
 }
 
 // Simple WKT POINT parser
-function parseWKTPoint(wkt){
-  const match = /POINT\s*\(\s*([0-9.\-+]+)\s+([0-9.\-+]+)\s*\)/i.exec(wkt);
-  if(!match) return null;
-  return [parseFloat(match[1]), parseFloat(match[2])];
+function parseWKTGeom(wkt){
+    if(!wkt) return null;
+    if(wkt.startsWith('POINT')) {
+        const match = /POINT\s*\(\s*([0-9.\-+]+)\s+([0-9.\-+]+)\s*\)/i.exec(wkt);
+        return match ? [parseFloat(match[1]), parseFloat(match[2])] : null;
+    }
+    else if(wkt.startsWith('LINESTRING') || wkt.startsWith('POLYGON')) {
+        const nums = wkt.match(/-?\d+\.?\d*/g).map(Number);
+        const coords = [];
+        for(let i=0; i<nums.length; i+=2) coords.push([nums[i], nums[i+1]]);
+        // Compute centroid
+        const lon = coords.reduce((sum,c)=>sum+c[0],0)/coords.length;
+        const lat = coords.reduce((sum,c)=>sum+c[1],0)/coords.length;
+        return [lon, lat];
+    }
+    return null;
 }
+
 
 // Render features grouped by type
 function renderFeatures(featuresByType){
