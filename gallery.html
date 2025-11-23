@@ -1,13 +1,123 @@
-<div class="gallery lang-NL">
-  <h2>Galerij</h2>
-  <div id="gallery-container"></div>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Front de Mer Gallery</title>
+<style>
+body { font-family:'Helvetica Neue',Arial,sans-serif; margin:0; padding:0; color:#333; line-height:1.6; }
+h1,h2 { text-align:center; color:#2E8B57; }
+a { text-decoration:none; color: inherit; }
+.gallery-section { padding: 2rem; max-width:1200px; margin:auto; }
+.subcategory { margin-bottom:3rem; }
+.subcategory h2 { margin-bottom:1rem; }
+.grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+.grid img {
+  width:100%;
+  aspect-ratio: 4/3;
+  object-fit:cover;
+  border-radius:8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+.lang-btn { margin:0 0.5rem; padding:0.4rem 0.8rem; background:rgba(46,139,87,0.8); color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:0.3s; }
+.lang-btn:hover { background:#2E8B57; }
+</style>
+</head>
+<body>
+
+<header>
+<h1>Front de Mer - Gallery</h1>
+<div style="text-align:center; margin-bottom:1rem;">
+<button class="lang-btn" onclick="showLang('nl')">NL</button>
+<button class="lang-btn" onclick="showLang('fr')">FR</button>
+<button class="lang-btn" onclick="showLang('en')">EN</button>
 </div>
-<div class="gallery lang-FR hidden">
-  <h2>Galerie</h2>
-  <div id="gallery-container-fr"></div>
-</div>
-<div class="gallery lang-EN hidden">
-  <h2>Gallery</h2>
-  <div id="gallery-container-en"></div>
-</div>
-<script src="js/gallery.js"></script>
+</header>
+
+<div id="gallery-container" class="gallery-section"></div>
+
+<footer style="text-align:center; background:#2E8B57; color:white; padding:1.5rem;">
+<p>&copy; 2025 Front de Mer, Cerbère</p>
+</footer>
+
+<script>
+// ================= Multilingual titles =================
+const titles = {
+  nl: {
+    beaches: "Stranden",
+    interior: "Interieur",
+    nearby: "In de buurt",
+    underwater: "Onderwater",
+    walks: "Wandelingen"
+  },
+  fr: {
+    beaches: "Plages",
+    interior: "Intérieur",
+    nearby: "À proximité",
+    underwater: "Sous l'eau",
+    walks: "Promenades"
+  },
+  en: {
+    beaches: "Beaches",
+    interior: "Interior",
+    nearby: "Nearby",
+    underwater: "Underwater",
+    walks: "Walks"
+  }
+};
+
+let currentLang = 'nl';
+let galleryJson = {};
+
+// ================= Load images.json =================
+async function loadGalleryJson() {
+  try {
+    const resp = await fetch('gallery/images.json');
+    galleryJson = await resp.json();
+    renderGallery();
+  } catch(e) {
+    console.error("Failed to load images.json", e);
+  }
+}
+
+// ================= Render gallery =================
+function renderGallery() {
+  const container = document.getElementById('gallery-container');
+  container.innerHTML = '';
+  for (const category in galleryJson) {
+    const subSec = document.createElement('div');
+    subSec.className = 'subcategory';
+    const h2 = document.createElement('h2');
+    h2.textContent = titles[currentLang][category] || category;
+    subSec.appendChild(h2);
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+    galleryJson[category].forEach(imgPath => {
+      const img = document.createElement('img');
+      img.src = imgPath;
+      grid.appendChild(img);
+    });
+    subSec.appendChild(grid);
+    container.appendChild(subSec);
+  }
+}
+
+// ================= Language switching =================
+function showLang(lang) {
+  currentLang = lang;
+  renderGallery();
+}
+
+// Load JSON and initialize gallery
+loadGalleryJson();
+</script>
+</body>
+</html>
