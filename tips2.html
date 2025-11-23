@@ -1,38 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Front de Mer - Tips Map</title>
+<title>Tips & Activities - Front de Mer</title>
 
 <link href='https://api.mapbox.com/mapbox-gl-js/v3.17.0-beta.1/mapbox-gl.css' rel='stylesheet' />
 
 <style>
-body { margin:0; font-family:Arial,sans-serif; color:#333; height:100vh; display:flex; flex-direction:column; }
-header { background:#2E8B57; color:white; padding:1rem; text-align:center; flex-shrink:0; }
+body { margin:0; font-family:Arial,sans-serif; color:#333; }
+header { background:#2E8B57; color:white; padding:1rem; text-align:center; }
 .lang-btn { margin:0 0.5rem; padding:0.4rem 0.8rem; border:none; border-radius:4px; cursor:pointer; font-weight:bold; }
 .lang-btn:hover { background:#fff; color:#2E8B57; }
-
-.main { display:flex; flex:1; overflow:hidden; }
-#sidebar { width:300px; overflow-y:auto; padding:1rem; background:#f9f9f9; border-right:1px solid #ddd; }
+.container { display:flex; flex-direction:row; height:calc(100vh - 70px); }
+.sidebar { width:300px; overflow-y:auto; padding:1rem; background:#f4f4f4; }
 #map { flex:1; }
-
 ul { list-style-type:none; margin:0; padding:0; }
-li { cursor:pointer; margin:0.3rem 0; padding:0.2rem 0.5rem; border-radius:3px; }
-li:hover { background:#eee; }
+li { cursor:pointer; margin:0.5rem 0; }
+.type-heading { font-weight:bold; margin-top:1rem; }
 
-.type-heading { font-weight:bold; margin-top:1rem; font-size:1.1rem; text-transform:capitalize; }
+.hidden { display:none; }
+
+@media(max-width:768px){
+  .container { flex-direction:column; height:auto; }
+  .sidebar { width:100%; height:auto; }
+  #map { height:400px; }
+}
 </style>
 </head>
 <body>
 
 <header>
   <h1>Front de Mer - Tips & Activities</h1>
-  <button class="lang-btn" onclick="showLang('en')">EN</button>
+  <div>
+    <button class="lang-btn" onclick="showLang('nl')">NL</button>
+    <button class="lang-btn" onclick="showLang('fr')">FR</button>
+    <button class="lang-btn" onclick="showLang('en')">EN</button>
+    <a href="index.html" class="lang-btn">Home</a>
+  </div>
 </header>
 
-<div class="main">
-  <div id="sidebar"></div>
+<div class="container">
+  <div class="sidebar">
+    <h2>Locations</h2>
+    <div id="tips-list-nl" class="lang-section"></div>
+    <div id="tips-list-fr" class="lang-section hidden"></div>
+    <div id="tips-list-en" class="lang-section hidden"></div>
+  </div>
   <div id="map"></div>
 </div>
 
@@ -42,8 +56,6 @@ li:hover { background:#eee; }
 <script>
 // Mapbox token
 mapboxgl.accessToken = 'pk.eyJ1IjoiYW5kcmF3YWFnIiwiYSI6ImNtaWFkcjRxMTBiaTAya3FwcjJodzl1bDIifQ.Eb3w10-AlZPCvvcn5R8QJA';
-
-// Create map
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v12',
@@ -51,12 +63,13 @@ const map = new mapboxgl.Map({
     zoom: 13
 });
 map.markers = [];
-let currentLang = 'en';
 
 // Namespaces
 const GEO = 'http://www.opengis.net/ont/geosparql#';
 const OSM_KEY = 'https://www.openstreetmap.org/wiki/Key:';
 const OSM_ADDR = 'https://www.openstreetmap.org/wiki/Key:addr:';
+
+let currentLang = 'nl';
 
 // Load RDF from file
 async function loadRdf() {
@@ -79,14 +92,15 @@ async function loadRdf() {
 function extractFeaturesFromStore(store) {
   const features = [];
   const quadsHasGeom = store.getQuads(null, GEO + 'hasGeometry', null, null);
-  for (const q of quadsHasGeom) {
+
+  for(const q of quadsHasGeom){
     const subject = q.subject;
     const geom = q.object;
     const wktQuad = store.getQuads(geom, GEO + 'asWKT', null, null)[0];
-    if (!wktQuad) continue;
+    if(!wktQuad) continue;
 
     const coords = parseWKT(wktQuad.object.value);
-    if (!coords) continue;
+    if(!coords) continue;
 
     const name = firstValue(store.getQuads(subject, OSM_KEY + 'name', null, null));
     const tourism = firstValue(store.getQuads(subject, OSM_KEY + 'tourism', null, null));
@@ -98,98 +112,85 @@ function extractFeaturesFromStore(store) {
     let label = name || (street && housenr ? `${street} ${housenr}` : subject.value);
 
     let type = 'poi';
-    if (shop) type = 'shop';
-    else if (tourism) type = tourism;
-    else if (leisure) type = leisure;
+    if(shop) type = 'shop';
+    else if(tourism==='museum') type='museum';
+    else if(leisure==='sports_centre') type='sports';
+    else if(tourism==='restaurant') type='restaurant';
 
-    features.push({uri: subject.value, coords, label, type});
+    features.push({uri:subject.value, coords, label, type});
   }
+
   return features;
 }
 
-function firstValue(quads) { return quads.length ? quads[0].object.value : null; }
-function parseWKT(wkt) {
+function firstValue(quads){ return quads.length ? quads[0].object.value : null; }
+
+function parseWKT(wkt){
   let match = /POINT\s*\(\s*([0-9.\-]+)\s+([0-9.\-]+)\s*\)/i.exec(wkt);
-  if (match) return [parseFloat(match[1]), parseFloat(match[2])];
+  if(match) return [parseFloat(match[1]), parseFloat(match[2])];
   match = /POLYGON\s*\(\(([\d.,\s\-]+)\)\)/i.exec(wkt);
-  if (match) {
+  if(match){
     const coords = match[1].split(',')[0].trim().split(' ');
     return [parseFloat(coords[0]), parseFloat(coords[1])];
   }
   return null;
 }
 
-// Render features with sidebar interaction
-function renderFeatures(features) {
-  const container = document.getElementById('sidebar');
-  container.innerHTML = '';
-  map.markers.forEach(m => m.remove());
-  map.markers = [];
+// Render features
+function renderFeatures(features){
+  ["nl","fr","en"].forEach(lang=>{
+    const container = document.getElementById(`tips-list-${lang}`);
+    container.innerHTML='';
+  });
 
-  const grouped = groupBy(features, f => f.type);
+  map.markers.forEach(m=>m.remove());
+  map.markers=[];
 
-  for (const type in grouped) {
-    const heading = document.createElement('div');
-    heading.className = 'type-heading';
-    heading.textContent = type; // keep OSM value as heading
-    container.appendChild(heading);
+  const grouped = groupBy(features,f=>f.type);
 
-    const ul = document.createElement('ul');
-    grouped[type].forEach(f => {
-      const li = document.createElement('li');
-      li.textContent = f.label;
-      li.dataset.lat = f.coords[1];
-      li.dataset.lon = f.coords[0];
+  for(const type in grouped){
+    ["nl","fr","en"].forEach(lang=>{
+      const container = document.getElementById(`tips-list-${lang}`);
+      const heading = document.createElement('div');
+      heading.className='type-heading';
+      heading.textContent = type; // use OSM value as heading
+      container.appendChild(heading);
 
-      const marker = new mapboxgl.Marker({color:getMarkerColor(f.type)})
-        .setLngLat(f.coords)
-        .setPopup(new mapboxgl.Popup({offset:25}).setText(f.label))
-        .addTo(map);
+      const ul = document.createElement('ul');
+      grouped[type].forEach(f=>{
+        const li = document.createElement('li');
+        li.textContent = f.label;
+        li.dataset.lat=f.coords[1];
+        li.dataset.lon=f.coords[0];
+        li.addEventListener('click',()=>{ map.flyTo({center:f.coords, zoom:15}); });
+        ul.appendChild(li);
 
-      map.markers.push(marker);
-
-      li.addEventListener('click', () => { map.flyTo({center:f.coords, zoom:15}); });
-
-      // HOVER: label → marker
-      li.addEventListener('mouseenter', () => { marker.getElement().style.transform='scale(1.5)'; marker.getElement().style.zIndex=999; });
-      li.addEventListener('mouseleave', () => { marker.getElement().style.transform='scale(1)'; marker.getElement().style.zIndex=''; });
-
-      // HOVER: marker → label
-      marker.getElement().addEventListener('mouseenter', () => { li.style.backgroundColor='#ffff99'; li.style.fontWeight='bold'; });
-      marker.getElement().addEventListener('mouseleave', () => { li.style.backgroundColor=''; li.style.fontWeight=''; });
-
-      ul.appendChild(li);
+        if(lang==='nl'){ // only add markers once
+          const marker = new mapboxgl.Marker({color:getMarkerColor(f.type)})
+            .setLngLat(f.coords)
+            .setPopup(new mapboxgl.Popup({offset:25}).setText(f.label))
+            .addTo(map);
+          map.markers.push(marker);
+        }
+      });
+      container.appendChild(ul);
     });
-    container.appendChild(ul);
   }
 }
 
-// Helpers
-function groupBy(array, keyFn) {
-  return array.reduce((acc, item) => {
-    const key = keyFn(item);
-    if (!acc[key]) acc[key]=[];
-    acc[key].push(item);
-    return acc;
-  }, {});
+function groupBy(array,keyFn){ return array.reduce((acc,item)=>{ const key=keyFn(item); if(!acc[key]) acc[key]=[]; acc[key].push(item); return acc; },{}); }
+function getMarkerColor(type){ switch(type){ case 'hotel': return 'purple'; case 'museum': return 'orange'; case 'sports': return 'red'; case 'restaurant': return 'green'; case 'shop': return 'brown'; default: return 'blue'; } }
+function showLang(lang){
+  currentLang=lang;
+  ["nl","fr","en"].forEach(l=>{
+    document.getElementById(`tips-list-${l}`).classList.add('hidden');
+  });
+  document.getElementById(`tips-list-${lang}`).classList.remove('hidden');
 }
-
-function getMarkerColor(type){
-  switch(type){
-    case 'hotel': return 'purple';
-    case 'museum': return 'orange';
-    case 'sports': return 'red';
-    case 'restaurant': return 'green';
-    case 'shop': return 'brown';
-    default: return 'blue';
-  }
-}
-
-function showLang(lang){ currentLang = lang; console.log("Language switched to:", lang); }
 
 // Start
 loadRdf();
+showLang('nl');
 </script>
-
 </body>
 </html>

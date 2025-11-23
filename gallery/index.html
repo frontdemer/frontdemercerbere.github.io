@@ -1,122 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Front de Mer Gallery</title>
+<title>Galerij - Front de Mer</title>
 <style>
 body { font-family:'Helvetica Neue',Arial,sans-serif; margin:0; padding:0; color:#333; line-height:1.6; }
-h1,h2 { color:#2E8B57; text-align:center; }
-a { text-decoration:none; color:inherit; }
-.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:1.5rem; margin:2rem; }
-.gallery img { width:100%; height:200px; object-fit:cover; border-radius:8px; transition: transform 0.3s; cursor:pointer; }
-.gallery img:hover { transform: scale(1.05); }
+a { text-decoration:none; color: inherit; }
+header { position:relative; height:60vh; background:url('hero.jpg') center/cover no-repeat; display:flex; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; }
+header h1 { font-size:3rem; text-shadow:2px 2px 8px rgba(0,0,0,0.6); margin:0.5rem; }
+.lang-btn { margin:0 0.5rem; padding:0.4rem 0.8rem; background:rgba(255,255,255,0.8); color:#2E8B57; border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:0.3s; }
+.lang-btn:hover { background:white; }
 
-/* Header */
-header { background:#2E8B57; color:white; text-align:center; padding:2rem 1rem; }
-header a { color:white; font-weight:bold; margin:0 1rem; transition:0.3s; }
-header a:hover { color:#FFD700; }
-
-/* Footer */
-footer { background:#2E8B57; color:white; text-align:center; padding:1.5rem; }
-
-/* Lightbox */
-#lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:1000; }
-#lightbox img { max-width:90%; max-height:90%; border-radius:8px; }
-#lightbox .close, #lightbox .prev, #lightbox .next {
-  position:absolute; color:white; font-size:2rem; font-weight:bold; cursor:pointer; user-select:none;
+header::before {
+  content: "";
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index:1;
 }
-#lightbox .close { top:20px; right:30px; }
-#lightbox .prev { top:50%; left:30px; transform:translateY(-50%); }
-#lightbox .next { top:50%; right:30px; transform:translateY(-50%); }
+
+header h1, header nav, header .lang-btn { position:relative; z-index:2; }
+
+section { padding:2rem 1rem; max-width:1000px; margin:auto; }
+section h2 { text-align:center; margin-bottom:2rem; color:#2E8B57; }
+
+.gallery { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1.5rem; }
+.gallery img { width:100%; height:200px; object-fit:cover; border-radius:8px; transition:transform 0.3s; }
+.gallery img:hover { transform:scale(1.05); }
+
+footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5rem; }
+
+.hidden { display:none; }
+
+.page-btn { display:inline-block; padding:0.6rem 1.2rem; background:#2E8B57; color:white; border-radius:5px; font-weight:bold; text-align:center; margin:0.5rem; transition:0.3s; }
+.page-btn:hover { background:#3CB371; }
 </style>
 </head>
 <body>
 
 <header>
-<h1>Front de Mer - Gallery</h1>
+<h1>Galerij - Front de Mer</h1>
+<div>
+<button class="lang-btn" onclick="showLang('nl')">NL</button>
+<button class="lang-btn" onclick="showLang('fr')">FR</button>
+<button class="lang-btn" onclick="showLang('en')">EN</button>
+</div>
 <nav>
-<a href="../index.html">Back to Home</a>
+<a href="index.html" class="page-btn">Terug naar Home / Retour / Back Home</a>
 </nav>
 </header>
 
-<main id="gallery-container"></main>
+<!-- ====================== Nederlands ====================== -->
+<section id="gallery-nl" class="lang-section">
+<h2>Galerij</h2>
+<div id="gallery-container-nl" class="gallery"></div>
+</section>
 
-<!-- Lightbox modal -->
-<div id="lightbox">
-  <span class="close">&times;</span>
-  <span class="prev">&#10094;</span>
-  <img src="">
-  <span class="next">&#10095;</span>
-</div>
+<!-- ====================== Frans ====================== -->
+<section id="gallery-fr" class="lang-section hidden">
+<h2>Galerie</h2>
+<div id="gallery-container-fr" class="gallery"></div>
+</section>
+
+<!-- ====================== Engels ====================== -->
+<section id="gallery-en" class="lang-section hidden">
+<h2>Gallery</h2>
+<div id="gallery-container-en" class="gallery"></div>
+</section>
 
 <footer>
 <p>&copy; 2025 Front de Mer, Cerbère</p>
 </footer>
 
 <script>
-let galleryImages = [];
-let currentIndex = 0;
-
-function openLightbox(index) {
-  currentIndex = index;
-  const lightbox = document.getElementById('lightbox');
-  lightbox.querySelector('img').src = galleryImages[currentIndex];
-  lightbox.style.display = 'flex';
+// ================= Meertaligheid =================
+function showLang(lang) {
+  const sections = document.querySelectorAll('.lang-section');
+  sections.forEach(sec => sec.classList.add('hidden'));
+  document.getElementById(`gallery-${lang}`).classList.remove('hidden');
 }
 
-function closeLightbox() {
-  document.getElementById('lightbox').style.display = 'none';
-}
+// ================= Automatic gallery loader =================
+// Define your categories and folder structure
+const categories = ['interior', 'garden', 'sea'];
+const imageCount = { 'interior':5, 'garden':4, 'sea':3 }; // Number of images per category
 
-function showNext() {
-  currentIndex = (currentIndex + 1) % galleryImages.length;
-  document.getElementById('lightbox').querySelector('img').src = galleryImages[currentIndex];
-}
-
-function showPrev() {
-  currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-  document.getElementById('lightbox').querySelector('img').src = galleryImages[currentIndex];
-}
-
-// Lightbox events
-document.querySelector('#lightbox .close').onclick = closeLightbox;
-document.querySelector('#lightbox .next').onclick = showNext;
-document.querySelector('#lightbox .prev').onclick = showPrev;
-document.getElementById('lightbox').onclick = function(e) {
-  if (e.target === this) closeLightbox();
-};
-
-// Load gallery from JSON
-fetch('images.json')
-  .then(res => res.json())
-  .then(data => {
-    const container = document.getElementById('gallery-container');
-    for (const category in data) {
-      const h2 = document.createElement('h2');
-      h2.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-      container.appendChild(h2);
-
-      const div = document.createElement('div');
-      div.className = 'gallery';
-
-      data[category].forEach(imgPath => {
-        const img = document.createElement('img');
-        const fullPath = `images/${imgPath}`;
-        galleryImages.push(fullPath);
-        const imgIndex = galleryImages.length - 1;
-
-        img.src = fullPath;
-        img.alt = category;
-        img.onclick = () => openLightbox(imgIndex);
-        div.appendChild(img);
-      });
-
-      container.appendChild(div);
+["nl","fr","en"].forEach(lang => {
+  const container = document.getElementById(`gallery-container-${lang}`);
+  categories.forEach(cat => {
+    for(let i=1;i<=imageCount[cat];i++){
+      const img = document.createElement('img');
+      img.src = `images/${cat}/img${i}.jpg`;
+      img.alt = `${cat} ${i}`;
+      container.appendChild(img);
     }
-  })
-  .catch(err => console.error("Failed to load gallery:", err));
-</script>
+  });
+});
 
+// Default language
+showLang('nl');
+</script>
 </body>
 </html>
