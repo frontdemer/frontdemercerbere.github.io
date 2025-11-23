@@ -1,673 +1,703 @@
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix ns1: <http://www.opengis.net/rdf#> .
-@prefix ns10: <https://www.openstreetmap.org/wiki/Key:scuba_diving:> .
-@prefix ns11: <https://www.openstreetmap.org/wiki/Key:ref:FR:> .
-@prefix ns12: <https://www.openstreetmap.org/relation/> .
-@prefix ns13: <https://www.openstreetmap.org/wiki/Key:addr:> .
-@prefix ns14: <https://osm2rdf.cs.uni-freiburg.de/rdf/key#> .
-@prefix ns15: <https://www.openstreetmap.org/wiki/Key:contact:> .
-@prefix ns16: <https://www.openstreetmap.org/wiki/Key:source:> .
+@prefix ns10: <https://osm2rdf.cs.uni-freiburg.de/rdf/key#> .
+@prefix ns11: <https://www.openstreetmap.org/wiki/Key:fuel:> .
+@prefix ns12: <https://www.openstreetmap.org/wiki/Key:survey:> .
+@prefix ns13: <https://osm2rdf.cs.uni-freiburg.de/rdf/key#brand:> .
+@prefix ns14: <https://www.openstreetmap.org/wiki/Key:source:> .
+@prefix ns15: <https://www.openstreetmap.org/relation/> .
+@prefix ns16: <https://www.openstreetmap.org/wiki/Key:internet_access:> .
 @prefix ns17: <https://www.openstreetmap.org/wiki/Key:building:> .
-@prefix ns18: <https://www.openstreetmap.org/wiki/Key:survey:> .
-@prefix ns19: <https://www.openstreetmap.org/wiki/Key:diet:> .
-@prefix ns2: <https://www.openstreetmap.org/wiki/Key:> .
-@prefix ns20: <https://www.openstreetmap.org/wiki/Key:capacity:> .
-@prefix ns21: <https://www.openstreetmap.org/wiki/Key:toilets:> .
-@prefix ns22: <https://www.openstreetmap.org/wiki/Key:protection_title:> .
-@prefix ns23: <https://www.openstreetmap.org/wiki/Key:internet_access:> .
-@prefix ns24: <https://www.openstreetmap.org/wiki/Key:operator:> .
-@prefix ns3: <https://www.openstreetmap.org/way/> .
-@prefix ns4: <https://www.openstreetmap.org/meta/> .
-@prefix ns5: <https://osm2rdf.cs.uni-freiburg.de/rdf#> .
-@prefix ns6: <https://osm2rdf.cs.uni-freiburg.de/rdf/key#brand:> .
-@prefix ns7: <https://www.openstreetmap.org/wiki/Key:brand:> .
-@prefix ns8: <https://www.openstreetmap.org/wiki/Key:fuel:> .
-@prefix ns9: <https://www.openstreetmap.org/wiki/Key:name:> .
+@prefix ns18: <https://www.openstreetmap.org/wiki/Key:protection_title:> .
+@prefix ns19: <https://www.openstreetmap.org/wiki/Key:toilets:> .
+@prefix ns2: <https://www.openstreetmap.org/way/> .
+@prefix ns20: <https://www.openstreetmap.org/wiki/Key:operator:> .
+@prefix ns21: <https://www.openstreetmap.org/wiki/Key:capacity:> .
+@prefix ns22: <https://www.openstreetmap.org/wiki/Key:contact:> .
+@prefix ns23: <https://www.openstreetmap.org/wiki/Key:diet:> .
+@prefix ns24: <https://www.openstreetmap.org/wiki/Key:scuba_diving:> .
+@prefix ns3: <https://osm2rdf.cs.uni-freiburg.de/rdf#> .
+@prefix ns4: <https://www.openstreetmap.org/wiki/Key:> .
+@prefix ns5: <https://www.openstreetmap.org/meta/> .
+@prefix ns6: <https://www.openstreetmap.org/wiki/Key:ref:FR:> .
+@prefix ns7: <https://www.openstreetmap.org/wiki/Key:addr:> .
+@prefix ns8: <https://www.openstreetmap.org/wiki/Key:name:> .
+@prefix ns9: <https://www.openstreetmap.org/wiki/Key:brand:> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <https://www.openstreetmap.org/node/10056859066> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_10056859066> ;
-    ns1:sfIntersects ns12:10570555,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18391,
-        ns12:2151654,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:64083020,
-        ns3:889341190 ;
-    ns5:facts 8 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/126709942> ;
-    ns4:timestamp "2022-09-27T18:42:31"^^xsd:dateTime ;
-    ns4:uid 10043220 ;
-    ns4:user "Thomas Parisot" ;
-    ns4:version 1 ;
-    ns13:city "Banyuls-sur-Mer" ;
-    ns13:housenumber "6" ;
-    ns13:postcode "66650" ;
-    ns13:street "Rue Mirabeau" ;
-    ns19:gluten_free "yes" ;
-    ns2:name "Paille i Verde" ;
-    ns2:opening_hours "Mo-Tu 08:00-14:00; Th-Su 08:00-14:00" ;
-    ns2:shop "bakery" .
+    ns1:sfIntersects ns15:10570555,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18391,
+        ns15:2151654,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:64083020,
+        ns2:889341190 ;
+    ns3:facts 8 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/126709942> ;
+    ns5:timestamp "2022-09-27T18:42:31"^^xsd:dateTime ;
+    ns5:uid 10043220 ;
+    ns5:user "Thomas Parisot" ;
+    ns5:version 1 ;
+    ns7:city "Banyuls-sur-Mer" ;
+    ns7:housenumber "6" ;
+    ns7:postcode "66650" ;
+    ns7:street "Rue Mirabeau" ;
+    ns23:gluten_free "yes" ;
+    ns4:name "Paille i Verde" ;
+    ns4:opening_hours "Mo-Tu 08:00-14:00; Th-Su 08:00-14:00" ;
+    ns4:shop "bakery" .
 
 <https://www.openstreetmap.org/node/10735688590> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_10735688590> ;
-    ns1:sfIntersects ns12:10570560,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18416,
-        ns12:2202162,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2768055,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:49834588,
-        ns3:62852108 ;
-    ns5:facts 11 ;
-    ns6:wikidata <http://www.wikidata.org/entity/Q3153200> ;
-    ns6:wikipedia <https://fr.wikipedia.org/wiki/Intermarché> ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/151474698> ;
-    ns4:timestamp "2024-05-17T23:38:14"^^xsd:dateTime ;
-    ns4:uid 10954515 ;
-    ns4:user "14im" ;
-    ns4:version 3 ;
-    ns2:brand "Intermarché Hyper" ;
-    ns7:wikidata "Q3153200" ;
-    ns7:wikipedia "fr:Intermarché" ;
-    ns2:name "Intermarché Hyper" ;
-    ns2:opening_hours "Mo-Sa 08:30-20:00; Su 08:30-13:00" ;
-    ns11:SIRET "75125449100028" ;
-    ns2:shop "supermarket" ;
-    ns21:wheelchair "yes" ;
-    ns2:wheelchair "yes" .
+    ns1:sfIntersects ns15:10570560,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18416,
+        ns15:2202162,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2768055,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:49834588,
+        ns2:62852108 ;
+    ns3:facts 11 ;
+    ns13:wikidata <http://www.wikidata.org/entity/Q3153200> ;
+    ns13:wikipedia <https://fr.wikipedia.org/wiki/Intermarché> ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/151474698> ;
+    ns5:timestamp "2024-05-17T23:38:14"^^xsd:dateTime ;
+    ns5:uid 10954515 ;
+    ns5:user "14im" ;
+    ns5:version 3 ;
+    ns4:brand "Intermarché Hyper" ;
+    ns9:wikidata "Q3153200" ;
+    ns9:wikipedia "fr:Intermarché" ;
+    ns4:name "Intermarché Hyper" ;
+    ns4:opening_hours "Mo-Sa 08:30-20:00; Su 08:30-13:00" ;
+    ns6:SIRET "75125449100028" ;
+    ns4:shop "supermarket" ;
+    ns19:wheelchair "yes" ;
+    ns4:wheelchair "yes" .
 
 <https://www.openstreetmap.org/node/10846096782> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_10846096782> ;
-    ns1:sfIntersects ns12:10570524,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18375,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:49834294,
-        ns3:64230327,
-        ns3:889341190 ;
-    ns5:facts 4 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/135426195> ;
-    ns4:timestamp "2023-04-27T12:14:10"^^xsd:dateTime ;
-    ns4:uid 224440 ;
-    ns4:user "Syl" ;
-    ns4:version 1 ;
-    ns2:amenity "fast_food" ;
-    ns2:cuisine "pizza" ;
-    ns2:name "Le Riberal" ;
-    ns11:SIRET "81967113200028" .
+    ns1:sfIntersects ns15:10570524,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18375,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:49834294,
+        ns2:64230327,
+        ns2:889341190 ;
+    ns3:facts 4 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/135426195> ;
+    ns5:timestamp "2023-04-27T12:14:10"^^xsd:dateTime ;
+    ns5:uid 224440 ;
+    ns5:user "Syl" ;
+    ns5:version 1 ;
+    ns4:amenity "fast_food" ;
+    ns4:cuisine "pizza" ;
+    ns4:name "Le Riberal" ;
+    ns6:SIRET "81967113200028" .
 
 <https://www.openstreetmap.org/node/11287250673> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_11287250673> ;
-    ns1:sfIntersects ns12:10570524,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18375,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:49834294,
-        ns3:64228493,
-        ns3:889341190 ;
-    ns5:facts 2 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/143084459> ;
-    ns4:timestamp "2023-10-24T21:17:31"^^xsd:dateTime ;
-    ns4:uid 11579673 ;
-    ns4:user "LySioS" ;
-    ns4:version 1 ;
-    ns13:housenumber "7" ;
-    ns13:street "Rue de l'Église" .
+    ns1:sfIntersects ns15:10570524,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18375,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:49834294,
+        ns2:64228493,
+        ns2:889341190 ;
+    ns3:facts 2 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/143084459> ;
+    ns5:timestamp "2023-10-24T21:17:31"^^xsd:dateTime ;
+    ns5:uid 11579673 ;
+    ns5:user "LySioS" ;
+    ns5:version 1 ;
+    ns7:housenumber "7" ;
+    ns7:street "Rue de l'Église" .
 
 <https://www.openstreetmap.org/node/12132018552> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_12132018552> ;
-    ns1:sfIntersects ns12:10570524,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18375,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:49834294,
-        ns3:64231061,
-        ns3:889341190 ;
-    ns5:facts 3 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/155735490> ;
-    ns4:timestamp "2024-08-25T12:43:51"^^xsd:dateTime ;
-    ns4:uid 11579673 ;
-    ns4:user "LySioS" ;
-    ns4:version 2 ;
-    ns2:amenity "restaurant" ;
-    ns2:check_date "2024-08-23" ;
-    ns2:name "Menja I Calla" .
+    ns1:sfIntersects ns15:10570524,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18375,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:49834294,
+        ns2:64231061,
+        ns2:889341190 ;
+    ns3:facts 3 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/155735490> ;
+    ns5:timestamp "2024-08-25T12:43:51"^^xsd:dateTime ;
+    ns5:uid 11579673 ;
+    ns5:user "LySioS" ;
+    ns5:version 2 ;
+    ns4:amenity "restaurant" ;
+    ns4:check_date "2024-08-23" ;
+    ns4:name "Menja I Calla" .
 
 <https://www.openstreetmap.org/node/1316962916> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_1316962916> ;
-    ns1:sfIntersects ns12:10570524,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18375,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:49834294,
-        ns3:64229076,
-        ns3:889341190 ;
-    ns5:facts 2 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/135426195> ;
-    ns4:timestamp "2023-04-27T12:14:10"^^xsd:dateTime ;
-    ns4:uid 224440 ;
-    ns4:user "Syl" ;
-    ns4:version 2 ;
-    ns2:amenity "bar" ;
-    ns2:name "Bar de la Plage" .
+    ns1:sfIntersects ns15:10570524,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18375,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:49834294,
+        ns2:64229076,
+        ns2:889341190 ;
+    ns3:facts 2 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/135426195> ;
+    ns5:timestamp "2023-04-27T12:14:10"^^xsd:dateTime ;
+    ns5:uid 224440 ;
+    ns5:user "Syl" ;
+    ns5:version 2 ;
+    ns4:amenity "bar" ;
+    ns4:name "Bar de la Plage" .
+
+<https://www.openstreetmap.org/node/1818267005> a <https://www.openstreetmap.org/node> ;
+    geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_1818267005> ;
+    ns1:sfIntersects ns15:10548036,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2909262,
+        ns15:343217,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:6491134,
+        ns15:8312807,
+        ns2:432939940,
+        ns2:889341190 ;
+    ns3:facts 5 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/125160190> ;
+    ns5:timestamp "2022-08-20T19:33:50"^^xsd:dateTime ;
+    ns5:uid 8289732 ;
+    ns5:user "Q-Quan" ;
+    ns5:version 4 ;
+    ns4:amenity "restaurant" ;
+    ns4:cuisine "regional" ;
+    ns4:indoor_seating "yes" ;
+    ns4:name "El Jovent" ;
+    ns4:outdoor_seating "yes" .
 
 <https://www.openstreetmap.org/node/1996185459> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_1996185459> ;
-    ns1:sfIntersects ns12:10548036,
-        ns12:11746917,
-        ns12:11747082,
-        ns12:1311341,
-        ns12:16819467,
-        ns12:17506020,
-        ns12:2177382,
-        ns12:2621364,
-        ns12:2909262,
-        ns12:344128,
-        ns12:349023,
-        ns12:349053,
-        ns12:3870917,
-        ns12:6491134,
-        ns3:188314169,
-        ns3:889341190 ;
-    ns5:facts 4 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/172455473> ;
-    ns4:timestamp "2025-09-25T19:25:19"^^xsd:dateTime ;
-    ns4:uid 36731 ;
-    ns4:user "Nagi" ;
-    ns4:version 6 ;
-    ns2:amenity "restaurant" ;
-    ns2:check_date "2025-09-25" ;
-    ns2:name "Cap de Creus" ;
-    ns9:ca "Cap de Creus" .
+    ns1:sfIntersects ns15:10548036,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2621364,
+        ns15:2909262,
+        ns15:344128,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:6491134,
+        ns2:188314169,
+        ns2:889341190 ;
+    ns3:facts 4 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/172455473> ;
+    ns5:timestamp "2025-09-25T19:25:19"^^xsd:dateTime ;
+    ns5:uid 36731 ;
+    ns5:user "Nagi" ;
+    ns5:version 6 ;
+    ns4:amenity "restaurant" ;
+    ns4:check_date "2025-09-25" ;
+    ns4:name "Cap de Creus" ;
+    ns8:ca "Cap de Creus" .
 
 <https://www.openstreetmap.org/node/2330842863> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_2330842863> ;
-    ns1:sfIntersects ns12:10570514,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18409,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:161957968,
-        ns3:63019362 ;
-    ns5:facts 7 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/124455058> ;
-    ns4:timestamp "2022-08-03T22:15:42"^^xsd:dateTime ;
-    ns4:uid 11579673 ;
-    ns4:user "LySioS" ;
-    ns4:version 5 ;
-    ns2:amenity "cinema" ;
-    ns2:capacity "120" ;
-    ns15:facebook "https://fr-fr.facebook.com/CinemaLeMondialCollioure/" ;
-    ns2:name "Le Mondial" ;
-    ns2:operator "Commune de Collioure" ;
-    ns24:type "public" ;
-    ns11:CNC "no" .
+    ns1:sfIntersects ns15:10570514,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18409,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:161957968,
+        ns2:63019362 ;
+    ns3:facts 7 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/124455058> ;
+    ns5:timestamp "2022-08-03T22:15:42"^^xsd:dateTime ;
+    ns5:uid 11579673 ;
+    ns5:user "LySioS" ;
+    ns5:version 5 ;
+    ns4:amenity "cinema" ;
+    ns4:capacity "120" ;
+    ns22:facebook "https://fr-fr.facebook.com/CinemaLeMondialCollioure/" ;
+    ns4:name "Le Mondial" ;
+    ns4:operator "Commune de Collioure" ;
+    ns20:type "public" ;
+    ns6:CNC "no" .
 
 <https://www.openstreetmap.org/node/2880110545> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_2880110545> ;
-    ns1:sfIntersects ns12:10570524,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18375,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:1330012161,
-        ns3:49834294,
-        ns3:64230959,
-        ns3:889341190 ;
-    ns5:facts 3 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/158637948> ;
-    ns4:timestamp "2024-11-01T21:38:32"^^xsd:dateTime ;
-    ns4:uid 11579673 ;
-    ns4:user "LySioS" ;
-    ns4:version 2 ;
-    ns2:amenity "parking_space" ;
-    ns20:disabled "1" ;
-    ns2:parking_space "disabled" .
+    ns1:sfIntersects ns15:10570524,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18375,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:1330012161,
+        ns2:49834294,
+        ns2:64230959,
+        ns2:889341190 ;
+    ns3:facts 3 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/158637948> ;
+    ns5:timestamp "2024-11-01T21:38:32"^^xsd:dateTime ;
+    ns5:uid 11579673 ;
+    ns5:user "LySioS" ;
+    ns5:version 2 ;
+    ns4:amenity "parking_space" ;
+    ns21:disabled "1" ;
+    ns4:parking_space "disabled" .
 
 <https://www.openstreetmap.org/node/664092519> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_664092519> ;
-    ns1:sfIntersects ns12:10548036,
-        ns12:11746917,
-        ns12:11747082,
-        ns12:1311341,
-        ns12:16819467,
-        ns12:17506020,
-        ns12:2177382,
-        ns12:2909262,
-        ns12:343217,
-        ns12:349023,
-        ns12:349053,
-        ns12:3870917,
-        ns12:6491134,
-        ns12:8312807,
-        ns3:432939904,
-        ns3:889341190 ;
-    ns5:facts 2 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/40996542> ;
-    ns4:timestamp "2016-07-24T19:05:15"^^xsd:dateTime ;
-    ns4:uid 3735848 ;
-    ns4:user "lanxana" ;
-    ns4:version 4 ;
-    ns2:name "TotsSomPops" ;
-    ns2:tourism "hotel" .
+    ns1:sfIntersects ns15:10548036,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2909262,
+        ns15:343217,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:6491134,
+        ns15:8312807,
+        ns2:432939904,
+        ns2:889341190 ;
+    ns3:facts 2 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/40996542> ;
+    ns5:timestamp "2016-07-24T19:05:15"^^xsd:dateTime ;
+    ns5:uid 3735848 ;
+    ns5:user "lanxana" ;
+    ns5:version 4 ;
+    ns4:name "TotsSomPops" ;
+    ns4:tourism "hotel" .
 
 <https://www.openstreetmap.org/node/6835370985> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_6835370985> ;
-    ns1:sfIntersects ns12:10570524,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18375,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:49834294,
-        ns3:64229741,
-        ns3:889341190 ;
-    ns5:facts 6 ;
-    ns6:wikidata <http://www.wikidata.org/entity/Q89029601> ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/135426195> ;
-    ns4:timestamp "2023-04-27T12:14:10"^^xsd:dateTime ;
-    ns4:uid 224440 ;
-    ns4:user "Syl" ;
-    ns4:version 3 ;
-    ns7:wikidata "Q89029601" ;
-    ns2:name "Casino shop" ;
-    ns2:opening_hours "Mo-Sa 08:00-12:30, 15:00-19:00; Su 08:00-12:30" ;
-    ns11:SIRET "42826802320588" ;
-    ns2:shop "convenience" .
+    ns1:sfIntersects ns15:10570524,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18375,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:49834294,
+        ns2:64229741,
+        ns2:889341190 ;
+    ns3:facts 6 ;
+    ns13:wikidata <http://www.wikidata.org/entity/Q89029601> ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/135426195> ;
+    ns5:timestamp "2023-04-27T12:14:10"^^xsd:dateTime ;
+    ns5:uid 224440 ;
+    ns5:user "Syl" ;
+    ns5:version 3 ;
+    ns9:wikidata "Q89029601" ;
+    ns4:name "Casino shop" ;
+    ns4:opening_hours "Mo-Sa 08:00-12:30, 15:00-19:00; Su 08:00-12:30" ;
+    ns6:SIRET "42826802320588" ;
+    ns4:shop "convenience" .
 
 <https://www.openstreetmap.org/node/839470824> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_839470824> ;
-    ns1:sfIntersects ns12:10548036,
-        ns12:11746917,
-        ns12:11747082,
-        ns12:1311341,
-        ns12:16819467,
-        ns12:17506020,
-        ns12:2177382,
-        ns12:2909262,
-        ns12:340866,
-        ns12:349023,
-        ns12:349053,
-        ns12:3870917,
-        ns12:6491134,
-        ns3:590226332 ;
-    ns5:facts 20 ;
-    ns6:wikidata <http://www.wikidata.org/entity/Q1726547> ;
-    ns6:wikipedia <https://es.wikipedia.org/wiki/Petronor> ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/170801313> ;
-    ns4:timestamp "2025-08-21T21:33:35"^^xsd:dateTime ;
-    ns4:uid 327111 ;
-    ns4:user "blacx" ;
-    ns4:version 13 ;
-    ns13:street "CARRETERA CR N-260 KM 27.8" ;
-    ns2:amenity "fuel" ;
-    ns2:brand "Petronor" ;
-    ns7:wikidata "Q1726547" ;
-    ns7:wikipedia "es:Petronor" ;
-    ns2:compressed_air "yes" ;
-    ns8:GTL_diesel "yes" ;
-    ns8:diesel "yes" ;
-    ns8:diesel_B "yes" ;
-    ns8:diesel_C "yes" ;
-    ns8:octane_95 "yes" ;
-    ns8:octane_98 "yes" ;
-    ns2:name "Petronor" ;
-    ns2:opening_hours "Mo-Su 07:00-23:00" ;
-    ns2:operator "Repsol" ;
-    ns2:source "Ministerio de Industria, Turismo y Comercio" ;
-    ns16:date "2010-08-06" ;
-    ns2:wheelchair "yes" .
+    ns1:sfIntersects ns15:10548036,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2909262,
+        ns15:340866,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:6491134,
+        ns2:590226332 ;
+    ns3:facts 20 ;
+    ns13:wikidata <http://www.wikidata.org/entity/Q1726547> ;
+    ns13:wikipedia <https://es.wikipedia.org/wiki/Petronor> ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/170801313> ;
+    ns5:timestamp "2025-08-21T21:33:35"^^xsd:dateTime ;
+    ns5:uid 327111 ;
+    ns5:user "blacx" ;
+    ns5:version 13 ;
+    ns7:street "CARRETERA CR N-260 KM 27.8" ;
+    ns4:amenity "fuel" ;
+    ns4:brand "Petronor" ;
+    ns9:wikidata "Q1726547" ;
+    ns9:wikipedia "es:Petronor" ;
+    ns4:compressed_air "yes" ;
+    ns11:GTL_diesel "yes" ;
+    ns11:diesel "yes" ;
+    ns11:diesel_B "yes" ;
+    ns11:diesel_C "yes" ;
+    ns11:octane_95 "yes" ;
+    ns11:octane_98 "yes" ;
+    ns4:name "Petronor" ;
+    ns4:opening_hours "Mo-Su 07:00-23:00" ;
+    ns4:operator "Repsol" ;
+    ns4:source "Ministerio de Industria, Turismo y Comercio" ;
+    ns14:date "2010-08-06" ;
+    ns4:wheelchair "yes" .
 
 <https://www.openstreetmap.org/node/839474180> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_839474180> ;
-    ns1:sfIntersects ns12:10548036,
-        ns12:11746917,
-        ns12:11747082,
-        ns12:1311341,
-        ns12:14531165,
-        ns12:16819467,
-        ns12:17506020,
-        ns12:2177382,
-        ns12:2909262,
-        ns12:345033,
-        ns12:349023,
-        ns12:349053,
-        ns12:3870917,
-        ns12:6491134,
-        ns3:124099618,
-        ns3:889341190 ;
-    ns5:facts 18 ;
-    ns6:wikidata <http://www.wikidata.org/entity/Q174747> ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/133640502> ;
-    ns4:timestamp "2023-03-13T20:24:09"^^xsd:dateTime ;
-    ns4:uid 14617702 ;
-    ns4:user "Đuro Jiří" ;
-    ns4:version 14 ;
-    ns13:full "CR N-260 P.K. 17,40 I" ;
-    ns13:housenumber "2" ;
-    ns13:street "Avinguda d'Europa" ;
-    ns2:amenity "fuel" ;
-    ns2:brand "Repsol" ;
-    ns7:wikidata "Q174747" ;
-    ns2:compressed_air "yes" ;
-    ns8:GTL_diesel "yes" ;
-    ns8:diesel "yes" ;
-    ns8:octane_95 "yes" ;
-    ns8:octane_98 "yes" ;
-    ns2:mapillary "2870585556489531" ;
-    ns2:name "Repsol" ;
-    ns2:self_service "yes" ;
-    ns2:source "Ministerio de Industria, Turismo y Comercio" ;
-    ns16:date "2010-08-06" ;
-    ns2:wheelchair "yes" .
+    ns1:sfIntersects ns15:10548036,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:14531165,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2909262,
+        ns15:345033,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:6491134,
+        ns2:124099618,
+        ns2:889341190 ;
+    ns3:facts 18 ;
+    ns13:wikidata <http://www.wikidata.org/entity/Q174747> ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/133640502> ;
+    ns5:timestamp "2023-03-13T20:24:09"^^xsd:dateTime ;
+    ns5:uid 14617702 ;
+    ns5:user "Đuro Jiří" ;
+    ns5:version 14 ;
+    ns7:full "CR N-260 P.K. 17,40 I" ;
+    ns7:housenumber "2" ;
+    ns7:street "Avinguda d'Europa" ;
+    ns4:amenity "fuel" ;
+    ns4:brand "Repsol" ;
+    ns9:wikidata "Q174747" ;
+    ns4:compressed_air "yes" ;
+    ns11:GTL_diesel "yes" ;
+    ns11:diesel "yes" ;
+    ns11:octane_95 "yes" ;
+    ns11:octane_98 "yes" ;
+    ns4:mapillary "2870585556489531" ;
+    ns4:name "Repsol" ;
+    ns4:self_service "yes" ;
+    ns4:source "Ministerio de Industria, Turismo y Comercio" ;
+    ns14:date "2010-08-06" ;
+    ns4:wheelchair "yes" .
 
 <https://www.openstreetmap.org/node/8589012197> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_8589012197> ;
-    ns1:sfIntersects ns12:10570514,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18409,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:161957968,
-        ns3:63021124 ;
-    ns5:facts 2 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/102226832> ;
-    ns4:timestamp "2021-04-03T08:42:11"^^xsd:dateTime ;
-    ns4:uid 641880 ;
-    ns4:user "natolh" ;
-    ns4:version 1 ;
-    ns2:amenity "cafe" ;
-    ns2:name "La Cafeterie Catalane" .
+    ns1:sfIntersects ns15:10570514,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18409,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:161957968,
+        ns2:63021124 ;
+    ns3:facts 2 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/102226832> ;
+    ns5:timestamp "2021-04-03T08:42:11"^^xsd:dateTime ;
+    ns5:uid 641880 ;
+    ns5:user "natolh" ;
+    ns5:version 1 ;
+    ns4:amenity "cafe" ;
+    ns4:name "La Cafeterie Catalane" .
 
 <https://www.openstreetmap.org/node/915674609> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_915674609> ;
-    ns1:sfIntersects ns12:10548036,
-        ns12:11746917,
-        ns12:11747082,
-        ns12:1311341,
-        ns12:16819467,
-        ns12:17506020,
-        ns12:2177382,
-        ns12:2909262,
-        ns12:344128,
-        ns12:349023,
-        ns12:349053,
-        ns12:3870917,
-        ns12:6491134,
-        ns12:8308604,
-        ns3:188986167,
-        ns3:889341190 ;
-    ns5:facts 17 ;
-    ns14:wikidata <http://www.wikidata.org/entity/Q2601937> ;
-    ns14:wikipedia <https://ca.wikipedia.org/wiki/Casa-Museu%20Salvador%20Dalí> ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/172152487> ;
-    ns4:timestamp "2025-09-19T09:55:52"^^xsd:dateTime ;
-    ns4:uid 2171464 ;
-    ns4:user "girub" ;
-    ns4:version 18 ;
-    ns2:email "pllgrups@fundaciodali.org" ;
-    ns2:fax "+34 972 251 083" ;
-    ns2:fee "yes" ;
-    ns2:name "Casa-Museu Salvador Dalí" ;
-    ns9:ca "Casa-Museu Salvador Dalí" ;
-    ns9:en "House-Museum Salvador Dalí" ;
-    ns9:es "Casa-Museo Salvador Dalí" ;
-    ns9:fr "Maison-Musée Salvador Dalí" ;
-    ns9:ru "Дом-музей Сальвадора Дали" ;
-    ns2:phone "+34 972 251 015" ;
-    ns2:tourism "museum" ;
-    ns2:website "https://www.salvador-dali.org/" ;
-    ns2:wheelchair "no" ;
-    ns2:wikidata "Q2601937" ;
-    ns2:wikipedia "ca:Casa-Museu Salvador Dalí" .
+    ns1:sfIntersects ns15:10548036,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2909262,
+        ns15:344128,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:6491134,
+        ns15:8308604,
+        ns2:188986167,
+        ns2:889341190 ;
+    ns3:facts 17 ;
+    ns10:wikidata <http://www.wikidata.org/entity/Q2601937> ;
+    ns10:wikipedia <https://ca.wikipedia.org/wiki/Casa-Museu%20Salvador%20Dalí> ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/172152487> ;
+    ns5:timestamp "2025-09-19T09:55:52"^^xsd:dateTime ;
+    ns5:uid 2171464 ;
+    ns5:user "girub" ;
+    ns5:version 18 ;
+    ns4:email "pllgrups@fundaciodali.org" ;
+    ns4:fax "+34 972 251 083" ;
+    ns4:fee "yes" ;
+    ns4:name "Casa-Museu Salvador Dalí" ;
+    ns8:ca "Casa-Museu Salvador Dalí" ;
+    ns8:en "House-Museum Salvador Dalí" ;
+    ns8:es "Casa-Museo Salvador Dalí" ;
+    ns8:fr "Maison-Musée Salvador Dalí" ;
+    ns8:ru "Дом-музей Сальвадора Дали" ;
+    ns4:phone "+34 972 251 015" ;
+    ns4:tourism "museum" ;
+    ns4:website "https://www.salvador-dali.org/" ;
+    ns4:wheelchair "no" ;
+    ns4:wikidata "Q2601937" ;
+    ns4:wikipedia "ca:Casa-Museu Salvador Dalí" .
 
 <https://www.openstreetmap.org/node/9250342945> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_9250342945> ;
-    ns1:sfIntersects ns12:10548036,
-        ns12:11746917,
-        ns12:11747082,
-        ns12:1311341,
-        ns12:16819467,
-        ns12:17506020,
-        ns12:2177382,
-        ns12:2909262,
-        ns12:344928,
-        ns12:349023,
-        ns12:349053,
-        ns12:3870917,
-        ns12:6491134,
-        ns3:889341190,
-        ns3:938359737 ;
-    ns5:facts 9 ;
-    ns6:wikidata <http://www.wikidata.org/entity/Q1492739> ;
-    ns6:wikipedia <https://en.wikipedia.org/wiki/Galp%20Energia> ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/169411612> ;
-    ns4:timestamp "2025-07-24T17:03:27"^^xsd:dateTime ;
-    ns4:uid 327111 ;
-    ns4:user "blacx" ;
-    ns4:version 5 ;
-    ns2:amenity "fuel" ;
-    ns2:brand "Galp" ;
-    ns7:website "https://galp.com" ;
-    ns7:wikidata "Q1492739" ;
-    ns7:wikipedia "en:Galp Energia" ;
-    ns2:name "Estació de Servei de Roses" ;
-    ns2:operator "Galp" .
+    ns1:sfIntersects ns15:10548036,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2909262,
+        ns15:344928,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:6491134,
+        ns2:889341190,
+        ns2:938359737 ;
+    ns3:facts 9 ;
+    ns13:wikidata <http://www.wikidata.org/entity/Q1492739> ;
+    ns13:wikipedia <https://en.wikipedia.org/wiki/Galp%20Energia> ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/169411612> ;
+    ns5:timestamp "2025-07-24T17:03:27"^^xsd:dateTime ;
+    ns5:uid 327111 ;
+    ns5:user "blacx" ;
+    ns5:version 5 ;
+    ns4:amenity "fuel" ;
+    ns4:brand "Galp" ;
+    ns9:website "https://galp.com" ;
+    ns9:wikidata "Q1492739" ;
+    ns9:wikipedia "en:Galp Energia" ;
+    ns4:name "Estació de Servei de Roses" ;
+    ns4:operator "Galp" .
 
 <https://www.openstreetmap.org/node/9754835116> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_9754835116> ;
-    ns1:sfIntersects ns12:10548036,
-        ns12:11746917,
-        ns12:11747082,
-        ns12:1311341,
-        ns12:16819467,
-        ns12:17506020,
-        ns12:2177382,
-        ns12:2909262,
-        ns12:345217,
-        ns12:349023,
-        ns12:349053,
-        ns12:3870917,
-        ns12:6491134,
-        ns12:8312821,
-        ns3:398335174,
-        ns3:889341190 ;
-    ns5:facts 8 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/121199444> ;
-    ns4:timestamp "2022-05-19T14:42:16"^^xsd:dateTime ;
-    ns4:uid 16015758 ;
-    ns4:user "David rf" ;
-    ns4:version 1 ;
-    ns13:city "Portbou" ;
-    ns13:housenumber "9" ;
-    ns13:postcode "17497" ;
-    ns13:street "Passeig de Sardana" ;
-    ns2:amenity "restaurant" ;
-    ns2:cuisine "regional" ;
-    ns2:name "Bar Restaurant Riky" ;
-    ns2:phone "+34 972 39 05 25" .
+    ns1:sfIntersects ns15:10548036,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2909262,
+        ns15:345217,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:6491134,
+        ns15:8312821,
+        ns2:398335174,
+        ns2:889341190 ;
+    ns3:facts 8 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/121199444> ;
+    ns5:timestamp "2022-05-19T14:42:16"^^xsd:dateTime ;
+    ns5:uid 16015758 ;
+    ns5:user "David rf" ;
+    ns5:version 1 ;
+    ns7:city "Portbou" ;
+    ns7:housenumber "9" ;
+    ns7:postcode "17497" ;
+    ns7:street "Passeig de Sardana" ;
+    ns4:amenity "restaurant" ;
+    ns4:cuisine "regional" ;
+    ns4:name "Bar Restaurant Riky" ;
+    ns4:phone "+34 972 39 05 25" .
 
 <https://www.openstreetmap.org/node/9965537517> a <https://www.openstreetmap.org/node> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_9965537517> ;
-    ns1:sfIntersects ns12:10570524,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18375,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:1227152561,
-        ns3:64230004,
-        ns3:889341190 ;
-    ns5:facts 5 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/142866173> ;
-    ns4:timestamp "2023-10-20T11:42:20"^^xsd:dateTime ;
-    ns4:uid 9340422 ;
-    ns4:user "chrgis" ;
-    ns4:version 2 ;
-    ns2:amenity "dive_centre" ;
-    ns2:name "Aloès Plongée" ;
-    ns2:phone "+33 6 33 33 18 44" ;
-    ns18:date "2023-10-20" ;
-    ns2:website "http://www.aloesplongee.fr/" .
+    ns1:sfIntersects ns15:10570524,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18375,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:1227152561,
+        ns2:64230004,
+        ns2:889341190 ;
+    ns3:facts 5 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/142866173> ;
+    ns5:timestamp "2023-10-20T11:42:20"^^xsd:dateTime ;
+    ns5:uid 9340422 ;
+    ns5:user "chrgis" ;
+    ns5:version 2 ;
+    ns4:amenity "dive_centre" ;
+    ns4:name "Aloès Plongée" ;
+    ns4:phone "+33 6 33 33 18 44" ;
+    ns12:date "2023-10-20" ;
+    ns4:website "http://www.aloesplongee.fr/" .
 
-ns12:18986764 a <https://www.openstreetmap.org/relation> ;
+ns15:18986764 a <https://www.openstreetmap.org/relation> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmrel_18986764> ;
     ns1:sfContains <https://www.openstreetmap.org/node/12969374542>,
         <https://www.openstreetmap.org/node/3044127383>,
@@ -686,68 +716,68 @@ ns12:18986764 a <https://www.openstreetmap.org/relation> ;
         <https://www.openstreetmap.org/node/8460570834>,
         <https://www.openstreetmap.org/node/8569658701>,
         <https://www.openstreetmap.org/node/8891024798>,
-        ns3:110433007,
-        ns3:110434153,
-        ns3:110434159,
-        ns3:110434160,
-        ns3:110434161,
-        ns3:110434164,
-        ns3:134874474,
-        ns3:1418171777,
-        ns3:1418171778,
-        ns3:1418171779,
-        ns3:1418171780,
-        ns3:1418171781,
-        ns3:1418171782,
-        ns3:222544459,
-        ns3:222544461,
-        ns3:222544462,
-        ns3:222544463,
-        ns3:222544465,
-        ns3:222544467,
-        ns3:300326942,
-        ns3:300326947,
-        ns3:300326948,
-        ns3:300326949,
-        ns3:300326954,
-        ns3:456182636,
-        ns3:456182637,
-        ns3:456182638,
-        ns3:456182639,
-        ns3:456182640,
-        ns3:456182641,
-        ns3:456182642,
-        ns3:456182643,
-        ns3:456182644,
-        ns3:456182645,
-        ns3:456182646,
-        ns3:456182647,
-        ns3:456182648,
-        ns3:456182649,
-        ns3:456182650,
-        ns3:456182651,
-        ns3:456182652,
-        ns3:64234647,
-        ns3:64234717,
-        ns3:64235022,
-        ns3:64235437,
-        ns3:64235672,
-        ns3:64235999,
-        ns3:64237632,
-        ns3:67881761,
-        ns3:724154524,
-        ns3:724154525,
-        ns3:724154529,
-        ns3:724154530,
-        ns3:911163993,
-        ns3:911163994,
-        ns3:911163997,
-        ns3:923153539,
-        ns3:923153540,
-        ns3:961128406,
-        ns3:961128407,
-        ns3:961128408,
-        ns3:961128409 ;
+        ns2:110433007,
+        ns2:110434153,
+        ns2:110434159,
+        ns2:110434160,
+        ns2:110434161,
+        ns2:110434164,
+        ns2:134874474,
+        ns2:1418171777,
+        ns2:1418171778,
+        ns2:1418171779,
+        ns2:1418171780,
+        ns2:1418171781,
+        ns2:1418171782,
+        ns2:222544459,
+        ns2:222544461,
+        ns2:222544462,
+        ns2:222544463,
+        ns2:222544465,
+        ns2:222544467,
+        ns2:300326942,
+        ns2:300326947,
+        ns2:300326948,
+        ns2:300326949,
+        ns2:300326954,
+        ns2:456182636,
+        ns2:456182637,
+        ns2:456182638,
+        ns2:456182639,
+        ns2:456182640,
+        ns2:456182641,
+        ns2:456182642,
+        ns2:456182643,
+        ns2:456182644,
+        ns2:456182645,
+        ns2:456182646,
+        ns2:456182647,
+        ns2:456182648,
+        ns2:456182649,
+        ns2:456182650,
+        ns2:456182651,
+        ns2:456182652,
+        ns2:64234647,
+        ns2:64234717,
+        ns2:64235022,
+        ns2:64235437,
+        ns2:64235672,
+        ns2:64235999,
+        ns2:64237632,
+        ns2:67881761,
+        ns2:724154524,
+        ns2:724154525,
+        ns2:724154529,
+        ns2:724154530,
+        ns2:911163993,
+        ns2:911163994,
+        ns2:911163997,
+        ns2:923153539,
+        ns2:923153540,
+        ns2:961128406,
+        ns2:961128407,
+        ns2:961128408,
+        ns2:961128409 ;
     ns1:sfCovers <https://www.openstreetmap.org/node/12969374542>,
         <https://www.openstreetmap.org/node/3044127383>,
         <https://www.openstreetmap.org/node/3044127393>,
@@ -766,70 +796,70 @@ ns12:18986764 a <https://www.openstreetmap.org/relation> ;
         <https://www.openstreetmap.org/node/8460570834>,
         <https://www.openstreetmap.org/node/8569658701>,
         <https://www.openstreetmap.org/node/8891024798>,
-        ns3:110433007,
-        ns3:110434153,
-        ns3:110434159,
-        ns3:110434160,
-        ns3:110434161,
-        ns3:110434164,
-        ns3:134874474,
-        ns3:1377240960,
-        ns3:1418171777,
-        ns3:1418171778,
-        ns3:1418171779,
-        ns3:1418171780,
-        ns3:1418171781,
-        ns3:1418171782,
-        ns3:222544459,
-        ns3:222544461,
-        ns3:222544462,
-        ns3:222544463,
-        ns3:222544465,
-        ns3:222544467,
-        ns3:300326942,
-        ns3:300326947,
-        ns3:300326948,
-        ns3:300326949,
-        ns3:300326954,
-        ns3:456182636,
-        ns3:456182637,
-        ns3:456182638,
-        ns3:456182639,
-        ns3:456182640,
-        ns3:456182641,
-        ns3:456182642,
-        ns3:456182643,
-        ns3:456182644,
-        ns3:456182645,
-        ns3:456182646,
-        ns3:456182647,
-        ns3:456182648,
-        ns3:456182649,
-        ns3:456182650,
-        ns3:456182651,
-        ns3:456182652,
-        ns3:64234647,
-        ns3:64234717,
-        ns3:64235022,
-        ns3:64235437,
-        ns3:64235672,
-        ns3:64235999,
-        ns3:64237632,
-        ns3:67881761,
-        ns3:67883129,
-        ns3:724154524,
-        ns3:724154525,
-        ns3:724154529,
-        ns3:724154530,
-        ns3:911163993,
-        ns3:911163994,
-        ns3:911163997,
-        ns3:923153539,
-        ns3:923153540,
-        ns3:961128406,
-        ns3:961128407,
-        ns3:961128408,
-        ns3:961128409 ;
+        ns2:110433007,
+        ns2:110434153,
+        ns2:110434159,
+        ns2:110434160,
+        ns2:110434161,
+        ns2:110434164,
+        ns2:134874474,
+        ns2:1377240960,
+        ns2:1418171777,
+        ns2:1418171778,
+        ns2:1418171779,
+        ns2:1418171780,
+        ns2:1418171781,
+        ns2:1418171782,
+        ns2:222544459,
+        ns2:222544461,
+        ns2:222544462,
+        ns2:222544463,
+        ns2:222544465,
+        ns2:222544467,
+        ns2:300326942,
+        ns2:300326947,
+        ns2:300326948,
+        ns2:300326949,
+        ns2:300326954,
+        ns2:456182636,
+        ns2:456182637,
+        ns2:456182638,
+        ns2:456182639,
+        ns2:456182640,
+        ns2:456182641,
+        ns2:456182642,
+        ns2:456182643,
+        ns2:456182644,
+        ns2:456182645,
+        ns2:456182646,
+        ns2:456182647,
+        ns2:456182648,
+        ns2:456182649,
+        ns2:456182650,
+        ns2:456182651,
+        ns2:456182652,
+        ns2:64234647,
+        ns2:64234717,
+        ns2:64235022,
+        ns2:64235437,
+        ns2:64235672,
+        ns2:64235999,
+        ns2:64237632,
+        ns2:67881761,
+        ns2:67883129,
+        ns2:724154524,
+        ns2:724154525,
+        ns2:724154529,
+        ns2:724154530,
+        ns2:911163993,
+        ns2:911163994,
+        ns2:911163997,
+        ns2:923153539,
+        ns2:923153540,
+        ns2:961128406,
+        ns2:961128407,
+        ns2:961128408,
+        ns2:961128409 ;
     ns1:sfIntersects <https://www.openstreetmap.org/node/12969374542>,
         <https://www.openstreetmap.org/node/3044127383>,
         <https://www.openstreetmap.org/node/3044127393>,
@@ -848,140 +878,140 @@ ns12:18986764 a <https://www.openstreetmap.org/relation> ;
         <https://www.openstreetmap.org/node/8460570834>,
         <https://www.openstreetmap.org/node/8569658701>,
         <https://www.openstreetmap.org/node/8891024798>,
-        ns12:10570556,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18681826,
-        ns12:18986763,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4124609,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:81599,
-        ns12:8643,
-        ns3:110433007,
-        ns3:110434153,
-        ns3:110434159,
-        ns3:110434160,
-        ns3:110434161,
-        ns3:110434164,
-        ns3:1329570740,
-        ns3:134874474,
-        ns3:1377240958,
-        ns3:1377240959,
-        ns3:1377240960,
-        ns3:1377240961,
-        ns3:1377240963,
-        ns3:1418171777,
-        ns3:1418171778,
-        ns3:1418171779,
-        ns3:1418171780,
-        ns3:1418171781,
-        ns3:1418171782,
-        ns3:222544459,
-        ns3:222544461,
-        ns3:222544462,
-        ns3:222544463,
-        ns3:222544465,
-        ns3:222544467,
-        ns3:300326942,
-        ns3:300326947,
-        ns3:300326948,
-        ns3:300326949,
-        ns3:300326954,
-        ns3:363780631,
-        ns3:456182636,
-        ns3:456182637,
-        ns3:456182638,
-        ns3:456182639,
-        ns3:456182640,
-        ns3:456182641,
-        ns3:456182642,
-        ns3:456182643,
-        ns3:456182644,
-        ns3:456182645,
-        ns3:456182646,
-        ns3:456182647,
-        ns3:456182648,
-        ns3:456182649,
-        ns3:456182650,
-        ns3:456182651,
-        ns3:456182652,
-        ns3:456182910,
-        ns3:64234647,
-        ns3:64234717,
-        ns3:64235022,
-        ns3:64235437,
-        ns3:64235672,
-        ns3:64235999,
-        ns3:64237632,
-        ns3:67881761,
-        ns3:67881770,
-        ns3:67883129,
-        ns3:724154524,
-        ns3:724154525,
-        ns3:724154529,
-        ns3:724154530,
-        ns3:724154531,
-        ns3:75768172,
-        ns3:889341190,
-        ns3:911163993,
-        ns3:911163994,
-        ns3:911163995,
-        ns3:911163997,
-        ns3:923153539,
-        ns3:923153540,
-        ns3:923153541,
-        ns3:923153542,
-        ns3:961128405,
-        ns3:961128406,
-        ns3:961128407,
-        ns3:961128408,
-        ns3:961128409 ;
-    ns1:sfOverlaps ns12:18681826,
-        ns12:4124609,
-        ns3:1377240958,
-        ns3:724154531 ;
+        ns15:10570556,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18681826,
+        ns15:18986763,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4124609,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:81599,
+        ns15:8643,
+        ns2:110433007,
+        ns2:110434153,
+        ns2:110434159,
+        ns2:110434160,
+        ns2:110434161,
+        ns2:110434164,
+        ns2:1329570740,
+        ns2:134874474,
+        ns2:1377240958,
+        ns2:1377240959,
+        ns2:1377240960,
+        ns2:1377240961,
+        ns2:1377240963,
+        ns2:1418171777,
+        ns2:1418171778,
+        ns2:1418171779,
+        ns2:1418171780,
+        ns2:1418171781,
+        ns2:1418171782,
+        ns2:222544459,
+        ns2:222544461,
+        ns2:222544462,
+        ns2:222544463,
+        ns2:222544465,
+        ns2:222544467,
+        ns2:300326942,
+        ns2:300326947,
+        ns2:300326948,
+        ns2:300326949,
+        ns2:300326954,
+        ns2:363780631,
+        ns2:456182636,
+        ns2:456182637,
+        ns2:456182638,
+        ns2:456182639,
+        ns2:456182640,
+        ns2:456182641,
+        ns2:456182642,
+        ns2:456182643,
+        ns2:456182644,
+        ns2:456182645,
+        ns2:456182646,
+        ns2:456182647,
+        ns2:456182648,
+        ns2:456182649,
+        ns2:456182650,
+        ns2:456182651,
+        ns2:456182652,
+        ns2:456182910,
+        ns2:64234647,
+        ns2:64234717,
+        ns2:64235022,
+        ns2:64235437,
+        ns2:64235672,
+        ns2:64235999,
+        ns2:64237632,
+        ns2:67881761,
+        ns2:67881770,
+        ns2:67883129,
+        ns2:724154524,
+        ns2:724154525,
+        ns2:724154529,
+        ns2:724154530,
+        ns2:724154531,
+        ns2:75768172,
+        ns2:889341190,
+        ns2:911163993,
+        ns2:911163994,
+        ns2:911163995,
+        ns2:911163997,
+        ns2:923153539,
+        ns2:923153540,
+        ns2:923153541,
+        ns2:923153542,
+        ns2:961128405,
+        ns2:961128406,
+        ns2:961128407,
+        ns2:961128408,
+        ns2:961128409 ;
+    ns1:sfOverlaps ns15:18681826,
+        ns15:4124609,
+        ns2:1377240958,
+        ns2:724154531 ;
     ns1:sfTouches <https://www.openstreetmap.org/node/3044127393>,
-        ns12:18986763,
-        ns3:1377240960,
-        ns3:1377240961,
-        ns3:67881770,
-        ns3:67883129 ;
-    ns5:area 98839.7 ;
-    ns5:facts 11 ;
-    ns5:hasCompleteGeometry true ;
-    ns14:wikidata <http://www.wikidata.org/entity/Q1551756> ;
-    ns14:wikipedia <https://fr.wikipedia.org/wiki/Anse%20de%20Paulilles> ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/164901278> ;
-    ns4:timestamp "2025-04-13T15:41:59"^^xsd:dateTime ;
-    ns4:uid 208052 ;
-    ns4:user "jokien" ;
-    ns4:version 1 ;
-    ns12:member [ ],
+        ns15:18986763,
+        ns2:1377240960,
+        ns2:1377240961,
+        ns2:67881770,
+        ns2:67883129 ;
+    ns3:area 98839.7 ;
+    ns3:facts 11 ;
+    ns3:hasCompleteGeometry true ;
+    ns10:wikidata <http://www.wikidata.org/entity/Q1551756> ;
+    ns10:wikipedia <https://fr.wikipedia.org/wiki/Anse%20de%20Paulilles> ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/164901278> ;
+    ns5:timestamp "2025-04-13T15:41:59"^^xsd:dateTime ;
+    ns5:uid 208052 ;
+    ns5:user "jokien" ;
+    ns5:version 1 ;
+    ns15:member [ ],
         [ ] ;
-    ns2:leisure "nature_reserve" ;
-    ns2:name "Anse de Paulilles" ;
-    ns9:ca "Badia de Polilles" ;
-    ns2:protection_title "Terrain du Conservatoire du Littoral" ;
-    ns22:en "Land Acquired by Littoral and Lakeside Conservatoire" ;
-    ns11:INPN "FR1100392" ;
-    ns2:type "multipolygon" ;
-    ns2:wikidata "Q1551756" ;
-    ns2:wikipedia "fr:Anse de Paulilles" .
+    ns4:leisure "nature_reserve" ;
+    ns4:name "Anse de Paulilles" ;
+    ns8:ca "Badia de Polilles" ;
+    ns4:protection_title "Terrain du Conservatoire du Littoral" ;
+    ns18:en "Land Acquired by Littoral and Lakeside Conservatoire" ;
+    ns6:INPN "FR1100392" ;
+    ns4:type "multipolygon" ;
+    ns4:wikidata "Q1551756" ;
+    ns4:wikipedia "fr:Anse de Paulilles" .
 
-ns12:3632680 a <https://www.openstreetmap.org/relation> ;
+ns15:3632680 a <https://www.openstreetmap.org/relation> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmrel_3632680> ;
     ns1:sfContains <https://www.openstreetmap.org/node/4910740821>,
         <https://www.openstreetmap.org/node/5017130811>,
@@ -990,14 +1020,14 @@ ns12:3632680 a <https://www.openstreetmap.org/relation> ;
         <https://www.openstreetmap.org/node/6928815992>,
         <https://www.openstreetmap.org/node/6928815995>,
         <https://www.openstreetmap.org/node/6928816006>,
-        ns3:660930077,
-        ns3:660930079,
-        ns3:660930080,
-        ns3:660930081,
-        ns3:660930082,
-        ns3:660930083,
-        ns3:660930084,
-        ns3:741084299 ;
+        ns2:660930077,
+        ns2:660930079,
+        ns2:660930080,
+        ns2:660930081,
+        ns2:660930082,
+        ns2:660930083,
+        ns2:660930084,
+        ns2:741084299 ;
     ns1:sfCovers <https://www.openstreetmap.org/node/2415306094>,
         <https://www.openstreetmap.org/node/2772032303>,
         <https://www.openstreetmap.org/node/4910740821>,
@@ -1011,16 +1041,16 @@ ns12:3632680 a <https://www.openstreetmap.org/relation> ;
         <https://www.openstreetmap.org/node/6928815995>,
         <https://www.openstreetmap.org/node/6928816003>,
         <https://www.openstreetmap.org/node/6928816006>,
-        ns3:233178813,
-        ns3:272244890,
-        ns3:660930077,
-        ns3:660930079,
-        ns3:660930080,
-        ns3:660930081,
-        ns3:660930082,
-        ns3:660930083,
-        ns3:660930084,
-        ns3:741084299 ;
+        ns2:233178813,
+        ns2:272244890,
+        ns2:660930077,
+        ns2:660930079,
+        ns2:660930080,
+        ns2:660930081,
+        ns2:660930082,
+        ns2:660930083,
+        ns2:660930084,
+        ns2:741084299 ;
     ns1:sfIntersects <https://www.openstreetmap.org/node/2415306094>,
         <https://www.openstreetmap.org/node/2772032303>,
         <https://www.openstreetmap.org/node/4910740821>,
@@ -1034,270 +1064,270 @@ ns12:3632680 a <https://www.openstreetmap.org/relation> ;
         <https://www.openstreetmap.org/node/6928815995>,
         <https://www.openstreetmap.org/node/6928816003>,
         <https://www.openstreetmap.org/node/6928816006>,
-        ns12:10548036,
-        ns12:11746917,
-        ns12:11747082,
-        ns12:1311341,
-        ns12:16819467,
-        ns12:17506020,
-        ns12:2177382,
-        ns12:2909262,
-        ns12:347769,
-        ns12:349023,
-        ns12:349053,
-        ns12:3870917,
-        ns12:4203609,
-        ns12:6491134,
-        ns3:1051632443,
-        ns3:233178813,
-        ns3:272244890,
-        ns3:513180757,
-        ns3:513180758,
-        ns3:513180759,
-        ns3:660930077,
-        ns3:660930079,
-        ns3:660930080,
-        ns3:660930081,
-        ns3:660930082,
-        ns3:660930083,
-        ns3:660930084,
-        ns3:660930086,
-        ns3:740028550,
-        ns3:741084299,
-        ns3:75685725 ;
+        ns15:10548036,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2909262,
+        ns15:347769,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:4203609,
+        ns15:6491134,
+        ns2:1051632443,
+        ns2:233178813,
+        ns2:272244890,
+        ns2:513180757,
+        ns2:513180758,
+        ns2:513180759,
+        ns2:660930077,
+        ns2:660930079,
+        ns2:660930080,
+        ns2:660930081,
+        ns2:660930082,
+        ns2:660930083,
+        ns2:660930084,
+        ns2:660930086,
+        ns2:740028550,
+        ns2:741084299,
+        ns2:75685725 ;
     ns1:sfTouches <https://www.openstreetmap.org/node/2415306094>,
         <https://www.openstreetmap.org/node/2772032303>,
         <https://www.openstreetmap.org/node/6928815985>,
         <https://www.openstreetmap.org/node/6928815993>,
         <https://www.openstreetmap.org/node/6928815994>,
         <https://www.openstreetmap.org/node/6928816003>,
-        ns3:233178813,
-        ns3:272244890,
-        ns3:513180757,
-        ns3:513180758,
-        ns3:513180759,
-        ns3:660930086,
-        ns3:740028550,
-        ns3:75685725 ;
-    ns5:area 2287.93 ;
-    ns5:facts 24 ;
-    ns5:hasCompleteGeometry true ;
-    ns14:wikidata <http://www.wikidata.org/entity/Q1143722> ;
-    ns14:wikipedia <https://ca.wikipedia.org/wiki/Teatre-Museu%20Dalí> ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/173629353> ;
-    ns4:timestamp "2025-10-22T13:55:38"^^xsd:dateTime ;
-    ns4:uid 13874704 ;
-    ns4:user "Emilius123" ;
-    ns4:version 10 ;
-    ns12:member [ ],
+        ns2:233178813,
+        ns2:272244890,
+        ns2:513180757,
+        ns2:513180758,
+        ns2:513180759,
+        ns2:660930086,
+        ns2:740028550,
+        ns2:75685725 ;
+    ns3:area 2287.93 ;
+    ns3:facts 24 ;
+    ns3:hasCompleteGeometry true ;
+    ns10:wikidata <http://www.wikidata.org/entity/Q1143722> ;
+    ns10:wikipedia <https://ca.wikipedia.org/wiki/Teatre-Museu%20Dalí> ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/173629353> ;
+    ns5:timestamp "2025-10-22T13:55:38"^^xsd:dateTime ;
+    ns5:uid 13874704 ;
+    ns5:user "Emilius123" ;
+    ns5:version 10 ;
+    ns15:member [ ],
         [ ] ;
-    ns13:housenumber "5" ;
-    ns13:postcode "17600" ;
-    ns13:street "Plaça de Gala i Salvador Dalí" ;
-    ns2:building "yes" ;
+    ns7:housenumber "5" ;
+    ns7:postcode "17600" ;
+    ns7:street "Plaça de Gala i Salvador Dalí" ;
+    ns4:building "yes" ;
     ns17:levels "5" ;
-    ns2:check_date "2025-10-21" ;
-    ns2:fee "yes" ;
-    ns2:internet_access "wlan" ;
-    ns23:fee "no" ;
-    ns2:name "Teatre-Museu Dalí" ;
-    ns9:ca "Teatre-Museu Dalí" ;
-    ns9:en "Dalí Theatre-Museum" ;
-    ns9:es "Teatro-Museo Dalí" ;
-    ns9:fr "Théâtre-Musée Dalí" ;
-    ns2:opening_hours "Jan 1-Mar 30,May 13-Jun 29,Oct 1-Dec 31 Tu-Su 10:30-17:15; Apr 1-May 11,Sep 9-Sep 30 Tu-Su 09:30-17:15; Jul 1-Aug 31 Mo-Su 09:00-19:15; PH off" ;
-    ns2:operator "Fundació Gala-Salvado Dalí" ;
-    ns2:phone "+34 972 677 505" ;
-    ns2:tourism "museum" ;
-    ns2:type "multipolygon" ;
-    ns2:website "https://www.salvador-dali.org/ca/museus/teatre-museu-dali-de-figueres/" ;
-    ns2:wikidata "Q1143722" ;
-    ns2:wikipedia "ca:Teatre-Museu Dalí" .
+    ns4:check_date "2025-10-21" ;
+    ns4:fee "yes" ;
+    ns4:internet_access "wlan" ;
+    ns16:fee "no" ;
+    ns4:name "Teatre-Museu Dalí" ;
+    ns8:ca "Teatre-Museu Dalí" ;
+    ns8:en "Dalí Theatre-Museum" ;
+    ns8:es "Teatro-Museo Dalí" ;
+    ns8:fr "Théâtre-Musée Dalí" ;
+    ns4:opening_hours "Jan 1-Mar 30,May 13-Jun 29,Oct 1-Dec 31 Tu-Su 10:30-17:15; Apr 1-May 11,Sep 9-Sep 30 Tu-Su 09:30-17:15; Jul 1-Aug 31 Mo-Su 09:00-19:15; PH off" ;
+    ns4:operator "Fundació Gala-Salvado Dalí" ;
+    ns4:phone "+34 972 677 505" ;
+    ns4:tourism "museum" ;
+    ns4:type "multipolygon" ;
+    ns4:website "https://www.salvador-dali.org/ca/museus/teatre-museu-dali-de-figueres/" ;
+    ns4:wikidata "Q1143722" ;
+    ns4:wikipedia "ca:Teatre-Museu Dalí" .
 
-ns12:8312159 a <https://www.openstreetmap.org/relation> ;
+ns15:8312159 a <https://www.openstreetmap.org/relation> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmrel_8312159> ;
     ns1:sfContains <https://www.openstreetmap.org/node/3656504005>,
         <https://www.openstreetmap.org/node/3656504012> ;
     ns1:sfCovers <https://www.openstreetmap.org/node/3656504005>,
         <https://www.openstreetmap.org/node/3656504012>,
-        ns3:361132976,
-        ns3:589539290,
-        ns3:589539292,
-        ns3:589539293 ;
+        ns2:361132976,
+        ns2:589539290,
+        ns2:589539292,
+        ns2:589539293 ;
     ns1:sfIntersects <https://www.openstreetmap.org/node/3656504005>,
         <https://www.openstreetmap.org/node/3656504012>,
-        ns12:10548036,
-        ns12:11746917,
-        ns12:11747082,
-        ns12:1311341,
-        ns12:16819467,
-        ns12:17506020,
-        ns12:2177382,
-        ns12:2909262,
-        ns12:340545,
-        ns12:349023,
-        ns12:349053,
-        ns12:3870917,
-        ns12:6491134,
-        ns12:8312157,
-        ns12:8312158,
-        ns12:8312186,
-        ns12:9287303,
-        ns3:361132976,
-        ns3:361132978,
-        ns3:361132979,
-        ns3:589539290,
-        ns3:589539291,
-        ns3:589539292,
-        ns3:589539293,
-        ns3:589539294,
-        ns3:589539295,
-        ns3:589539300,
-        ns3:589540802 ;
-    ns1:sfTouches ns12:8312157,
-        ns12:8312158,
-        ns12:8312186,
-        ns12:9287303,
-        ns3:361132976,
-        ns3:361132978,
-        ns3:361132979,
-        ns3:589539290,
-        ns3:589539291,
-        ns3:589539292,
-        ns3:589539293,
-        ns3:589539294,
-        ns3:589539295,
-        ns3:589539300,
-        ns3:589540802 ;
-    ns5:area 1036.01 ;
-    ns5:facts 9 ;
-    ns5:hasCompleteGeometry true ;
-    ns14:wikidata <http://www.wikidata.org/entity/Q28121058> ;
-    ns14:wikipedia <https://ca.wikipedia.org/wiki/Platja%20del%20Pas> ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/154460290> ;
-    ns4:timestamp "2024-07-26T20:31:44"^^xsd:dateTime ;
-    ns4:uid 11725140 ;
-    ns4:user "jmaspons" ;
-    ns4:version 4 ;
-    ns12:member [ ],
+        ns15:10548036,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2909262,
+        ns15:340545,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:6491134,
+        ns15:8312157,
+        ns15:8312158,
+        ns15:8312186,
+        ns15:9287303,
+        ns2:361132976,
+        ns2:361132978,
+        ns2:361132979,
+        ns2:589539290,
+        ns2:589539291,
+        ns2:589539292,
+        ns2:589539293,
+        ns2:589539294,
+        ns2:589539295,
+        ns2:589539300,
+        ns2:589540802 ;
+    ns1:sfTouches ns15:8312157,
+        ns15:8312158,
+        ns15:8312186,
+        ns15:9287303,
+        ns2:361132976,
+        ns2:361132978,
+        ns2:361132979,
+        ns2:589539290,
+        ns2:589539291,
+        ns2:589539292,
+        ns2:589539293,
+        ns2:589539294,
+        ns2:589539295,
+        ns2:589539300,
+        ns2:589540802 ;
+    ns3:area 1036.01 ;
+    ns3:facts 9 ;
+    ns3:hasCompleteGeometry true ;
+    ns10:wikidata <http://www.wikidata.org/entity/Q28121058> ;
+    ns10:wikipedia <https://ca.wikipedia.org/wiki/Platja%20del%20Pas> ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/154460290> ;
+    ns5:timestamp "2024-07-26T20:31:44"^^xsd:dateTime ;
+    ns5:uid 11725140 ;
+    ns5:user "jmaspons" ;
+    ns5:version 4 ;
+    ns15:member [ ],
         [ ],
         [ ],
         [ ] ;
-    ns2:name "Platja del Pas" ;
-    ns9:ca "Platja del Pas" ;
-    ns2:natural "beach" ;
-    ns2:surface "pebblestone" ;
-    ns2:type "multipolygon" ;
-    ns2:wikidata "Q28121058" ;
-    ns2:wikipedia "ca:Platja del Pas" .
+    ns4:name "Platja del Pas" ;
+    ns8:ca "Platja del Pas" ;
+    ns4:natural "beach" ;
+    ns4:surface "pebblestone" ;
+    ns4:type "multipolygon" ;
+    ns4:wikidata "Q28121058" ;
+    ns4:wikipedia "ca:Platja del Pas" .
 
-ns12:8312160 a <https://www.openstreetmap.org/relation> ;
+ns15:8312160 a <https://www.openstreetmap.org/relation> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmrel_8312160> ;
-    ns1:sfCovers ns3:399365980,
-        ns3:589539297 ;
-    ns1:sfIntersects ns12:10548036,
-        ns12:11746917,
-        ns12:11747082,
-        ns12:1311341,
-        ns12:16819467,
-        ns12:17506020,
-        ns12:2177382,
-        ns12:2909262,
-        ns12:340545,
-        ns12:349023,
-        ns12:349053,
-        ns12:3870917,
-        ns12:6491134,
-        ns12:8312158,
-        ns12:9287303,
-        ns3:399365980,
-        ns3:589539294,
-        ns3:589539297,
-        ns3:589539298 ;
-    ns1:sfTouches ns12:8312158,
-        ns12:9287303,
-        ns3:399365980,
-        ns3:589539294,
-        ns3:589539297,
-        ns3:589539298 ;
-    ns5:area 1325.44 ;
-    ns5:facts 8 ;
-    ns5:hasCompleteGeometry true ;
-    ns14:wikidata <http://www.wikidata.org/entity/Q123848547> ;
-    ns14:wikipedia <https://ca.wikipedia.org/wiki/Platja%20de%20les%20Violetes> ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/154460290> ;
-    ns4:timestamp "2024-07-26T20:31:44"^^xsd:dateTime ;
-    ns4:uid 11725140 ;
-    ns4:user "jmaspons" ;
-    ns4:version 4 ;
-    ns12:member [ ],
+    ns1:sfCovers ns2:399365980,
+        ns2:589539297 ;
+    ns1:sfIntersects ns15:10548036,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2909262,
+        ns15:340545,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:6491134,
+        ns15:8312158,
+        ns15:9287303,
+        ns2:399365980,
+        ns2:589539294,
+        ns2:589539297,
+        ns2:589539298 ;
+    ns1:sfTouches ns15:8312158,
+        ns15:9287303,
+        ns2:399365980,
+        ns2:589539294,
+        ns2:589539297,
+        ns2:589539298 ;
+    ns3:area 1325.44 ;
+    ns3:facts 8 ;
+    ns3:hasCompleteGeometry true ;
+    ns10:wikidata <http://www.wikidata.org/entity/Q123848547> ;
+    ns10:wikipedia <https://ca.wikipedia.org/wiki/Platja%20de%20les%20Violetes> ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/154460290> ;
+    ns5:timestamp "2024-07-26T20:31:44"^^xsd:dateTime ;
+    ns5:uid 11725140 ;
+    ns5:user "jmaspons" ;
+    ns5:version 4 ;
+    ns15:member [ ],
         [ ] ;
-    ns2:name "Platja de les Violetes" ;
-    ns9:ca "Platja de les Violetes" ;
-    ns2:natural "beach" ;
-    ns2:type "multipolygon" ;
-    ns2:wikidata "Q123848547" ;
-    ns2:wikipedia "ca:Platja de les Violetes" .
+    ns4:name "Platja de les Violetes" ;
+    ns8:ca "Platja de les Violetes" ;
+    ns4:natural "beach" ;
+    ns4:type "multipolygon" ;
+    ns4:wikidata "Q123848547" ;
+    ns4:wikipedia "ca:Platja de les Violetes" .
 
-ns3:183545703 a <https://www.openstreetmap.org/way> ;
+ns2:183545703 a <https://www.openstreetmap.org/way> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmway_183545703> ;
-    ns1:sfContains ns3:760130911,
-        ns3:760130912 ;
-    ns1:sfCovers ns3:183545587,
-        ns3:183545589,
-        ns3:760130911,
-        ns3:760130912 ;
-    ns1:sfIntersects ns12:10570524,
-        ns12:10641821,
-        ns12:11223511,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18375,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4124609,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:183545587,
-        ns3:183545588,
-        ns3:183545589,
-        ns3:183545625,
-        ns3:34049759,
-        ns3:760130911,
-        ns3:760130912,
-        ns3:767321605,
-        ns3:818030694,
-        ns3:889341190 ;
-    ns1:sfOverlaps ns12:10641821,
-        ns12:11223511,
-        ns12:4124609 ;
-    ns1:sfTouches ns12:11223511,
-        ns12:4124609,
-        ns3:183545587,
-        ns3:183545588,
-        ns3:183545589,
-        ns3:34049759,
-        ns3:818030694 ;
-    ns5:area 2180 ;
-    ns5:facts 2 ;
-    ns5:length 299.87 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/86932162> ;
-    ns4:timestamp "2020-06-21T11:07:01"^^xsd:dateTime ;
-    ns4:uid 2573778 ;
-    ns4:user "sargasso" ;
-    ns4:version 5 ;
-    ns3:member [ ],
+    ns1:sfContains ns2:760130911,
+        ns2:760130912 ;
+    ns1:sfCovers ns2:183545587,
+        ns2:183545589,
+        ns2:760130911,
+        ns2:760130912 ;
+    ns1:sfIntersects ns15:10570524,
+        ns15:10641821,
+        ns15:11223511,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18375,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4124609,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:183545587,
+        ns2:183545588,
+        ns2:183545589,
+        ns2:183545625,
+        ns2:34049759,
+        ns2:760130911,
+        ns2:760130912,
+        ns2:767321605,
+        ns2:818030694,
+        ns2:889341190 ;
+    ns1:sfOverlaps ns15:10641821,
+        ns15:11223511,
+        ns15:4124609 ;
+    ns1:sfTouches ns15:11223511,
+        ns15:4124609,
+        ns2:183545587,
+        ns2:183545588,
+        ns2:183545589,
+        ns2:34049759,
+        ns2:818030694 ;
+    ns3:area 2180 ;
+    ns3:facts 2 ;
+    ns3:length 299.87 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/86932162> ;
+    ns5:timestamp "2020-06-21T11:07:01"^^xsd:dateTime ;
+    ns5:uid 2573778 ;
+    ns5:user "sargasso" ;
+    ns5:version 5 ;
+    ns2:member [ ],
         [ ],
         [ ],
         [ ],
@@ -1319,46 +1349,46 @@ ns3:183545703 a <https://www.openstreetmap.org/way> ;
         [ ],
         [ ],
         [ ] ;
-    ns2:access "yes" ;
-    ns2:amenity "parking" .
+    ns4:access "yes" ;
+    ns4:amenity "parking" .
 
-ns3:589961343 a <https://www.openstreetmap.org/way> ;
+ns2:589961343 a <https://www.openstreetmap.org/way> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmway_589961343> ;
     ns1:sfContains <https://www.openstreetmap.org/node/732374366>,
-        ns3:189091700 ;
+        ns2:189091700 ;
     ns1:sfCovers <https://www.openstreetmap.org/node/732374366>,
-        ns3:189091700 ;
+        ns2:189091700 ;
     ns1:sfIntersects <https://www.openstreetmap.org/node/732374366>,
-        ns12:10548036,
-        ns12:1070887,
-        ns12:11746917,
-        ns12:11747082,
-        ns12:1311341,
-        ns12:16819467,
-        ns12:17506020,
-        ns12:2177382,
-        ns12:2909262,
-        ns12:345217,
-        ns12:349023,
-        ns12:349053,
-        ns12:3870917,
-        ns12:4614049,
-        ns12:6491134,
-        ns3:189091697,
-        ns3:189091700,
-        ns3:42237553,
-        ns3:889341190 ;
-    ns1:sfTouches ns12:1070887,
-        ns3:42237553 ;
-    ns5:area 1448.42 ;
-    ns5:facts 1 ;
-    ns5:length 212.74 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/147061385> ;
-    ns4:timestamp "2024-02-04T16:43:39"^^xsd:dateTime ;
-    ns4:uid 8770019 ;
-    ns4:user "kapazao_import" ;
-    ns4:version 2 ;
-    ns3:member [ ],
+        ns15:10548036,
+        ns15:1070887,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2909262,
+        ns15:345217,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:4614049,
+        ns15:6491134,
+        ns2:189091697,
+        ns2:189091700,
+        ns2:42237553,
+        ns2:889341190 ;
+    ns1:sfTouches ns15:1070887,
+        ns2:42237553 ;
+    ns3:area 1448.42 ;
+    ns3:facts 1 ;
+    ns3:length 212.74 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/147061385> ;
+    ns5:timestamp "2024-02-04T16:43:39"^^xsd:dateTime ;
+    ns5:uid 8770019 ;
+    ns5:user "kapazao_import" ;
+    ns5:version 2 ;
+    ns2:member [ ],
         [ ],
         [ ],
         [ ],
@@ -1373,41 +1403,41 @@ ns3:589961343 a <https://www.openstreetmap.org/way> ;
         [ ],
         [ ],
         [ ] ;
-    ns2:highway "services" .
+    ns4:highway "services" .
 
-ns3:64083386 a <https://www.openstreetmap.org/way> ;
+ns2:64083386 a <https://www.openstreetmap.org/way> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmway_64083386> ;
-    ns1:sfIntersects ns12:10570555,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18391,
-        ns12:2151656,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:889341190 ;
-    ns5:area 247.881 ;
-    ns5:facts 7 ;
-    ns5:length 72.26 ;
-    ns14:wikidata <http://www.wikidata.org/entity/Q60832377> ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/78394184> ;
-    ns4:timestamp "2019-12-13T22:03:45"^^xsd:dateTime ;
-    ns4:uid 43207 ;
-    ns4:user "kdkeller" ;
-    ns4:version 7 ;
-    ns3:member [ ],
+    ns1:sfIntersects ns15:10570555,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18391,
+        ns15:2151656,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:889341190 ;
+    ns3:area 247.881 ;
+    ns3:facts 7 ;
+    ns3:length 72.26 ;
+    ns10:wikidata <http://www.wikidata.org/entity/Q60832377> ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/78394184> ;
+    ns5:timestamp "2019-12-13T22:03:45"^^xsd:dateTime ;
+    ns5:uid 43207 ;
+    ns5:user "kdkeller" ;
+    ns5:version 7 ;
+    ns2:member [ ],
         [ ],
         [ ],
         [ ],
@@ -1419,55 +1449,55 @@ ns3:64083386 a <https://www.openstreetmap.org/way> ;
         [ ],
         [ ],
         [ ] ;
-    ns2:building "yes" ;
-    ns2:name "Musée Maillol" ;
-    ns9:de "Museum Maillol" ;
-    ns2:source "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010" ;
-    ns2:tourism "museum" ;
-    ns2:wikidata "Q60832377" .
+    ns4:building "yes" ;
+    ns4:name "Musée Maillol" ;
+    ns8:de "Museum Maillol" ;
+    ns4:source "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010" ;
+    ns4:tourism "museum" ;
+    ns4:wikidata "Q60832377" .
 
-ns3:64085006 a <https://www.openstreetmap.org/way> ;
+ns2:64085006 a <https://www.openstreetmap.org/way> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmway_64085006> ;
-    ns1:sfIntersects ns12:10570555,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18391,
-        ns12:2151652,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:64083320,
-        ns3:64084125,
-        ns3:64085294,
-        ns3:889341190,
-        ns3:988268189,
-        ns3:988268191 ;
-    ns1:sfTouches ns3:64083320,
-        ns3:64084125,
-        ns3:64085294,
-        ns3:988268189,
-        ns3:988268191 ;
-    ns5:area 752.624 ;
-    ns5:facts 10 ;
-    ns5:length 128.75 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/135545674> ;
-    ns4:timestamp "2023-04-30T17:02:30"^^xsd:dateTime ;
-    ns4:uid 224440 ;
-    ns4:user "Syl" ;
-    ns4:version 4 ;
-    ns3:member [ ],
+    ns1:sfIntersects ns15:10570555,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18391,
+        ns15:2151652,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:64083320,
+        ns2:64084125,
+        ns2:64085294,
+        ns2:889341190,
+        ns2:988268189,
+        ns2:988268191 ;
+    ns1:sfTouches ns2:64083320,
+        ns2:64084125,
+        ns2:64085294,
+        ns2:988268189,
+        ns2:988268191 ;
+    ns3:area 752.624 ;
+    ns3:facts 10 ;
+    ns3:length 128.75 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/135545674> ;
+    ns5:timestamp "2023-04-30T17:02:30"^^xsd:dateTime ;
+    ns5:uid 224440 ;
+    ns5:user "Syl" ;
+    ns5:version 4 ;
+    ns2:member [ ],
         [ ],
         [ ],
         [ ],
@@ -1480,52 +1510,52 @@ ns3:64085006 a <https://www.openstreetmap.org/way> ;
         [ ],
         [ ],
         [ ] ;
-    ns13:city "Banyuls-sur-Mer" ;
-    ns13:housenumber "1" ;
-    ns13:postcode "66650" ;
-    ns13:street "Avenue Pierre Fabre" ;
-    ns2:building "yes" ;
+    ns7:city "Banyuls-sur-Mer" ;
+    ns7:housenumber "1" ;
+    ns7:postcode "66650" ;
+    ns7:street "Avenue Pierre Fabre" ;
+    ns4:building "yes" ;
     ns17:levels "3" ;
-    ns2:name "Biodiversarium" ;
-    ns2:source "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010" ;
-    ns2:tourism "aquarium" ;
-    ns2:website "http://www.biodiversarium.fr/" .
+    ns4:name "Biodiversarium" ;
+    ns4:source "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010" ;
+    ns4:tourism "aquarium" ;
+    ns4:website "http://www.biodiversarium.fr/" .
 
-ns3:64787428 a <https://www.openstreetmap.org/way> ;
+ns2:64787428 a <https://www.openstreetmap.org/way> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmway_64787428> ;
-    ns1:sfIntersects ns12:10570555,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18391,
-        ns12:2151653,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:8643,
-        ns3:1424249132,
-        ns3:889341190 ;
-    ns5:area 2201.39 ;
-    ns5:facts 13 ;
-    ns5:length 206.9 ;
-    ns6:wikidata <http://www.wikidata.org/entity/Q2689639> ;
-    ns6:wikipedia <https://fr.wikipedia.org/wiki/Carrefour%20Market> ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/165416649> ;
-    ns4:timestamp "2025-04-25T10:25:14"^^xsd:dateTime ;
-    ns4:uid 1722488 ;
-    ns4:user "Mateusz Konieczny" ;
-    ns4:version 10 ;
-    ns3:member [ ],
+    ns1:sfIntersects ns15:10570555,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18391,
+        ns15:2151653,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:8643,
+        ns2:1424249132,
+        ns2:889341190 ;
+    ns3:area 2201.39 ;
+    ns3:facts 13 ;
+    ns3:length 206.9 ;
+    ns13:wikidata <http://www.wikidata.org/entity/Q2689639> ;
+    ns13:wikipedia <https://fr.wikipedia.org/wiki/Carrefour%20Market> ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/165416649> ;
+    ns5:timestamp "2025-04-25T10:25:14"^^xsd:dateTime ;
+    ns5:uid 1722488 ;
+    ns5:user "Mateusz Konieczny" ;
+    ns5:version 10 ;
+    ns2:member [ ],
         [ ],
         [ ],
         [ ],
@@ -1542,19 +1572,19 @@ ns3:64787428 a <https://www.openstreetmap.org/way> ;
         [ ],
         [ ],
         [ ] ;
-    ns2:brand "Carrefour Market" ;
-    ns7:wikidata "Q2689639" ;
-    ns7:wikipedia "fr:Carrefour Market" ;
-    ns2:building "retail" ;
-    ns2:name "Carrefour Market" ;
-    ns2:opening_hours "Mo-Sa 09:00-20:00; Su 09:00-13:00" ;
-    ns2:operator "Carrefour" ;
-    ns2:phone "+33 4 68 88 51 52" ;
-    ns2:shop "supermarket" ;
-    ns2:source "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010" ;
-    ns2:website "https://www.carrefour.fr/magasin/market-banyuls-sur-mer" .
+    ns4:brand "Carrefour Market" ;
+    ns9:wikidata "Q2689639" ;
+    ns9:wikipedia "fr:Carrefour Market" ;
+    ns4:building "retail" ;
+    ns4:name "Carrefour Market" ;
+    ns4:opening_hours "Mo-Sa 09:00-20:00; Su 09:00-13:00" ;
+    ns4:operator "Carrefour" ;
+    ns4:phone "+33 4 68 88 51 52" ;
+    ns4:shop "supermarket" ;
+    ns4:source "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010" ;
+    ns4:website "https://www.carrefour.fr/magasin/market-banyuls-sur-mer" .
 
-ns3:824227244 a <https://www.openstreetmap.org/way> ;
+ns2:824227244 a <https://www.openstreetmap.org/way> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmway_824227244> ;
     ns1:sfContains <https://www.openstreetmap.org/node/8969184702>,
         <https://www.openstreetmap.org/node/8969184704>,
@@ -1571,59 +1601,59 @@ ns3:824227244 a <https://www.openstreetmap.org/way> ;
         <https://www.openstreetmap.org/node/8969184705>,
         <https://www.openstreetmap.org/node/8969184706>,
         <https://www.openstreetmap.org/node/8969184707>,
-        ns12:10570555,
-        ns12:11278320,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:1403916,
-        ns12:16467322,
-        ns12:16819467,
-        ns12:18391,
-        ns12:1895453,
-        ns12:2202162,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:82629,
-        ns12:8643,
-        ns12:9287303,
-        ns12:9300027,
-        ns3:169265633,
-        ns3:25100194,
-        ns3:889341190 ;
-    ns1:sfTouches ns12:10570555,
-        ns12:11745120,
-        ns12:11747082,
-        ns12:13433228,
-        ns12:16467322,
-        ns12:18391,
-        ns12:2500328,
-        ns12:25884,
-        ns12:2767883,
-        ns12:2929099,
-        ns12:3792883,
-        ns12:4615586,
-        ns12:5962788,
-        ns12:7466,
-        ns12:82629,
-        ns12:8643,
-        ns3:169265633,
-        ns3:25100194 ;
-    ns5:area 15125.7 ;
-    ns5:facts 6 ;
-    ns5:length 692.08 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/108958259> ;
-    ns4:timestamp "2021-07-31T21:46:56"^^xsd:dateTime ;
-    ns4:uid 11579673 ;
-    ns4:user "LySioS" ;
-    ns4:version 3 ;
-    ns3:member [ ],
+        ns15:10570555,
+        ns15:11278320,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:1403916,
+        ns15:16467322,
+        ns15:16819467,
+        ns15:18391,
+        ns15:1895453,
+        ns15:2202162,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:82629,
+        ns15:8643,
+        ns15:9287303,
+        ns15:9300027,
+        ns2:169265633,
+        ns2:25100194,
+        ns2:889341190 ;
+    ns1:sfTouches ns15:10570555,
+        ns15:11745120,
+        ns15:11747082,
+        ns15:13433228,
+        ns15:16467322,
+        ns15:18391,
+        ns15:2500328,
+        ns15:25884,
+        ns15:2767883,
+        ns15:2929099,
+        ns15:3792883,
+        ns15:4615586,
+        ns15:5962788,
+        ns15:7466,
+        ns15:82629,
+        ns15:8643,
+        ns2:169265633,
+        ns2:25100194 ;
+    ns3:area 15125.7 ;
+    ns3:facts 6 ;
+    ns3:length 692.08 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/108958259> ;
+    ns5:timestamp "2021-07-31T21:46:56"^^xsd:dateTime ;
+    ns5:uid 11579673 ;
+    ns5:user "LySioS" ;
+    ns5:version 3 ;
+    ns2:member [ ],
         [ ],
         [ ],
         [ ],
@@ -1643,53 +1673,53 @@ ns3:824227244 a <https://www.openstreetmap.org/way> ;
         [ ],
         [ ],
         [ ] ;
-    ns2:name "Sentier sous-marin de Banyuls-Cerbère" ;
-    ns2:opening_hours "24/7" ;
-    ns10:type "snorkeling" ;
-    ns2:sport "scuba_diving" ;
-    ns2:tourism "theme_park" ;
-    ns2:website "https://www.banyuls-sur-mer.com/tourisme/decouvrir/la-mer-et-ses-tresors/incontournables-de-la-mediterranee/sentier-sous-marin/" .
+    ns4:name "Sentier sous-marin de Banyuls-Cerbère" ;
+    ns4:opening_hours "24/7" ;
+    ns24:type "snorkeling" ;
+    ns4:sport "scuba_diving" ;
+    ns4:tourism "theme_park" ;
+    ns4:website "https://www.banyuls-sur-mer.com/tourisme/decouvrir/la-mer-et-ses-tresors/incontournables-de-la-mediterranee/sentier-sous-marin/" .
 
-ns3:848853711 a <https://www.openstreetmap.org/way> ;
+ns2:848853711 a <https://www.openstreetmap.org/way> ;
     geo:hasGeometry <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmway_848853711> ;
-    ns1:sfContains ns12:11640793,
-        ns3:450795777,
-        ns3:620495696,
-        ns3:848853713,
-        ns3:848853714 ;
-    ns1:sfCovers ns12:11640793,
-        ns3:450795777,
-        ns3:620495696,
-        ns3:848853713,
-        ns3:848853714 ;
-    ns1:sfIntersects ns12:10548036,
-        ns12:11640793,
-        ns12:11746917,
-        ns12:11747082,
-        ns12:1311341,
-        ns12:16819467,
-        ns12:17506020,
-        ns12:2177382,
-        ns12:2909262,
-        ns12:344928,
-        ns12:349023,
-        ns12:349053,
-        ns12:3870917,
-        ns12:6491134,
-        ns3:450795777,
-        ns3:620495696,
-        ns3:848853713,
-        ns3:848853714,
-        ns3:889341190 ;
-    ns5:area 12331.5 ;
-    ns5:facts 7 ;
-    ns5:length 630.8 ;
-    ns4:changeset <https://www.openstreetmap.org/changeset/91109400> ;
-    ns4:timestamp "2020-09-18T11:24:09"^^xsd:dateTime ;
-    ns4:uid 7543375 ;
-    ns4:user "kapazao" ;
-    ns4:version 1 ;
-    ns3:member [ ],
+    ns1:sfContains ns15:11640793,
+        ns2:450795777,
+        ns2:620495696,
+        ns2:848853713,
+        ns2:848853714 ;
+    ns1:sfCovers ns15:11640793,
+        ns2:450795777,
+        ns2:620495696,
+        ns2:848853713,
+        ns2:848853714 ;
+    ns1:sfIntersects ns15:10548036,
+        ns15:11640793,
+        ns15:11746917,
+        ns15:11747082,
+        ns15:1311341,
+        ns15:16819467,
+        ns15:17506020,
+        ns15:2177382,
+        ns15:2909262,
+        ns15:344928,
+        ns15:349023,
+        ns15:349053,
+        ns15:3870917,
+        ns15:6491134,
+        ns2:450795777,
+        ns2:620495696,
+        ns2:848853713,
+        ns2:848853714,
+        ns2:889341190 ;
+    ns3:area 12331.5 ;
+    ns3:facts 7 ;
+    ns3:length 630.8 ;
+    ns5:changeset <https://www.openstreetmap.org/changeset/91109400> ;
+    ns5:timestamp "2020-09-18T11:24:09"^^xsd:dateTime ;
+    ns5:uid 7543375 ;
+    ns5:user "kapazao" ;
+    ns5:version 1 ;
+    ns2:member [ ],
         [ ],
         [ ],
         [ ],
@@ -1712,13 +1742,13 @@ ns3:848853711 a <https://www.openstreetmap.org/way> ;
         [ ],
         [ ],
         [ ] ;
-    ns2:email "info@kartingroses.com" ;
-    ns2:fee "yes" ;
-    ns2:leisure "sports_centre" ;
-    ns2:name "Karting Roses" ;
-    ns2:phone "+34 972 25 41 03;+34 653 80 51 86" ;
-    ns2:sport "karting" ;
-    ns2:website "https://kartingroses.com" .
+    ns4:email "info@kartingroses.com" ;
+    ns4:fee "yes" ;
+    ns4:leisure "sports_centre" ;
+    ns4:name "Karting Roses" ;
+    ns4:phone "+34 972 25 41 03;+34 653 80 51 86" ;
+    ns4:sport "karting" ;
+    ns4:website "https://kartingroses.com" .
 
 <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_10056859066> geo:asWKT "POINT(3.128286 42.481763)"^^geo:wktLiteral .
 
@@ -1731,6 +1761,8 @@ ns3:848853711 a <https://www.openstreetmap.org/way> ;
 <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_12132018552> geo:asWKT "POINT(3.165083 42.441498)"^^geo:wktLiteral .
 
 <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_1316962916> geo:asWKT "POINT(3.165172 42.441586)"^^geo:wktLiteral .
+
+<https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_1818267005> geo:asWKT "POINT(3.149245 42.403508)"^^geo:wktLiteral .
 
 <https://osm2rdf.cs.uni-freiburg.de/rdf/geom#osmnode_tagged_1996185459> geo:asWKT "POINT(3.314802 42.318920)"^^geo:wktLiteral .
 
