@@ -1,0 +1,35 @@
+{
+  "beaches": [
+    "beaches/IMG_20250407_071441.jpg"
+  ],
+  "interior": [
+    "interior/huis1.jpg",
+    "interior/huis2.jpg",
+    "interior/huis3.jpg",
+    "interior/huis4.jpg",
+    "interior/huis5.jpg",
+    "interior/huis6.jpg"
+  ],
+  "nearby": [
+    "nearby/IMG_20240213_172248.jpg",
+    "nearby/IMG_20241226_122447.jpg",
+    "nearby/IMG_20250102_081722.jpg",
+    "nearby/WhatsApp Image 2025-11-23 at 10.33.52 (11).png",
+    "nearby/WhatsApp Image 2025-11-23 at 10.33.52 (12).png",
+    "nearby/WhatsApp Image 2025-11-23 at 10.33.52 (7).png"
+  ],
+  "underwater": [
+    "underwater/_4072115.jpeg"
+  ],
+  "walks": [
+    "walks/02092288.jpeg",
+    "walks/P4133920.jpeg",
+    "walks/P4133922.jpeg",
+    "walks/WhatsApp Image 2025-11-23 at 10.33.51.png",
+    "walks/WhatsApp Image 2025-11-23 at 10.33.52 (10).png",
+    "walks/WhatsApp Image 2025-11-23 at 10.33.52 (5).png",
+    "walks/WhatsApp Image 2025-11-23 at 10.33.52 (8).png",
+    "walks/WhatsApp Image 2025-11-23 at 10.33.52 (9).png",
+    "walks/WhatsApp Image 2025-11-23 at 10.33.52.jpeg"
+  ]
+}

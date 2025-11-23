@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Front de Mer Gallery</title>
+<style>
+body { font-family:'Helvetica Neue',Arial,sans-serif; margin:0; padding:0; color:#333; line-height:1.6; }
+h1,h2 { color:#2E8B57; text-align:center; }
+a { text-decoration:none; color:inherit; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:1.5rem; margin:2rem; }
+.gallery img { width:100%; height:200px; object-fit:cover; border-radius:8px; transition: transform 0.3s; cursor:pointer; }
+.gallery img:hover { transform: scale(1.05); }
+
+/* Header */
+header { background:#2E8B57; color:white; text-align:center; padding:2rem 1rem; }
+header a { color:white; font-weight:bold; margin:0 1rem; transition:0.3s; }
+header a:hover { color:#FFD700; }
+
+/* Footer */
+footer { background:#2E8B57; color:white; text-align:center; padding:1.5rem; }
+
+/* Lightbox */
+#lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:1000; }
+#lightbox img { max-width:90%; max-height:90%; border-radius:8px; }
+#lightbox .close, #lightbox .prev, #lightbox .next {
+  position:absolute; color:white; font-size:2rem; font-weight:bold; cursor:pointer; user-select:none;
+}
+#lightbox .close { top:20px; right:30px; }
+#lightbox .prev { top:50%; left:30px; transform:translateY(-50%); }
+#lightbox .next { top:50%; right:30px; transform:translateY(-50%); }
+</style>
+</head>
+<body>
+
+<header>
+<h1>Front de Mer - Gallery</h1>
+<nav>
+<a href="../index.html">Back to Home</a>
+</nav>
+</header>
+
+<main id="gallery-container"></main>
+
+<!-- Lightbox modal -->
+<div id="lightbox">
+  <span class="close">&times;</span>
+  <span class="prev">&#10094;</span>
+  <img src="">
+  <span class="next">&#10095;</span>
+</div>
+
+<footer>
+<p>&copy; 2025 Front de Mer, Cerbère</p>
+</footer>
+
+<script>
+let galleryImages = [];
+let currentIndex = 0;
+
+function openLightbox(index) {
+  currentIndex = index;
+  const lightbox = document.getElementById('lightbox');
+  lightbox.querySelector('img').src = galleryImages[currentIndex];
+  lightbox.style.display = 'flex';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+}
+
+function showNext() {
+  currentIndex = (currentIndex + 1) % galleryImages.length;
+  document.getElementById('lightbox').querySelector('img').src = galleryImages[currentIndex];
+}
+
+function showPrev() {
+  currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+  document.getElementById('lightbox').querySelector('img').src = galleryImages[currentIndex];
+}
+
+// Lightbox events
+document.querySelector('#lightbox .close').onclick = closeLightbox;
+document.querySelector('#lightbox .next').onclick = showNext;
+document.querySelector('#lightbox .prev').onclick = showPrev;
+document.getElementById('lightbox').onclick = function(e) {
+  if (e.target === this) closeLightbox();
+};
+
+// Load gallery from JSON
+fetch('images.json')
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById('gallery-container');
+    for (const category in data) {
+      const h2 = document.createElement('h2');
+      h2.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+      container.appendChild(h2);
+
+      const div = document.createElement('div');
+      div.className = 'gallery';
+
+      data[category].forEach(imgPath => {
+        const img = document.createElement('img');
+        const fullPath = `images/${imgPath}`;
+        galleryImages.push(fullPath);
+        const imgIndex = galleryImages.length - 1;
+
+        img.src = fullPath;
+        img.alt = category;
+        img.onclick = () => openLightbox(imgIndex);
+        div.appendChild(img);
+      });
+
+      container.appendChild(div);
+    }
+  })
+  .catch(err => console.error("Failed to load gallery:", err));
+</script>
+
+</body>
+</html>
