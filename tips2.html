@@ -8,21 +8,20 @@
 <link href='https://api.mapbox.com/mapbox-gl-js/v3.17.0-beta.1/mapbox-gl.css' rel='stylesheet' />
 
 <style>
-body { margin:0; font-family:Arial,sans-serif; color:#333; }
-header { background:#2E8B57; color:white; padding:1rem; text-align:center; }
+body { margin:0; font-family:Arial,sans-serif; color:#333; height:100vh; display:flex; flex-direction:column; }
+header { background:#2E8B57; color:white; padding:1rem; text-align:center; flex-shrink:0; }
 .lang-btn { margin:0 0.5rem; padding:0.4rem 0.8rem; border:none; border-radius:4px; cursor:pointer; font-weight:bold; }
 .lang-btn:hover { background:#fff; color:#2E8B57; }
-#map { width:100%; height:500px; }
-ul { list-style-type:none; margin:0 2rem; padding:0; }
-li { cursor:pointer; margin:0.5rem 0; display:flex; align-items:center; }
-.type-heading { font-weight:bold; font-size:1.2rem; margin-top:1.5rem; color:#2E8B57; border-bottom:1px solid #ccc; padding-bottom:0.2rem; }
-li span.circle {
-  display:inline-block;
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  margin-right:8px;
-}
+
+.main { display:flex; flex:1; overflow:hidden; }
+#sidebar { width:300px; overflow-y:auto; padding:1rem; background:#f9f9f9; border-right:1px solid #ddd; }
+#map { flex:1; }
+
+ul { list-style-type:none; margin:0; padding:0; }
+li { cursor:pointer; margin:0.3rem 0; padding:0.2rem 0.5rem; border-radius:3px; }
+li:hover { background:#eee; }
+
+.type-heading { font-weight:bold; margin-top:1rem; font-size:1.1rem; text-transform:capitalize; }
 </style>
 </head>
 <body>
@@ -32,10 +31,10 @@ li span.circle {
   <button class="lang-btn" onclick="showLang('en')">EN</button>
 </header>
 
-<div id="map"></div>
-
-<h2 style="margin-left:2rem;">Locations</h2>
-<div id="tips-list"></div>
+<div class="main">
+  <div id="sidebar"></div>
+  <div id="map"></div>
+</div>
 
 <script src='https://api.mapbox.com/mapbox-gl-js/v3.17.0-beta.1/mapbox-gl.js'></script>
 <script src="https://unpkg.com/n3@1.17.3/browser/n3.min.js"></script>
@@ -51,7 +50,6 @@ const map = new mapboxgl.Map({
     center: [3.164, 42.440],
     zoom: 13
 });
-
 map.markers = [];
 let currentLang = 'en';
 
@@ -77,15 +75,13 @@ async function loadRdf() {
   }
 }
 
-// Extract features from RDF store
+// Extract features
 function extractFeaturesFromStore(store) {
   const features = [];
-
   const quadsHasGeom = store.getQuads(null, GEO + 'hasGeometry', null, null);
   for (const q of quadsHasGeom) {
     const subject = q.subject;
     const geom = q.object;
-
     const wktQuad = store.getQuads(geom, GEO + 'asWKT', null, null)[0];
     if (!wktQuad) continue;
 
@@ -103,46 +99,30 @@ function extractFeaturesFromStore(store) {
 
     let type = 'poi';
     if (shop) type = 'shop';
-    else if (tourism === 'museum') type = 'museum';
-    else if (leisure === 'sports_centre') type = 'sports';
-    else if (tourism === 'restaurant') type = 'restaurant';
-    else if (tourism === 'hotel') type = 'hotel';
+    else if (tourism) type = tourism;
+    else if (leisure) type = leisure;
 
-    features.push({
-      uri: subject.value,
-      coords,
-      label,
-      type
-    });
+    features.push({uri: subject.value, coords, label, type});
   }
-
   return features;
 }
 
-function firstValue(quads) {
-  return quads.length ? quads[0].object.value : null;
-}
-
-// Parse WKT (POINT and POLYGON)
+function firstValue(quads) { return quads.length ? quads[0].object.value : null; }
 function parseWKT(wkt) {
   let match = /POINT\s*\(\s*([0-9.\-]+)\s+([0-9.\-]+)\s*\)/i.exec(wkt);
   if (match) return [parseFloat(match[1]), parseFloat(match[2])];
-
   match = /POLYGON\s*\(\(([\d.,\s\-]+)\)\)/i.exec(wkt);
   if (match) {
     const coords = match[1].split(',')[0].trim().split(' ');
     return [parseFloat(coords[0]), parseFloat(coords[1])];
   }
-
   return null;
 }
 
-// Render features
+// Render features with sidebar interaction
 function renderFeatures(features) {
-  const container = document.getElementById('tips-list');
+  const container = document.getElementById('sidebar');
   container.innerHTML = '';
-
-  // Clear old markers
   map.markers.forEach(m => m.remove());
   map.markers = [];
 
@@ -151,49 +131,49 @@ function renderFeatures(features) {
   for (const type in grouped) {
     const heading = document.createElement('div');
     heading.className = 'type-heading';
-    heading.textContent = type.toUpperCase();
+    heading.textContent = type; // keep OSM value as heading
     container.appendChild(heading);
 
     const ul = document.createElement('ul');
     grouped[type].forEach(f => {
       const li = document.createElement('li');
-
-      const circle = document.createElement('span');
-      circle.className = 'circle';
-      circle.style.backgroundColor = getMarkerColor(f.type);
-
-      li.appendChild(circle);
-      li.appendChild(document.createTextNode(f.label));
-
+      li.textContent = f.label;
       li.dataset.lat = f.coords[1];
       li.dataset.lon = f.coords[0];
-      li.addEventListener('click', () => {
-        map.flyTo({center:f.coords, zoom:15});
-      });
-
-      ul.appendChild(li);
 
       const marker = new mapboxgl.Marker({color:getMarkerColor(f.type)})
         .setLngLat(f.coords)
         .setPopup(new mapboxgl.Popup({offset:25}).setText(f.label))
         .addTo(map);
+
       map.markers.push(marker);
+
+      li.addEventListener('click', () => { map.flyTo({center:f.coords, zoom:15}); });
+
+      // HOVER: label → marker
+      li.addEventListener('mouseenter', () => { marker.getElement().style.transform='scale(1.5)'; marker.getElement().style.zIndex=999; });
+      li.addEventListener('mouseleave', () => { marker.getElement().style.transform='scale(1)'; marker.getElement().style.zIndex=''; });
+
+      // HOVER: marker → label
+      marker.getElement().addEventListener('mouseenter', () => { li.style.backgroundColor='#ffff99'; li.style.fontWeight='bold'; });
+      marker.getElement().addEventListener('mouseleave', () => { li.style.backgroundColor=''; li.style.fontWeight=''; });
+
+      ul.appendChild(li);
     });
     container.appendChild(ul);
   }
 }
 
-// Group by function
+// Helpers
 function groupBy(array, keyFn) {
   return array.reduce((acc, item) => {
     const key = keyFn(item);
-    if (!acc[key]) acc[key] = [];
+    if (!acc[key]) acc[key]=[];
     acc[key].push(item);
     return acc;
   }, {});
 }
 
-// Marker colors
 function getMarkerColor(type){
   switch(type){
     case 'hotel': return 'purple';
@@ -205,11 +185,7 @@ function getMarkerColor(type){
   }
 }
 
-// Language placeholder
-function showLang(lang){
-  currentLang = lang;
-  console.log("Language switched to:", lang);
-}
+function showLang(lang){ currentLang = lang; console.log("Language switched to:", lang); }
 
 // Start
 loadRdf();
