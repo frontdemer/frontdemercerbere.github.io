@@ -15,65 +15,37 @@ header h1 { font-size:3rem; text-shadow:2px 2px 8px rgba(0,0,0,0.6); margin:0.5r
 .lang-btn { margin:0 0.5rem; padding:0.4rem 0.8rem; background:rgba(255,255,255,0.8); color:#2E8B57; border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:0.3s; }
 .lang-btn:hover { background:white; }
 
-header {
-  position: relative;
-  height: 80vh;
-  background: url('hero.jpg') center/cover no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  text-align: center;
-}
-
 header::before {
   content: "";
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.5); /* zwarte overlay, 50% transparant */
+  background-color: rgba(0,0,0,0.5);
   z-index: 1;
 }
 
 header h1, header nav, header .lang-btn {
   position: relative;
-  z-index: 2; /* tekst boven overlay */
+  z-index: 2;
 }
 
-
-/* Navigatie */
+/* Navigation */
 nav { margin-top:1rem; }
 nav a { margin:0 1rem; font-weight:bold; cursor:pointer; transition:0.3s; }
 nav a:hover { color:#FFD700; }
 
-/* Secties */
+/* Sections */
 section { padding:4rem 2rem; max-width:1000px; margin:auto; }
 section h2 { text-align:center; margin-bottom:2rem; color:#2E8B57; }
 
-/* Grid fotogalerij */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.gallery img {
-  width: 100%;
-  height: 200px;       /* vaste hoogte voor consistente rijen */
-  object-fit: cover;   /* vult volledig het kader, snijdt bij indien nodig */
-  border-radius: 8px;
-  transition: transform 0.3s;
-}
-
-.gallery img:hover {
-  transform: scale(1.05);
-}
+/* Buttons for external pages */
+.page-btn { display:inline-block; padding:0.6rem 1.2rem; background:#2E8B57; color:white; border-radius:5px; font-weight:bold; text-align:center; margin:0.5rem; transition:0.3s; }
+.page-btn:hover { background:#3CB371; }
 
 /* Footer */
 footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5rem; }
 
-/* Verborgen taal-secties */
+/* Hidden language sections */
 .hidden { display:none; }
 
 /* Responsive hero text */
@@ -91,9 +63,9 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 </div>
 <nav>
 <a onclick="scrollToSection('over')">Over / À propos / About</a>
-<a onclick="scrollToSection('galerij')">Galerij / Galerie / Gallery</a>
 <a onclick="scrollToSection('prijzen')">Prijzen / Tarifs / Prices</a>
 <a onclick="scrollToSection('reservering')">Reserveren / Réserver / Book</a>
+<a onclick="scrollToSection('tips')">Tips & Activiteiten / Activités / Tips</a>
 <a onclick="scrollToSection('contact')">Contact</a>
 </nav>
 </header>
@@ -102,17 +74,6 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 <section id="over-nl" class="lang-section">
 <h2>Over het huis</h2>
 <p>Ons vakantiehuis <strong>Front de Mer</strong> ligt direct aan zee in Cerbère. Het huis beschikt over 3 slaapkamers, een ruime woonkamer, volledig uitgeruste keuken en zonnige tuin met uitzicht op het water.</p>
-</section>
-
-<section id="galerij-nl" class="lang-section">
-<h2>Galerij</h2>
-<div class="gallery">
-<img src="huis1.jpg" alt="Woonkamer Front de Mer">
-<img src="huis2.jpg" alt="Tuin Front de Mer">
-<img src="huis3.jpg" alt="Slaapkamer Front de Mer">
-<img src="huis4.jpg" alt="Strand voor het huis">
-<img src="huis5.jpg" alt="Uitzicht op zee">
-</div>
 </section>
 
 <section id="prijzen-nl" class="lang-section">
@@ -130,36 +91,30 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 <p>Kies een week en vul uw gegevens in om een reservering aan te vragen.</p>
 <form id="form-nl" onsubmit="return sendMail('nl')" style="display:flex; flex-direction:column; max-width:400px; margin:auto;">
 <label for="week-nl">Kies uw week:</label>
-<select id="week-nl" required style="padding:0.5rem; margin:0.5rem 0;">
-<option value="">-- Selecteer een week --</option>
-</select>
+<select id="week-nl" required style="padding:0.5rem; margin:0.5rem 0;"></select>
 <input type="text" id="name-nl" placeholder="Uw naam" required style="padding:0.5rem; margin:0.5rem 0;">
 <input type="email" id="email-nl" placeholder="Uw e-mail" required style="padding:0.5rem; margin:0.5rem 0;">
 <textarea id="message-nl" placeholder="Extra info / Opmerkingen" rows="4" style="padding:0.5rem; margin:0.5rem 0;"></textarea>
-<button type="submit" style="padding:0.6rem; background:#2E8B57; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-top:0.5rem;">Verstuur</button>
+<button type="submit" class="page-btn">Verstuur</button>
 </form>
+</section>
+
+<section id="tips-nl" class="lang-section">
+<h2>Tips & Activiteiten</h2>
+<p>Bekijk onze aanbevolen plekken en activiteiten in Cerbère.</p>
+<a href="tips.html" class="page-btn">Open Tips & Map</a>
 </section>
 
 <section id="contact-nl" class="lang-section">
 <h2>Contact</h2>
 <p>Email: <a href="mailto:cerbere@waagmeester.net">cerbere@waagmeester.net</a></p>
+<p>Telefoon: +33 6 12 34 56 78</p>
 </section>
 
 <!-- ====================== Frans ====================== -->
 <section id="over-fr" class="lang-section hidden">
 <h2>À propos de la maison</h2>
 <p>Notre maison de vacances <strong>Front de Mer</strong> est située directement en bord de mer à Cerbère. La maison dispose de 3 chambres, grand salon, cuisine équipée et jardin ensoleillé avec vue sur la mer.</p>
-</section>
-
-<section id="galerij-fr" class="lang-section hidden">
-<h2>Galerie</h2>
-<div class="gallery">
-<img src="huis1.jpg" alt="Salon Front de Mer">
-<img src="huis2.jpg" alt="Jardin Front de Mer">
-<img src="huis3.jpg" alt="Chambre Front de Mer">
-<img src="huis4.jpg" alt="Plage devant la maison">
-<img src="huis5.jpg" alt="Vue sur la mer">
-</div>
 </section>
 
 <section id="prijzen-fr" class="lang-section hidden">
@@ -177,14 +132,18 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 <p>Choisissez une semaine et remplissez vos informations pour réserver.</p>
 <form id="form-fr" onsubmit="return sendMail('fr')" style="display:flex; flex-direction:column; max-width:400px; margin:auto;">
 <label for="week-fr">Choisissez votre semaine :</label>
-<select id="week-fr" required style="padding:0.5rem; margin:0.5rem 0;">
-<option value="">-- Sélectionnez une semaine --</option>
-</select>
+<select id="week-fr" required style="padding:0.5rem; margin:0.5rem 0;"></select>
 <input type="text" id="name-fr" placeholder="Votre nom" required style="padding:0.5rem; margin:0.5rem 0;">
 <input type="email" id="email-fr" placeholder="Votre e-mail" required style="padding:0.5rem; margin:0.5rem 0;">
 <textarea id="message-fr" placeholder="Informations supplémentaires" rows="4" style="padding:0.5rem; margin:0.5rem 0;"></textarea>
-<button type="submit" style="padding:0.6rem; background:#2E8B57; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-top:0.5rem;">Envoyer</button>
+<button type="submit" class="page-btn">Envoyer</button>
 </form>
+</section>
+
+<section id="tips-fr" class="lang-section hidden">
+<h2>Activités & Conseils</h2>
+<p>Découvrez nos endroits et activités recommandés à Cerbère.</p>
+<a href="tips.html" class="page-btn">Ouvrir la carte des activités</a>
 </section>
 
 <section id="contact-fr" class="lang-section hidden">
@@ -197,17 +156,6 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 <section id="over-en" class="lang-section hidden">
 <h2>About the house</h2>
 <p>Our vacation home <strong>Front de Mer</strong> is located directly on the sea in Cerbère. The house has 3 bedrooms, spacious living room, fully equipped kitchen, and sunny garden with sea view.</p>
-</section>
-
-<section id="galerij-en" class="lang-section hidden">
-<h2>Gallery</h2>
-<div class="gallery">
-<img src="huis1.jpg" alt="Living room Front de Mer">
-<img src="huis2.jpg" alt="Garden Front de Mer">
-<img src="huis3.jpg" alt="Bedroom Front de Mer">
-<img src="huis4.jpg" alt="Beach in front of the house">
-<img src="huis5.jpg" alt="Sea view">
-</div>
 </section>
 
 <section id="prijzen-en" class="lang-section hidden">
@@ -225,14 +173,18 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 <p>Select a week and fill in your details to request a booking.</p>
 <form id="form-en" onsubmit="return sendMail('en')" style="display:flex; flex-direction:column; max-width:400px; margin:auto;">
 <label for="week-en">Select your week:</label>
-<select id="week-en" required style="padding:0.5rem; margin:0.5rem 0;">
-<option value="">-- Select a week --</option>
-</select>
+<select id="week-en" required style="padding:0.5rem; margin:0.5rem 0;"></select>
 <input type="text" id="name-en" placeholder="Your name" required style="padding:0.5rem; margin:0.5rem 0;">
 <input type="email" id="email-en" placeholder="Your email" required style="padding:0.5rem; margin:0.5rem 0;">
 <textarea id="message-en" placeholder="Additional info" rows="4" style="padding:0.5rem; margin:0.5rem 0;"></textarea>
-<button type="submit" style="padding:0.6rem; background:#2E8B57; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-top:0.5rem;">Send</button>
+<button type="submit" class="page-btn">Send</button>
 </form>
+</section>
+
+<section id="tips-en" class="lang-section hidden">
+<h2>Tips & Activities</h2>
+<p>Check out our recommended spots and activities in Cerbère.</p>
+<a href="tips.html" class="page-btn">Open Tips & Map</a>
 </section>
 
 <section id="contact-en" class="lang-section hidden">
@@ -250,7 +202,7 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 function showLang(lang) {
 const sections = document.querySelectorAll('.lang-section');
 sections.forEach(sec => sec.classList.add('hidden'));
-const visibleSections = document.querySelectorAll(`#over-${lang}, #galerij-${lang}, #prijzen-${lang}, #reservering-${lang}, #contact-${lang}`);
+const visibleSections = document.querySelectorAll(`#over-${lang}, #prijzen-${lang}, #reservering-${lang}, #tips-${lang}, #contact-${lang}`);
 visibleSections.forEach(sec => sec.classList.remove('hidden'));
 }
 function scrollToSection(id) {
