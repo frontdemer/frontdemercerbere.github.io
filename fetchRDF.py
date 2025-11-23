@@ -51,7 +51,17 @@ OSM_IDS = [
     "https://www.openstreetmap.org/relation/3632680",
     "https://www.openstreetmap.org/node/9754835116",
     "https://www.openstreetmap.org/node/10846096782",
-    "https://www.openstreetmap.org/node/12132018552"
+    "https://www.openstreetmap.org/node/12132018552",
+    "https://www.openstreetmap.org/way/64085006",
+    "https://www.openstreetmap.org/node/1316962916",
+    "https://www.openstreetmap.org/relation/18986764",
+    "https://www.openstreetmap.org/node/8589012197",
+    "https://www.openstreetmap.org/node/10056859066",
+    "https://www.openstreetmap.org/way/64787428",
+    "https://www.openstreetmap.org/way/589961343",
+    "https://www.openstreetmap.org/node/839474180",
+    "https://www.openstreetmap.org/node/9250342945",
+    "https://www.openstreetmap.org/node/839470824"
 
     # add more if you like
 ]
