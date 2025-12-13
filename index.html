@@ -11,7 +11,7 @@ img { max-width:100%; display:block; border-radius:8px; }
 
 /* Header */
 header {
-  background:#2E8B57; /* groene kleur zoals tips.html */
+  background:#2E8B57;
   color:white;
   padding:1rem;
   text-align:center;
@@ -114,11 +114,12 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 
 <section id="prijzen-nl" class="lang-section">
 <h2>Prijzen & Beschikbaarheid</h2>
+<p>Dag- en weektarieven, <strong>exclusief toeristenbelasting</strong>:</p>
 <table style="width:100%; border-collapse:collapse; margin:auto;">
-<tr style="background:#2E8B57; color:white;"><th>Seizoen</th><th>Prijs per week</th></tr>
-<tr><td>Laagseizoen (Jan - Mrt, Okt - Dec)</td><td>€700</td></tr>
-<tr><td>Middenseizoen (Apr - Jun, Sep)</td><td>€1.100</td></tr>
-<tr><td>Hoogseizoen (Jul - Aug)</td><td>€1.800</td></tr>
+<tr style="background:#2E8B57; color:white;"><th>Seizoen</th><th>Dagprijs</th><th>Weekprijs</th></tr>
+<tr><td>Laagseizoen (Jan - Mrt, Okt - Dec)</td><td>€100</td><td>€700</td></tr>
+<tr><td>Middenseizoen (Apr - Jun, Sep)</td><td>€130</td><td>€900</td></tr>
+<tr><td>Hoogseizoen (Jul - Aug)</td><td>€160</td><td>€1.200</td></tr>
 </table>
 </section>
 
@@ -169,6 +170,17 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 <a href="tips.html" class="page-link">Voir Tips & Activities</a>
 </section>
 
+<section id="prijzen-fr" class="lang-section hidden">
+<h2>Tarifs & Disponibilité</h2>
+<p>Tarifs journaliers et hebdomadaires, <strong>hors taxe de séjour</strong> :</p>
+<table style="width:100%; border-collapse:collapse; margin:auto;">
+<tr style="background:#2E8B57; color:white;"><th>Saison</th><th>Prix par jour</th><th>Prix par semaine</th></tr>
+<tr><td>Basse saison (Jan - Mar, Oct - Dec)</td><td>€100</td><td>€700</td></tr>
+<tr><td>Saison moyenne (Avr - Jun, Sep)</td><td>€130</td><td>€900</td></tr>
+<tr><td>Haute saison (Juil - Août)</td><td>€160</td><td>€1.200</td></tr>
+</table>
+</section>
+
 <section id="reservering-fr" class="lang-section hidden">
 <h2>Réservez votre séjour</h2>
 <form id="form-fr" onsubmit="return sendMail('fr')" style="display:flex; flex-direction:column; max-width:400px; margin:auto;">
@@ -209,6 +221,17 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 </div>
 <a href="gallery.html" class="page-link">View all photos</a>
 <a href="tips.html" class="page-link">View Tips & Activities</a>
+</section>
+
+<section id="prijzen-en" class="lang-section hidden">
+<h2>Prices & Availability</h2>
+<p>Daily and weekly rates, <strong>excluding tourist tax</strong>:</p>
+<table style="width:100%; border-collapse:collapse; margin:auto;">
+<tr style="background:#2E8B57; color:white;"><th>Season</th><th>Day price</th><th>Week price</th></tr>
+<tr><td>Low season (Jan - Mar, Oct - Dec)</td><td>€100</td><td>€700</td></tr>
+<tr><td>Mid season (Apr - Jun, Sep)</td><td>€130</td><td>€900</td></tr>
+<tr><td>High season (Jul - Aug)</td><td>€160</td><td>€1.200</td></tr>
+</table>
 </section>
 
 <section id="reservering-en" class="lang-section hidden">
