@@ -9,22 +9,34 @@ body { font-family:'Helvetica Neue',Arial,sans-serif; margin:0; padding:0; color
 a { text-decoration:none; color: inherit; }
 img { max-width:100%; display:block; border-radius:8px; }
 
-/* Header / Hero */
-header { position:relative; height:80vh; background:url('hero.jpg') center/cover no-repeat; display:flex; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center; }
-header::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 1;
+/* Header */
+header {
+  background:#2E8B57;       /* same green as tips.html */
+  color:white;
+  padding:1rem;
+  text-align:center;
 }
-header h1, header nav, header .lang-btn {
-  position: relative; z-index: 2;
+
+header h1 {
+  margin:0.5rem;
+  font-size:2rem;           /* slightly smaller than hero version */
 }
-header h1 { font-size:3rem; text-shadow:2px 2px 8px rgba(0,0,0,0.6); margin:0.5rem; }
-.lang-btn { margin:0 0.5rem; padding:0.4rem 0.8rem; background:rgba(255,255,255,0.8); color:#2E8B57; border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:0.3s; }
-.lang-btn:hover { background:white; }
+
+.lang-btn {
+  margin:0 0.5rem;
+  padding:0.4rem 0.8rem;
+  background:rgba(255,255,255,0.8);
+  color:#2E8B57;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+.lang-btn:hover {
+  background:white;
+}
 
 /* Navigatie */
 nav { margin-top:1rem; }
@@ -80,21 +92,21 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 <body>
 
 <header>
-<h1>Front de Mer, Cerbère</h1>
-<div>
-<button class="lang-btn" onclick="showLang('nl')">NL</button>
-<button class="lang-btn" onclick="showLang('fr')">FR</button>
-<button class="lang-btn" onclick="showLang('en')">EN</button>
-</div>
-<nav>
-<a onclick="scrollToSection('over')">Over / À propos / About</a>
-<a onclick="scrollToSection('preview')">Preview</a>
-<a href="gallery.html">Galerij / Galerie / Gallery</a>
-<a href="tips.html">Tips & Activities</a>
-<a onclick="scrollToSection('prijzen')">Prijzen / Tarifs / Prices</a>
-<a onclick="scrollToSection('reservering')">Reserveren / Réserver / Book</a>
-<a onclick="scrollToSection('contact')">Contact</a>
-</nav>
+  <h1>Front de Mer, Cerbère</h1>
+  <div>
+    <button class="lang-btn" onclick="showLang('nl')">NL</button>
+    <button class="lang-btn" onclick="showLang('fr')">FR</button>
+    <button class="lang-btn" onclick="showLang('en')">EN</button>
+  </div>
+  <nav>
+    <a onclick="scrollToSection('over')">Over / À propos / About</a>
+    <a onclick="scrollToSection('preview')">Preview</a>
+    <a href="gallery.html">Galerij / Galerie / Gallery</a>
+    <a href="tips.html">Tips & Activities</a>
+    <a onclick="scrollToSection('prijzen')">Prijzen / Tarifs / Prices</a>
+    <a onclick="scrollToSection('reservering')">Reserveren / Réserver / Book</a>
+    <a onclick="scrollToSection('contact')">Contact</a>
+  </nav>
 </header>
 
 <!-- ====================== Nederlands ====================== -->
