@@ -11,32 +11,17 @@ img { max-width:100%; display:block; border-radius:8px; }
 
 /* Header */
 header {
-  background:#2E8B57;       /* same green as tips.html */
+  background:#2E8B57; /* groene kleur zoals tips.html */
   color:white;
   padding:1rem;
   text-align:center;
 }
-
-header h1 {
-  margin:0.5rem;
-  font-size:2rem;           /* slightly smaller than hero version */
-}
-
+header h1 { margin:0.5rem; font-size:2rem; }
 .lang-btn {
-  margin:0 0.5rem;
-  padding:0.4rem 0.8rem;
-  background:rgba(255,255,255,0.8);
-  color:#2E8B57;
-  border:none;
-  border-radius:4px;
-  cursor:pointer;
-  font-weight:bold;
-  transition:0.3s;
+  margin:0 0.5rem; padding:0.4rem 0.8rem; background:rgba(255,255,255,0.8);
+  color:#2E8B57; border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:0.3s;
 }
-
-.lang-btn:hover {
-  background:white;
-}
+.lang-btn:hover { background:white; }
 
 /* Navigatie */
 nav { margin-top:1rem; }
@@ -47,7 +32,7 @@ nav a:hover { color:#FFD700; }
 section { padding:4rem 2rem; max-width:1000px; margin:auto; }
 section h2 { text-align:center; margin-bottom:2rem; color:#2E8B57; }
 
-/* Preview Grid for Index */
+/* Preview Grid */
 .preview-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -55,10 +40,10 @@ section h2 { text-align:center; margin-bottom:2rem; color:#2E8B57; }
   margin-bottom: 1.5rem;
 }
 .preview-grid img {
-  width: 100%;
+  width:100%;
   aspect-ratio: 4/3;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius:8px;
   transition: transform 0.3s, box-shadow 0.3s;
 }
 .preview-grid img:hover {
@@ -66,16 +51,11 @@ section h2 { text-align:center; margin-bottom:2rem; color:#2E8B57; }
   box-shadow: 0 8px 15px rgba(0,0,0,0.2);
 }
 
+/* Buttons */
 .page-link {
-  display: inline-block;
-  padding: 0.6rem 1rem;
-  background:#2E8B57;
-  color:white;
-  border-radius:4px;
-  font-weight:bold;
-  text-align:center;
-  margin-top:0.5rem;
-  transition:0.3s;
+  display:inline-block; padding:0.6rem 1rem;
+  background:#2E8B57; color:white; border-radius:4px; font-weight:bold;
+  text-align:center; margin-top:0.5rem; transition:0.3s;
 }
 .page-link:hover { background:#1e5c3d; }
 
@@ -84,38 +64,36 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 
 /* Verborgen taal-secties */
 .hidden { display:none; }
-
-/* Responsive hero text */
 @media(max-width:768px){ header h1{ font-size:2rem; } }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Front de Mer, Cerbère</h1>
-  <div>
-    <button class="lang-btn" onclick="showLang('nl')">NL</button>
-    <button class="lang-btn" onclick="showLang('fr')">FR</button>
-    <button class="lang-btn" onclick="showLang('en')">EN</button>
-  </div>
-  <nav>
-    <a onclick="scrollToSection('over')">Over / À propos / About</a>
-    <a onclick="scrollToSection('preview')">Preview</a>
-    <a href="gallery.html">Galerij / Galerie / Gallery</a>
-    <a href="tips.html">Tips & Activities</a>
-    <a onclick="scrollToSection('prijzen')">Prijzen / Tarifs / Prices</a>
-    <a onclick="scrollToSection('reservering')">Reserveren / Réserver / Book</a>
-    <a onclick="scrollToSection('contact')">Contact</a>
-  </nav>
+<h1>Front de Mer, Cerbère</h1>
+<div>
+  <button class="lang-btn" onclick="showLang('nl')">NL</button>
+  <button class="lang-btn" onclick="showLang('fr')">FR</button>
+  <button class="lang-btn" onclick="showLang('en')">EN</button>
+</div>
+<nav>
+  <a onclick="scrollToSection('over')">Over / À propos / About</a>
+  <a onclick="scrollToSection('preview')">Preview</a>
+  <a href="gallery.html">Galerij / Galerie / Gallery</a>
+  <a href="tips.html">Tips & Activities</a>
+  <a onclick="scrollToSection('prijzen')">Prijzen / Tarifs / Prices</a>
+  <a onclick="scrollToSection('reservering')">Reserveren / Réserver / Book</a>
+  <a onclick="scrollToSection('contact')">Contact</a>
+</nav>
 </header>
 
 <!-- ====================== Nederlands ====================== -->
 <section id="over-nl" class="lang-section">
 <h2>Over het huis</h2>
 <p>
-<strong>Front de Mer</strong> ligt direct aan zee in Cerbère en biedt een prachtig uitzicht op het water vanuit alle kamers. Het huis beschikt over 2 comfortabele slaapkamers, een gezellige woonkamer en een volledig uitgeruste keuken. Dankzij de ligging op slechts vier kilometer van de Spaanse grens, kun je tijdens je verblijf gemakkelijk zowel Frankrijk als Spanje verkennen.
-Het vakantiehuis ligt bovendien op slechts vijf minuten van het treinstation, waardoor treinreizen naar nabijgelegen steden snel en eenvoudig zijn. Er zijn ook, zij het infrequente, busverbindingen beschikbaar naar zowel Franse als Spaanse steden, zoals Figueres, Collioure en Perpignan, waardoor uitstapjes en dagtrips goed mogelijk zijn.
-</p></section>
+<strong>Front de Mer</strong> ligt direct aan zee in Cerbère en biedt een prachtig uitzicht op het water vanuit alle kamers. Het huis beschikt over 2 comfortabele slaapkamers, een gezellige woonkamer en een volledig uitgeruste keuken. Dankzij de ligging op slechts vier kilometer van de Spaanse grens, kun je tijdens je verblijf gemakkelijk zowel Frankrijk als Spanje verkennen. Het vakantiehuis ligt bovendien op slechts vijf minuten van het treinstation, waardoor treinreizen naar nabijgelegen steden snel en eenvoudig zijn.
+</p>
+</section>
 
 <section id="preview-nl" class="lang-section">
 <h2>Voorbeeldfoto's</h2>
@@ -147,12 +125,17 @@ Het vakantiehuis ligt bovendien op slechts vijf minuten van het treinstation, wa
 <section id="reservering-nl" class="lang-section">
 <h2>Reserveer uw verblijf</h2>
 <form id="form-nl" onsubmit="return sendMail('nl')" style="display:flex; flex-direction:column; max-width:400px; margin:auto;">
-<label for="week-nl">Kies uw week:</label>
-<select id="week-nl" required style="padding:0.5rem; margin:0.5rem 0;"></select>
-<input type="text" id="name-nl" placeholder="Uw naam" required style="padding:0.5rem; margin:0.5rem 0;">
-<input type="email" id="email-nl" placeholder="Uw e-mail" required style="padding:0.5rem; margin:0.5rem 0;">
-<textarea id="message-nl" placeholder="Extra info / Opmerkingen" rows="4" style="padding:0.5rem; margin:0.5rem 0;"></textarea>
-<button type="submit" style="padding:0.6rem; background:#2E8B57; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-top:0.5rem;">Verstuur</button>
+  <label for="checkin-nl">Aankomstdatum:</label>
+  <input type="date" id="checkin-nl" required style="padding:0.5rem; margin:0.5rem 0;" onchange="setMinCheckout('nl')">
+
+  <label for="checkout-nl">Vertrekdatum:</label>
+  <input type="date" id="checkout-nl" required style="padding:0.5rem; margin:0.5rem 0;">
+
+  <input type="text" id="name-nl" placeholder="Uw naam" required style="padding:0.5rem; margin:0.5rem 0;">
+  <input type="email" id="email-nl" placeholder="Uw e-mail" required style="padding:0.5rem; margin:0.5rem 0;">
+  <textarea id="message-nl" placeholder="Extra info / Opmerkingen" rows="4" style="padding:0.5rem; margin:0.5rem 0;"></textarea>
+
+  <button type="submit" style="padding:0.6rem; background:#2E8B57; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-top:0.5rem;">Verstuur</button>
 </form>
 </section>
 
@@ -165,9 +148,9 @@ Het vakantiehuis ligt bovendien op slechts vijf minuten van het treinstation, wa
 <section id="over-fr" class="lang-section hidden">
 <h2>À propos de la maison</h2>
 <p>
-<strong>Front de Mer</strong> ligt direct aan zee in Cerbère en biedt een prachtig uitzicht op het water vanuit alle kamers. Het huis beschikt over 2 comfortabele slaapkamers, een gezellige woonkamer en een volledig uitgeruste keuken. Dankzij de ligging op slechts vier kilometer van de Spaanse grens, kun je tijdens je verblijf gemakkelijk zowel Frankrijk als Spanje verkennen.
-Het vakantiehuis ligt bovendien op slechts vijf minuten van het treinstation, waardoor treinreizen naar nabijgelegen steden snel en eenvoudig zijn. Er zijn ook, zij het infrequente, busverbindingen beschikbaar naar zowel Franse als Spaanse steden, zoals Figueres, Collioure en Perpignan, waardoor uitstapjes en dagtrips goed mogelijk zijn.
-</p></section>
+<strong>Front de Mer</strong> est situé en bord de mer à Cerbère et offre une belle vue sur l'eau depuis toutes les chambres. La maison dispose de 2 chambres confortables, d'un salon cosy et d'une cuisine entièrement équipée. Grâce à sa proximité avec la frontière espagnole, vous pouvez facilement explorer la France et l'Espagne pendant votre séjour.
+</p>
+</section>
 
 <section id="preview-fr" class="lang-section hidden">
 <h2>Exemples de photos</h2>
@@ -186,13 +169,30 @@ Het vakantiehuis ligt bovendien op slechts vijf minuten van het treinstation, wa
 <a href="tips.html" class="page-link">Voir Tips & Activities</a>
 </section>
 
+<section id="reservering-fr" class="lang-section hidden">
+<h2>Réservez votre séjour</h2>
+<form id="form-fr" onsubmit="return sendMail('fr')" style="display:flex; flex-direction:column; max-width:400px; margin:auto;">
+  <label for="checkin-fr">Date d'arrivée:</label>
+  <input type="date" id="checkin-fr" required style="padding:0.5rem; margin:0.5rem 0;" onchange="setMinCheckout('fr')">
+
+  <label for="checkout-fr">Date de départ:</label>
+  <input type="date" id="checkout-fr" required style="padding:0.5rem; margin:0.5rem 0;">
+
+  <input type="text" id="name-fr" placeholder="Votre nom" required style="padding:0.5rem; margin:0.5rem 0;">
+  <input type="email" id="email-fr" placeholder="Votre e-mail" required style="padding:0.5rem; margin:0.5rem 0;">
+  <textarea id="message-fr" placeholder="Informations supplémentaires" rows="4" style="padding:0.5rem; margin:0.5rem 0;"></textarea>
+
+  <button type="submit" style="padding:0.6rem; background:#2E8B57; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-top:0.5rem;">Envoyer</button>
+</form>
+</section>
+
 <!-- ====================== Engels ====================== -->
 <section id="over-en" class="lang-section hidden">
 <h2>About the house</h2>
 <p>
-<strong>Front de Mer</strong> is located right on the sea in Cerbère, offering beautiful water views from every room. The house has 2 comfortable bedrooms, a cozy living room, and a fully equipped kitchen. Thanks to its location just four kilometers from the Spanish border, you can easily explore both France and Spain during your stay.
-The vacation home is also only five minutes from the train station, making travel to nearby cities quick and easy. Although infrequent, there are also bus connections to both French and Spanish cities, such as Figueres, Collioure, and Perpignan, allowing for convenient day trips and excursions.
-</p></section>
+<strong>Front de Mer</strong> is located right on the sea in Cerbère, offering beautiful water views from every room. The house has 2 comfortable bedrooms, a cozy living room, and a fully equipped kitchen. Thanks to its location near the Spanish border, you can easily explore France and Spain during your stay.
+</p>
+</section>
 
 <section id="preview-en" class="lang-section hidden">
 <h2>Photo preview</h2>
@@ -211,6 +211,23 @@ The vacation home is also only five minutes from the train station, making trave
 <a href="tips.html" class="page-link">View Tips & Activities</a>
 </section>
 
+<section id="reservering-en" class="lang-section hidden">
+<h2>Book your stay</h2>
+<form id="form-en" onsubmit="return sendMail('en')" style="display:flex; flex-direction:column; max-width:400px; margin:auto;">
+  <label for="checkin-en">Check-in date:</label>
+  <input type="date" id="checkin-en" required style="padding:0.5rem; margin:0.5rem 0;" onchange="setMinCheckout('en')">
+
+  <label for="checkout-en">Check-out date:</label>
+  <input type="date" id="checkout-en" required style="padding:0.5rem; margin:0.5rem 0;">
+
+  <input type="text" id="name-en" placeholder="Your name" required style="padding:0.5rem; margin:0.5rem 0;">
+  <input type="email" id="email-en" placeholder="Your email" required style="padding:0.5rem; margin:0.5rem 0;">
+  <textarea id="message-en" placeholder="Extra info / Notes" rows="4" style="padding:0.5rem; margin:0.5rem 0;"></textarea>
+
+  <button type="submit" style="padding:0.6rem; background:#2E8B57; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-top:0.5rem;">Send</button>
+</form>
+</section>
+
 <footer>
 <p>&copy; 2025 Front de Mer, Cerbère</p>
 </footer>
@@ -218,67 +235,55 @@ The vacation home is also only five minutes from the train station, making trave
 <script>
 // ================= Meertaligheid =================
 function showLang(lang) {
-const sections = document.querySelectorAll('.lang-section');
-sections.forEach(sec => sec.classList.add('hidden'));
-const visibleSections = document.querySelectorAll(`#over-${lang}, #preview-${lang}, #prijzen-${lang}, #reservering-${lang}, #contact-${lang}`);
-visibleSections.forEach(sec => sec.classList.remove('hidden'));
+  const sections = document.querySelectorAll('.lang-section');
+  sections.forEach(sec => sec.classList.add('hidden'));
+  const visibleSections = document.querySelectorAll(`#over-${lang}, #preview-${lang}, #prijzen-${lang}, #reservering-${lang}, #contact-${lang}`);
+  visibleSections.forEach(sec => sec.classList.remove('hidden'));
 }
 function scrollToSection(id) {
-const lang = document.querySelector('.lang-section:not(.hidden)').id.split('-')[1];
-const section = document.getElementById(`${id}-${lang}`);
-section.scrollIntoView({behavior:'smooth'});
+  const lang = document.querySelector('.lang-section:not(.hidden)').id.split('-')[1];
+  const section = document.getElementById(`${id}-${lang}`);
+  section.scrollIntoView({behavior:'smooth'});
 }
 
-// ================= Beschikbare weken =================
-const availableWeeks = ["2025-W12","2025-W13","2025-W14","2025-W18","2025-W19","2025-W20","2025-W25","2025-W26","2025-W27","2025-W30","2025-W31","2025-W32"];
-function getDateOfISOWeek(w, y) {
-    const simple = new Date(y,0,1 + (w -1)*7);
-    const dow = simple.getDay();
-    const ISOweekStart = simple;
-    if(dow <=4) ISOweekStart.setDate(simple.getDate() - simple.getDay() +1);
-    else ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
-    return ISOweekStart;
+// ================= Minimaal 2 nachten =================
+function setMinCheckout(lang) {
+  const checkin = document.getElementById(`checkin-${lang}`);
+  const checkout = document.getElementById(`checkout-${lang}`);
+  if(checkin.value){
+    const minDate = new Date(checkin.value);
+    minDate.setDate(minDate.getDate()+2);
+    checkout.min = minDate.toISOString().split('T')[0];
+    if(!checkout.value || new Date(checkout.value) < minDate) {
+      checkout.value = minDate.toISOString().split('T')[0];
+    }
+  }
 }
-function populateWeekDropdown(lang) {
-    const select = document.getElementById(`week-${lang}`);
-    select.innerHTML = '<option value="">-- Selecteer een week --</option>';
-    availableWeeks.forEach(week => {
-        const [year, w] = week.split("-W");
-        const startDate = getDateOfISOWeek(parseInt(w), parseInt(year));
-        const endDate = new Date(startDate);
-        endDate.setDate(endDate.getDate()+6);
-        const label = `${startDate.toLocaleDateString()} t/m ${endDate.toLocaleDateString()}`;
-        const option = document.createElement("option");
-        option.value = week;
-        option.textContent = label;
-        select.appendChild(option);
-    });
-}
-["nl","fr","en"].forEach(lang => populateWeekDropdown(lang));
 
 // ================= Mailfunctie =================
 function sendMail(lang) {
-    const weekInput = document.getElementById(`week-${lang}`);
-    const nameInput = document.getElementById(`name-${lang}`);
-    const emailInput = document.getElementById(`email-${lang}`);
-    const messageInput = document.getElementById(`message-${lang}`);
-    if(!weekInput.value){alert("Selecteer een week."); weekInput.focus(); return false;}
-    if(!nameInput.value.trim()){alert("Vul uw naam in."); nameInput.focus(); return false;}
-    if(!emailInput.value.trim()){alert("Vul uw e-mail in."); emailInput.focus(); return false;}
-    const [year,w] = weekInput.value.split("-W");
-    const startDate = getDateOfISOWeek(parseInt(w),parseInt(year));
-    const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate()+6);
-    const weekFormatted = `${startDate.toLocaleDateString()} t/m ${endDate.toLocaleDateString()}`;
-    const subject = encodeURIComponent(`Reservering Front de Mer - ${weekFormatted}`);
-    const body = encodeURIComponent(`Naam: ${nameInput.value}\nE-mail: ${emailInput.value}\nWeek: ${weekFormatted}\n\nExtra info:\n${messageInput.value}`);
-    alert("Uw e-mail wordt geopend in uw mail-app. Controleer deze en klik op verzenden!");
-    window.location.href = `mailto:info@frontdemer-cerbere.fr?subject=${subject}&body=${body}`;
-    return false;
+  const checkin = document.getElementById(`checkin-${lang}`);
+  const checkout = document.getElementById(`checkout-${lang}`);
+  const nameInput = document.getElementById(`name-${lang}`);
+  const emailInput = document.getElementById(`email-${lang}`);
+  const messageInput = document.getElementById(`message-${lang}`);
+
+  if(!checkin.value){ alert("Selecteer een aankomstdatum."); checkin.focus(); return false; }
+  if(!checkout.value){ alert("Selecteer een vertrekdatum."); checkout.focus(); return false; }
+  if(!nameInput.value.trim()){ alert("Vul uw naam in."); nameInput.focus(); return false; }
+  if(!emailInput.value.trim()){ alert("Vul uw e-mail in."); emailInput.focus(); return false; }
+
+  const subject = encodeURIComponent(`Reservering Front de Mer - ${checkin.value} t/m ${checkout.value}`);
+  const body = encodeURIComponent(`Naam: ${nameInput.value}\nE-mail: ${emailInput.value}\nAankomst: ${checkin.value}\nVertrek: ${checkout.value}\n\nExtra info:\n${messageInput.value}`);
+
+  alert("Uw e-mail wordt geopend in uw mail-app. Controleer deze en klik op verzenden!");
+  window.location.href = `mailto:info@frontdemer-cerbere.fr?subject=${subject}&body=${body}`;
+  return false;
 }
 
 // ================= Default taal =================
 showLang('nl');
 </script>
+
 </body>
 </html>
