@@ -6,7 +6,7 @@
 <title>Tips & Activities - Front de Mer, Cerbère</title>
 
 <!-- Mapbox stable release -->
-<link href='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <style>
 * { box-sizing: border-box; }
@@ -140,21 +140,16 @@ footer a { color:white; }
   <p>&copy; 2025 Front de Mer, Cerbère &nbsp;|&nbsp; <a href="index.html">← Home</a> &nbsp;|&nbsp; <a href="gallery.html">Gallery</a></p>
 </footer>
 
-<script src='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js'></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/n3@1.17.3/browser/n3.min.js"></script>
 
 <script>
-// ── Mapbox ────────────────────────────────────────────────────────
-// (Mapbox removed)
-
-const map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/streets-v12',
-  center: [3.164, 42.440],
-  zoom: 13
-});
-map.addControl(new mapboxgl.NavigationControl(), 'top-right');
-map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
+// ── Leaflet + OpenStreetMap ───────────────────────────────────────
+const map = L.map('map').setView([42.440, 3.164], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  maxZoom: 19
+}).addTo(map);
 map.markers = [];
 
 // ── RDF Namespaces ────────────────────────────────────────────────
@@ -359,22 +354,17 @@ function renderMarkers() {
 
   allFeatures.forEach(f => {
     const popupHtml = buildPopupHtml(f, currentLang);
-    const popup = new mapboxgl.Popup({ offset: 25, maxWidth: '240px' })
-      .setHTML(popupHtml);
+    const icon = L.divIcon({
+      html: `<div style="width:28px;height:28px;border-radius:50%;background:${f.color};border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;">${f.icon}</div>`,
+      className: '',
+      iconSize: [28, 28],
+      iconAnchor: [14, 14],
+      popupAnchor: [0, -16]
+    });
 
-    const el = document.createElement('div');
-    el.style.cssText = `
-      width:28px; height:28px; border-radius:50%;
-      background:${f.color}; border:2px solid white;
-      box-shadow:0 2px 6px rgba(0,0,0,0.3);
-      display:flex; align-items:center; justify-content:center;
-      font-size:14px; cursor:pointer;
-    `;
-    el.textContent = f.icon;
-
-    const marker = new mapboxgl.Marker({ element: el })
-      .setLngLat(f.coords)
-      .setPopup(popup)
+    // Leaflet uses [lat, lng]; WKT POINT is (lng lat)
+    const marker = L.marker([f.coords[1], f.coords[0]], { icon })
+      .bindPopup(popupHtml, { maxWidth: 240 })
       .addTo(map);
     map.markers.push(marker);
 
@@ -489,10 +479,12 @@ function renderLists() {
         li.dataset.uri = f.uri;
         li.innerHTML = `<span class="poi-dot" style="background:${f.color};"></span>${f.icon} ${f.label}`;
         li.addEventListener('click', () => {
-          map.flyTo({ center: f.coords, zoom: 15, duration: 800 });
+          map.flyTo([f.coords[1], f.coords[0]], 15);
           // Open popup
           map.markers.forEach(m => {
-            if (m._featureUri === f.uri) m.togglePopup();
+            if (m._featureUri === f.uri) {
+              if (m.isPopupOpen()) m.closePopup(); else m.openPopup();
+            }
           });
           // Highlight in list
           document.querySelectorAll('.poi-item').forEach(el => el.classList.remove('active'));
@@ -536,13 +528,13 @@ function showLang(lang) {
     // Refresh popup content on all markers
     map.markers.forEach(marker => {
       const f = allFeatures.find(f => f.uri === marker._featureUri);
-      if (f) marker.getPopup().setHTML(buildPopupHtml(f, lang));
+      if (f) marker.getPopup().setContent(buildPopupHtml(f, lang));
     });
   }
 }
 
 // ── Init ──────────────────────────────────────────────────────────
-map.on('load', loadRdf);
+loadRdf();
 showLang('nl');
 </script>
 </body>
