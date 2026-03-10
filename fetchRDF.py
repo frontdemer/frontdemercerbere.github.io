@@ -7,9 +7,17 @@ Requirements:
     pip install SPARQLWrapper rdflib
 
 Usage:
-    python fetch_osm_rdf.py
+    python fetchRDF.py
+
+ID management:
+    IDs are stored in osm_ids.json (managed by admin.html + admin_server.py).
+    The OSM_IDS list below is used as a fallback when osm_ids.json doesn't exist.
+    Run `python admin_server.py` and open http://localhost:7474/admin.html to
+    manage IDs via the UI instead of editing this file by hand.
 """
 
+import json
+from pathlib import Path
 from SPARQLWrapper import SPARQLWrapper, JSON
 from rdflib import Graph, URIRef
 
@@ -21,7 +29,10 @@ ENDPOINT_URL = "https://qlever.dev/osm-planet/sparql"
 # Output file
 OUTPUT_FILE = "osm.ttl"
 
-# Base SPARQL query: we’ll plug the VALUES in below
+# ID file written by admin_server.py
+IDS_FILE = Path(__file__).parent / "osm_ids.json"
+
+# Base SPARQL query: we'll plug the VALUES in below
 BASE_QUERY = """
 SELECT * WHERE {
   VALUES ?osmID { %s }
@@ -30,7 +41,8 @@ SELECT * WHERE {
 }
 """
 
-# List of OSM URIs you want to start from
+# Fallback list — used only if osm_ids.json does not exist.
+# Manage this list via admin.html instead of editing it by hand.
 OSM_IDS = [
     "https://www.openstreetmap.org/node/11287250673",
     "https://www.openstreetmap.org/node/664092519",
@@ -66,13 +78,27 @@ OSM_IDS = [
     "https://www.openstreetmap.org/relation/8313786",
     "https://www.openstreetmap.org/node/1996188652",
     "https://www.openstreetmap.org/node/12988263637",
-    "https://www.openstreetmap.org/node/2001111267"
+    "https://www.openstreetmap.org/node/2001111267",
 
-
-    # add more if you like
+    # add more via admin.html
 ]
 
-# --------------------------------------------------------------------
+# --- Resolve active ID list ------------------------------------------
+
+def get_active_ids():
+    """Return URI list from osm_ids.json if it exists, else fall back to OSM_IDS."""
+    if IDS_FILE.exists():
+        with open(IDS_FILE, encoding="utf-8") as f:
+            data = json.load(f)
+        entries = data.get("ids", [])
+        uris = [e["uri"] for e in entries if isinstance(e, dict) and "uri" in e]
+        if uris:
+            print(f"Using {len(uris)} IDs from {IDS_FILE.name}")
+            return uris
+    print(f"osm_ids.json not found — using hardcoded OSM_IDS list ({len(OSM_IDS)} entries).")
+    return OSM_IDS
+
+# ---------------------------------------------------------------------
 
 
 def run_select_query(endpoint_url: str, query: str):
@@ -112,8 +138,11 @@ def get_resource_triples(endpoint_url: str, uri: str) -> Graph:
 
 
 def main():
+    # Resolve ID list (from osm_ids.json or fallback to OSM_IDS)
+    active_ids = get_active_ids()
+
     # Build VALUES clause
-    values_clause = " ".join(f"<{u}>" for u in OSM_IDS)
+    values_clause = " ".join(f"<{u}>" for u in active_ids)
     query = BASE_QUERY % values_clause
 
     print("Running SELECT query…")

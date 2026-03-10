@@ -5,119 +5,417 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Front de Mer Gallery</title>
 <style>
-body { font-family:'Helvetica Neue',Arial,sans-serif; margin:0; padding:0; color:#333; line-height:1.6; }
-h1,h2 { text-align:center; color:#2E8B57; }
-a { text-decoration:none; color: inherit; }
-.gallery-section { padding: 2rem; max-width:1200px; margin:auto; }
-.subcategory { margin-bottom:3rem; }
-.subcategory h2 { margin-bottom:1rem; }
-.grid {
+* { box-sizing: border-box; }
+body { font-family:'Helvetica Neue',Arial,sans-serif; margin:0; padding:0; color:#333; line-height:1.6; background:#fafafa; }
+a { text-decoration:none; color:inherit; }
+
+/* ── Header ── */
+header {
+  background:#2E8B57;
+  color:white;
+  padding:1rem;
+  text-align:center;
+}
+header h1 { margin:0.4rem 0; font-size:1.8rem; }
+.lang-btn {
+  margin:0 0.3rem; padding:0.4rem 0.8rem;
+  background:rgba(255,255,255,0.85); color:#2E8B57;
+  border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:0.3s;
+}
+.lang-btn:hover { background:white; }
+.back-btn {
+  display:inline-block; margin-top:0.5rem; padding:0.4rem 0.9rem;
+  background:rgba(255,255,255,0.2); color:white;
+  border:1px solid rgba(255,255,255,0.6); border-radius:4px;
+  font-size:0.9rem; transition:0.3s;
+}
+.back-btn:hover { background:rgba(255,255,255,0.35); }
+
+/* ── Albums grid ── */
+.gallery-section { padding:2rem 1.5rem; max-width:1200px; margin:auto; }
+
+.info-banner {
+  background:#e8f5e9; border-left:4px solid #2E8B57;
+  padding:0.8rem 1.2rem; border-radius:4px; margin-bottom:2rem;
+  font-size:0.95rem; color:#2E8B57;
+}
+.info-banner a { font-weight:bold; text-decoration:underline; color:#1e5c3d; }
+
+.albums-grid {
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap:1.5rem;
 }
-.grid img {
+
+/* ── Album card ── */
+.album-card {
+  background:white;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  transition:transform 0.3s, box-shadow 0.3s;
+  cursor:pointer;
+}
+.album-card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.18);
+}
+.album-thumb {
   width:100%;
-  aspect-ratio: 4/3;
+  aspect-ratio:4/3;
   object-fit:cover;
-  border-radius:8px;
-  transition: transform 0.3s, box-shadow 0.3s;
+  display:block;
 }
-.grid img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+.album-label {
+  padding:0.8rem 1rem;
+  display:flex; align-items:center; justify-content:space-between;
 }
-.lang-btn { margin:0 0.5rem; padding:0.4rem 0.8rem; background:rgba(46,139,87,0.8); color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:0.3s; }
-.lang-btn:hover { background:#2E8B57; }
+.album-label span { font-weight:bold; font-size:1rem; color:#2E8B57; }
+.album-label .open-icon {
+  font-size:1.2rem; opacity:0.6;
+}
+
+/* ── Lightbox / inline viewer ── */
+.lightbox-overlay {
+  display:none;
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.85);
+  z-index:1000;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.lightbox-overlay.active { display:flex; }
+.lightbox-inner {
+  background:white;
+  border-radius:12px;
+  width:95vw; max-width:1100px;
+  max-height:90vh;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.lightbox-header {
+  background:#2E8B57; color:white;
+  padding:0.7rem 1rem;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.lightbox-header h2 { margin:0; font-size:1.2rem; }
+.lightbox-close {
+  background:rgba(255,255,255,0.2); border:none; color:white;
+  font-size:1.4rem; cursor:pointer; border-radius:4px;
+  padding:0.2rem 0.6rem; transition:0.2s;
+}
+.lightbox-close:hover { background:rgba(255,255,255,0.4); }
+.lightbox-actions {
+  padding:0.6rem 1rem;
+  display:flex; gap:0.7rem; flex-wrap:wrap; align-items:center;
+  border-bottom:1px solid #eee;
+  background:#f9f9f9;
+}
+.btn-open-album {
+  display:inline-flex; align-items:center; gap:0.4rem;
+  padding:0.5rem 1rem; background:#2E8B57; color:white;
+  border-radius:6px; font-weight:bold; font-size:0.9rem;
+  transition:0.3s; border:none; cursor:pointer;
+}
+.btn-open-album:hover { background:#1e5c3d; }
+.btn-share {
+  display:inline-flex; align-items:center; gap:0.4rem;
+  padding:0.5rem 1rem; background:#f0f0f0; color:#333;
+  border-radius:6px; font-size:0.9rem;
+  transition:0.3s; border:1px solid #ddd; cursor:pointer;
+  text-decoration:none;
+}
+.btn-share:hover { background:#e0e0e0; }
+.lightbox-frame-wrap {
+  flex:1;
+  overflow:hidden;
+  position:relative;
+  min-height:400px;
+}
+.album-iframe {
+  width:100%; height:100%;
+  border:none;
+  min-height:500px;
+}
+.album-placeholder {
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  height:100%; min-height:400px;
+  text-align:center; padding:2rem;
+  color:#666;
+}
+.album-placeholder .big-icon { font-size:4rem; margin-bottom:1rem; }
+.album-placeholder p { margin:0.3rem 0; }
+.album-placeholder .open-link {
+  display:inline-block; margin-top:1.2rem;
+  padding:0.7rem 1.4rem; background:#2E8B57; color:white;
+  border-radius:6px; font-weight:bold; transition:0.3s;
+}
+.album-placeholder .open-link:hover { background:#1e5c3d; }
+
+/* ── Social share bar ── */
+.social-bar {
+  background:#fff;
+  border-top:1px solid #eee;
+  padding:1.2rem 1.5rem;
+  max-width:1200px; margin:0 auto 2rem;
+  border-radius:0 0 8px 8px;
+  display:flex; flex-wrap:wrap; align-items:center; gap:0.8rem;
+}
+.social-bar span { font-weight:bold; color:#555; margin-right:0.3rem; }
+.social-share-btn {
+  display:inline-flex; align-items:center; gap:0.4rem;
+  padding:0.45rem 0.9rem; border-radius:20px;
+  font-size:0.88rem; font-weight:bold; cursor:pointer;
+  text-decoration:none; transition:opacity 0.2s;
+  border:none;
+}
+.social-share-btn:hover { opacity:0.85; }
+.btn-whatsapp { background:#25D366; color:white; }
+.btn-facebook { background:#1877F2; color:white; }
+.btn-instagram-label { background:#E1306C; color:white; }
+.btn-copy { background:#f0f0f0; color:#333; border:1px solid #ccc; }
+
+/* ── Footer ── */
+footer { background:#2E8B57; color:white; text-align:center; padding:1.5rem; margin-top:1rem; }
+.hidden { display:none; }
+
+@media(max-width:600px){
+  .albums-grid { grid-template-columns:1fr 1fr; gap:1rem; }
+  .lightbox-inner { border-radius:0; width:100vw; max-height:100vh; }
+}
 </style>
 </head>
 <body>
 
 <header>
-<h1>Front de Mer - Gallery</h1>
-<div style="text-align:center; margin-bottom:1rem;">
-<button class="lang-btn" onclick="showLang('nl')">NL</button>
-<button class="lang-btn" onclick="showLang('fr')">FR</button>
-<button class="lang-btn" onclick="showLang('en')">EN</button>
-</div>
+  <h1>🏖️ Front de Mer – Gallery</h1>
+  <div style="margin:0.5rem 0;">
+    <button class="lang-btn" onclick="showLang('nl')">NL</button>
+    <button class="lang-btn" onclick="showLang('fr')">FR</button>
+    <button class="lang-btn" onclick="showLang('en')">EN</button>
+  </div>
+  <a href="index.html" class="back-btn">← <span id="back-label">Terug naar Home</span></a>
 </header>
 
-<div id="gallery-container" class="gallery-section"></div>
+<div class="gallery-section">
 
-<footer style="text-align:center; background:#2E8B57; color:white; padding:1.5rem;">
-<p>&copy; 2025 Front de Mer, Cerbère</p>
+  <!-- Info banner explaining Google Photos -->
+  <div class="info-banner">
+    📸 <span id="info-text-nl">Onze foto's worden beheerd via Google Photos. Klik op een album om de volledige collectie te bekijken — altijd up-to-date!</span>
+    <span id="info-text-fr" class="hidden">Nos photos sont gérées via Google Photos. Cliquez sur un album pour voir la collection complète — toujours à jour !</span>
+    <span id="info-text-en" class="hidden">Our photos are managed via Google Photos. Click an album to view the full collection — always up to date!</span>
+  </div>
+
+  <!-- Album cards (rendered by JS) -->
+  <div class="albums-grid" id="albums-grid"></div>
+
+</div>
+
+<!-- Social share bar -->
+<div class="social-bar">
+  <span id="share-label">Delen:</span>
+  <a class="social-share-btn btn-whatsapp" id="share-whatsapp" href="#" target="_blank" rel="noopener">
+    📱 WhatsApp
+  </a>
+  <a class="social-share-btn btn-facebook" id="share-facebook" href="#" target="_blank" rel="noopener">
+    📘 Facebook
+  </a>
+  <a class="social-share-btn btn-instagram-label" href="https://www.instagram.com/explore/tags/frontdemer/" target="_blank" rel="noopener">
+    📷 #frontdemer
+  </a>
+  <button class="social-share-btn btn-copy" onclick="copyPageLink()">
+    🔗 <span id="copy-label">Kopieer link</span>
+  </button>
+</div>
+
+<!-- Lightbox overlay for album viewer -->
+<div class="lightbox-overlay" id="lightbox">
+  <div class="lightbox-inner">
+    <div class="lightbox-header">
+      <h2 id="lightbox-title">Album</h2>
+      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    </div>
+    <div class="lightbox-actions">
+      <a class="btn-open-album" id="lightbox-open-link" href="#" target="_blank" rel="noopener">
+        🔗 <span id="open-album-label">Open in Google Photos</span>
+      </a>
+      <a class="social-share-btn btn-whatsapp" id="lb-share-whatsapp" href="#" target="_blank" rel="noopener">📱 WhatsApp</a>
+      <a class="social-share-btn btn-facebook" id="lb-share-facebook" href="#" target="_blank" rel="noopener">📘 Facebook</a>
+    </div>
+    <div class="lightbox-frame-wrap" id="lightbox-frame-wrap">
+      <!-- Content injected by JS -->
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Front de Mer, Cerbère &nbsp;|&nbsp;
+    <a href="https://www.instagram.com/explore/tags/frontdemer/" target="_blank" rel="noopener" style="color:white;">📷 Instagram</a>
+  </p>
 </footer>
 
+<!-- Load album config -->
+<script src="js/google-photos-config.js"></script>
+
 <script>
-// ================= Multilingual titles =================
-const titles = {
+// ── Language strings ──────────────────────────────────────────────
+const i18n = {
   nl: {
-    beaches: "Stranden",
-    interior: "Interieur",
-    nearby: "In de buurt",
-    underwater: "Onderwater",
-    walks: "Wandelingen"
+    back: "Terug naar Home",
+    share: "Delen:",
+    copyBtn: "Kopieer link",
+    copyDone: "Gekopieerd!",
+    openAlbum: "Open in Google Photos",
+    shareWa: (url) => `https://api.whatsapp.com/send?text=${encodeURIComponent("Bekijk de foto's van Front de Mer, Cerbère: " + url)}`,
+    shareFb: (url) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+    placeholder: (name, url) => `
+      <div class="album-placeholder">
+        <div class="big-icon">📸</div>
+        <p><strong>${name}</strong></p>
+        <p>Klik hieronder om het album te openen in Google Photos.</p>
+        <a href="${url}" target="_blank" rel="noopener" class="open-link">Open album in Google Photos →</a>
+      </div>`
   },
   fr: {
-    beaches: "Plages",
-    interior: "Intérieur",
-    nearby: "À proximité",
-    underwater: "Sous l'eau",
-    walks: "Promenades"
+    back: "Retour à l'accueil",
+    share: "Partager :",
+    copyBtn: "Copier le lien",
+    copyDone: "Copié !",
+    openAlbum: "Ouvrir dans Google Photos",
+    shareWa: (url) => `https://api.whatsapp.com/send?text=${encodeURIComponent("Voir les photos de Front de Mer, Cerbère : " + url)}`,
+    shareFb: (url) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+    placeholder: (name, url) => `
+      <div class="album-placeholder">
+        <div class="big-icon">📸</div>
+        <p><strong>${name}</strong></p>
+        <p>Cliquez ci-dessous pour ouvrir l'album dans Google Photos.</p>
+        <a href="${url}" target="_blank" rel="noopener" class="open-link">Ouvrir l'album dans Google Photos →</a>
+      </div>`
   },
   en: {
-    beaches: "Beaches",
-    interior: "Interior",
-    nearby: "Nearby",
-    underwater: "Underwater",
-    walks: "Walks"
+    back: "Back to Home",
+    share: "Share:",
+    copyBtn: "Copy link",
+    copyDone: "Copied!",
+    openAlbum: "Open in Google Photos",
+    shareWa: (url) => `https://api.whatsapp.com/send?text=${encodeURIComponent("Check out the photos of Front de Mer, Cerbère: " + url)}`,
+    shareFb: (url) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+    placeholder: (name, url) => `
+      <div class="album-placeholder">
+        <div class="big-icon">📸</div>
+        <p><strong>${name}</strong></p>
+        <p>Click below to open the album in Google Photos.</p>
+        <a href="${url}" target="_blank" rel="noopener" class="open-link">Open album in Google Photos →</a>
+      </div>`
   }
 };
 
 let currentLang = 'nl';
-let galleryJson = {};
 
-// ================= Load images.json =================
-async function loadGalleryJson() {
-  try {
-    const resp = await fetch('gallery/images.json');
-    galleryJson = await resp.json();
-    renderGallery();
-  } catch(e) {
-    console.error("Failed to load images.json", e);
-  }
+// ── Render album cards ────────────────────────────────────────────
+function renderAlbums() {
+  const grid = document.getElementById('albums-grid');
+  grid.innerHTML = '';
+  GOOGLE_PHOTOS_ALBUMS.forEach(album => {
+    const card = document.createElement('div');
+    card.className = 'album-card';
+    card.innerHTML = `
+      <img class="album-thumb" src="${album.thumbnailUrl}" alt="${album.label[currentLang]}" loading="lazy"
+           onerror="this.src='https://via.placeholder.com/400x300?text=Album'">
+      <div class="album-label">
+        <span>${album.label[currentLang]}</span>
+        <span class="open-icon">📷</span>
+      </div>`;
+    card.addEventListener('click', () => openAlbum(album));
+    grid.appendChild(card);
+  });
 }
 
-// ================= Render gallery =================
-function renderGallery() {
-  const container = document.getElementById('gallery-container');
-  container.innerHTML = '';
-  for (const category in galleryJson) {
-    const subSec = document.createElement('div');
-    subSec.className = 'subcategory';
-    const h2 = document.createElement('h2');
-    h2.textContent = titles[currentLang][category] || category;
-    subSec.appendChild(h2);
-    const grid = document.createElement('div');
-    grid.className = 'grid';
-    galleryJson[category].forEach(imgPath => {
-      const img = document.createElement('img');
-      img.src = imgPath;
-      grid.appendChild(img);
-    });
-    subSec.appendChild(grid);
-    container.appendChild(subSec);
+// ── Open album in lightbox ────────────────────────────────────────
+function openAlbum(album) {
+  const lang = i18n[currentLang];
+  const name = album.label[currentLang];
+  const url  = album.shareUrl;
+
+  document.getElementById('lightbox-title').textContent = name;
+  document.getElementById('lightbox-open-link').href = url;
+  document.getElementById('open-album-label').textContent = lang.openAlbum;
+  document.getElementById('lb-share-whatsapp').href = lang.shareWa(url);
+  document.getElementById('lb-share-facebook').href = lang.shareFb(url);
+
+  const wrap = document.getElementById('lightbox-frame-wrap');
+
+  // Try to embed as iframe; Google Photos shared albums allow this.
+  // If the URL is still a placeholder, show a friendly message.
+  if (url.includes('REPLACE_WITH')) {
+    wrap.innerHTML = lang.placeholder(name, url);
+  } else {
+    wrap.innerHTML = `
+      <iframe class="album-iframe"
+        src="${url}"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+        loading="lazy"
+        title="${name}">
+      </iframe>`;
   }
+
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
-// ================= Language switching =================
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+  // Clear iframe to stop any loading
+  document.getElementById('lightbox-frame-wrap').innerHTML = '';
+}
+
+// Close on overlay click
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+// Close on Escape
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+
+// ── Language switching ────────────────────────────────────────────
 function showLang(lang) {
   currentLang = lang;
-  renderGallery();
+  const t = i18n[lang];
+
+  // Static UI labels
+  document.getElementById('back-label').textContent = t.back;
+  document.getElementById('share-label').textContent = t.share;
+  document.getElementById('copy-label').textContent = t.copyBtn;
+
+  // Info banner
+  ['nl','fr','en'].forEach(l => {
+    document.getElementById('info-text-' + l).classList.toggle('hidden', l !== lang);
+  });
+
+  // Social share links for the page itself
+  const pageUrl = window.location.href;
+  document.getElementById('share-whatsapp').href = t.shareWa(pageUrl);
+  document.getElementById('share-facebook').href = t.shareFb(pageUrl);
+
+  renderAlbums();
 }
 
-// Load JSON and initialize gallery
-loadGalleryJson();
+// ── Copy page link ────────────────────────────────────────────────
+function copyPageLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const btn = document.querySelector('.btn-copy');
+    const orig = btn.innerHTML;
+    btn.innerHTML = `✅ ${i18n[currentLang].copyDone}`;
+    setTimeout(() => btn.innerHTML = orig, 2000);
+  });
+}
+
+// ── Init ──────────────────────────────────────────────────────────
+showLang('nl');
 </script>
 </body>
 </html>

@@ -62,9 +62,189 @@ section h2 { text-align:center; margin-bottom:2rem; color:#2E8B57; }
 /* Footer */
 footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5rem; }
 
-/* Verborgen taal-secties */
+/* Social bar */
+.social-float {
+  position:fixed; bottom:1.5rem; right:1.2rem;
+  display:flex; flex-direction:column; gap:0.6rem;
+  z-index:900;
+}
+.social-float a {
+  display:flex; align-items:center; justify-content:center;
+  width:46px; height:46px; border-radius:50%;
+  font-size:1.3rem; text-decoration:none;
+  box-shadow:0 2px 8px rgba(0,0,0,0.25);
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+.social-float a:hover { transform:scale(1.12); box-shadow:0 4px 14px rgba(0,0,0,0.3); }
+.sf-whatsapp { background:#25D366; }
+.sf-facebook { background:#1877F2; }
+.sf-instagram { background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+
+.social-share-row {
+  display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:1rem;
+}
+.social-share-btn {
+  display:inline-flex; align-items:center; gap:0.4rem;
+  padding:0.45rem 0.9rem; border-radius:20px;
+  font-size:0.85rem; font-weight:bold; cursor:pointer;
+  text-decoration:none; transition:opacity 0.2s; border:none;
+  color:white;
+}
+.social-share-btn:hover { opacity:0.85; }
+.btn-whatsapp { background:#25D366; }
+.btn-facebook { background:#1877F2; }
+.btn-copy { background:#f0f0f0; color:#333; border:1px solid #ccc; }
+
+/* ── Amenities grid ── */
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.amenity-card {
+  background: #f8fdf8;
+  border: 1px solid #d4edda;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+}
+.amenity-card .icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+.amenity-card strong { display: block; color: #2E8B57; font-size: 0.95rem; margin-bottom: 0.2rem; }
+.amenity-card span { font-size: 0.82rem; color: #666; }
+
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+.rule-item {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.9rem; padding: 0.5rem 0.7rem;
+  background: #fafafa; border-radius: 6px; border: 1px solid #eee;
+}
+.rule-item .rule-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+/* ── Availability calendar ── */
+.calendar-wrap {
+  max-width: 700px; margin: 0 auto 1.5rem;
+}
+.cal-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.cal-nav button {
+  background: #2E8B57; color: white; border: none; border-radius: 6px;
+  padding: 0.4rem 0.9rem; cursor: pointer; font-size: 1rem; transition: 0.2s;
+}
+.cal-nav button:hover { background: #1e5c3d; }
+.cal-nav h3 { margin: 0; color: #2E8B57; font-size: 1.1rem; }
+.cal-months {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.cal-month { background: #f8fdf8; border-radius: 10px; padding: 0.8rem; border: 1px solid #d4edda; }
+.cal-month-title { text-align: center; font-weight: bold; color: #2E8B57; margin-bottom: 0.5rem; font-size: 0.95rem; }
+.cal-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+}
+.cal-day-name { text-align: center; font-size: 0.7rem; color: #999; font-weight: bold; padding: 0.2rem 0; }
+.cal-day {
+  text-align: center; font-size: 0.8rem; padding: 0.3rem 0.1rem;
+  border-radius: 4px; cursor: default; line-height: 1;
+}
+.cal-day.empty { background: transparent; }
+.cal-day.available { background: #e8f5e9; color: #2E8B57; }
+.cal-day.booked { background: #ffcdd2; color: #c62828; text-decoration: line-through; }
+.cal-day.today { background: #2E8B57; color: white; font-weight: bold; }
+.cal-day.past { color: #ccc; }
+
+.cal-legend {
+  display: flex; gap: 1.2rem; justify-content: center; margin-top: 0.8rem;
+  font-size: 0.82rem; flex-wrap: wrap;
+}
+.cal-legend span { display: flex; align-items: center; gap: 0.3rem; }
+.cal-legend .dot {
+  width: 12px; height: 12px; border-radius: 3px; display: inline-block;
+}
+.dot-avail { background: #e8f5e9; border: 1px solid #a5d6a7; }
+.dot-booked { background: #ffcdd2; border: 1px solid #ef9a9a; }
+
+.cal-note {
+  text-align: center; font-size: 0.82rem; color: #888; margin-top: 0.5rem;
+}
+
+/* ── FAQ accordion ── */
+.faq-list { max-width: 700px; margin: 0 auto; }
+.faq-item {
+  border: 1px solid #d4edda; border-radius: 8px; margin-bottom: 0.6rem; overflow: hidden;
+}
+.faq-q {
+  width: 100%; text-align: left; background: #f8fdf8; border: none; cursor: pointer;
+  padding: 0.9rem 1.1rem; font-size: 0.95rem; font-weight: bold; color: #2E8B57;
+  display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
+  transition: background 0.2s;
+}
+.faq-q:hover { background: #e8f5e9; }
+.faq-q .faq-arrow { font-size: 0.85rem; transition: transform 0.2s; flex-shrink: 0; }
+.faq-q.open .faq-arrow { transform: rotate(180deg); }
+.faq-a {
+  display: none; padding: 0 1.1rem 0.9rem; font-size: 0.9rem; color: #555; line-height: 1.6;
+}
+.faq-a.open { display: block; }
+
+/* ── Sticky Book CTA bar ── */
+.book-cta-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 800;
+  background: white; border-top: 2px solid #2E8B57;
+  display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+  padding: 0.6rem 1rem; flex-wrap: wrap;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.12);
+}
+.book-cta-bar .cta-label { font-size: 0.9rem; color: #555; white-space: nowrap; }
+.btn-book {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.55rem 1.2rem; border-radius: 6px; font-weight: bold;
+  font-size: 0.9rem; cursor: pointer; transition: 0.2s; text-decoration: none; border: none;
+}
+.btn-book-primary { background: #2E8B57; color: white; }
+.btn-book-primary:hover { background: #1e5c3d; }
+.btn-book-airbnb { background: #FF5A5F; color: white; }
+.btn-book-airbnb:hover { background: #d94045; }
+/* Push footer content above the bar */
+body { padding-bottom: 70px; }
+
+/* ── Highlight box ── */
+.highlight-box {
+  background: linear-gradient(135deg, #e8f5e9, #f0faf8);
+  border-left: 4px solid #2E8B57; border-radius: 0 8px 8px 0;
+  padding: 1rem 1.2rem; margin-bottom: 1.5rem; font-size: 0.95rem;
+}
+.highlight-box strong { color: #2E8B57; }
+
+/* ── Prijstabel ── */
+table th, table td {
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+table tr:last-child td { border-bottom: none; }
+table th { font-size: 0.9rem; }
+table td { font-size: 0.92rem; }
+@media(max-width:600px) {
+  table th:nth-child(2), table td:nth-child(2) { display: none; } /* hide period col on mobile */
+}
+
+/* ── Verborgen taal-secties ── */
 .hidden { display:none; }
-@media(max-width:768px){ header h1{ font-size:2rem; } }
+@media(max-width:768px){
+  header h1 { font-size:2rem; }
+  .social-float { bottom:4.5rem; right:0.8rem; } /* lift above CTA bar */
+  .cal-months { grid-template-columns: 1fr; }
+  .book-cta-bar .cta-label { display: none; }
+}
 </style>
 </head>
 <body>
@@ -77,13 +257,15 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
   <button class="lang-btn" onclick="showLang('en')">EN</button>
 </div>
 <nav>
-  <a onclick="scrollToSection('over')">Over / À propos / About</a>
-  <a onclick="scrollToSection('preview')">Preview</a>
-  <a href="gallery.html">Galerij / Galerie / Gallery</a>
-  <a href="tips.html">Tips & Activities</a>
-  <a onclick="scrollToSection('prijzen')">Prijzen / Tarifs / Prices</a>
-  <a onclick="scrollToSection('reservering')">Reserveren / Réserver / Book</a>
-  <a onclick="scrollToSection('contact')">Contact</a>
+  <a onclick="scrollToSection('over')">Over / About</a>
+  <a onclick="scrollToSection('voorzieningen')">Voorzieningen / Amenities</a>
+  <a onclick="scrollToSection('preview')">Foto's / Photos</a>
+  <a href="gallery.html">Galerij / Gallery</a>
+  <a href="tips.html">Tips</a>
+  <a onclick="scrollToSection('beschikbaarheid')">Beschikbaarheid / Availability</a>
+  <a onclick="scrollToSection('prijzen')">Prijzen / Prices</a>
+  <a onclick="scrollToSection('faq')">FAQ</a>
+  <a onclick="scrollToSection('reservering')">Boeken / Book</a>
 </nav>
 </header>
 
@@ -95,32 +277,103 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 </p>
 </section>
 
+<section id="voorzieningen-nl" class="lang-section">
+<h2>Voorzieningen & Huisregels</h2>
+<div class="amenities-grid">
+  <div class="amenity-card"><div class="icon">🛏️</div><strong>2 slaapkamers</strong><span>1 tweepersoonsbed, 1 met twee eenpersoonsbedden</span></div>
+  <div class="amenity-card"><div class="icon">👥</div><strong>Max. 4 gasten</strong><span>Geschikt voor koppels en kleine gezinnen</span></div>
+  <div class="amenity-card"><div class="icon">🌊</div><strong>Direct aan zee</strong><span>Zee- en stranduitzicht vanuit alle kamers</span></div>
+  <div class="amenity-card"><div class="icon">📶</div><strong>Gratis WiFi</strong><span>Snelle verbinding door het hele huis</span></div>
+  <div class="amenity-card"><div class="icon">🍳</div><strong>Volledig uitgeruste keuken</strong><span>Kookplaat, oven, koelkast, afwasmachine, koffiezetapparaat</span></div>
+  <div class="amenity-card"><div class="icon">🌀</div><strong>Wasmachine</strong><span>Wasmachine aanwezig</span></div>
+  <div class="amenity-card"><div class="icon">❄️</div><strong>Airconditioning</strong><span>Airco in de slaapkamers</span></div>
+  <div class="amenity-card"><div class="icon">🚂</div><strong>5 min van het station</strong><span>Treinen naar Perpignan, Barcelona &amp; Port-Bou</span></div>
+  <div class="amenity-card"><div class="icon">🇪🇸</div><strong>4 km van Spanje</strong><span>Eenvoudig dagtripjes naar Portbou &amp; Llançà</span></div>
+  <div class="amenity-card"><div class="icon">🏖️</div><strong>Strand op loopafstand</strong><span>Cerbère strand direct bereikbaar te voet</span></div>
+</div>
+<h3 style="color:#2E8B57; margin-bottom:0.8rem;">Huisregels</h3>
+<div class="rules-grid">
+  <div class="rule-item"><span class="rule-icon">🕐</span><span>Inchecken: vanaf 15:00 uur</span></div>
+  <div class="rule-item"><span class="rule-icon">🕙</span><span>Uitchecken: voor 10:00 uur</span></div>
+  <div class="rule-item"><span class="rule-icon">📅</span><span>Minimaal 2 nachten verblijf</span></div>
+  <div class="rule-item"><span class="rule-icon">🚭</span><span>Niet roken (buiten mag)</span></div>
+  <div class="rule-item"><span class="rule-icon">🐾</span><span>Huisdieren op aanvraag</span></div>
+  <div class="rule-item"><span class="rule-icon">🎉</span><span>Geen feestjes / evenementen</span></div>
+</div>
+<div class="highlight-box" style="margin-top:1.2rem;">
+  <strong>Annuleringsbeleid:</strong> Gratis annulering tot 14 dagen voor aankomst. Daarna wordt 50% van de huursom in rekening gebracht.
+</div>
+</section>
+
 <section id="preview-nl" class="lang-section">
 <h2>Voorbeeldfoto's</h2>
-<div class="preview-grid">
-<img src="huis1.jpg" alt="">
-<img src="huis2.jpg" alt="">
-<img src="huis3.jpg" alt="">
-<img src="huis4.jpg" alt="">
-<img src="huis5.jpg" alt="">
-<img src="huis6.jpg" alt="">
-<img src="huis7.jpg" alt="">
-<img src="huis8.jpg" alt="">
-<img src="huis9.jpg" alt="">
-</div>
+<div class="preview-grid" id="preview-grid-nl"></div>
 <a href="gallery.html" class="page-link">Bekijk alle foto's</a>
 <a href="tips.html" class="page-link">Bekijk Tips & Activities</a>
+<div class="social-share-row">
+  <span style="align-self:center; color:#555; font-weight:bold;">Delen:</span>
+  <a class="social-share-btn btn-whatsapp" id="share-wa-nl" href="#" target="_blank" rel="noopener">📱 WhatsApp</a>
+  <a class="social-share-btn btn-facebook" id="share-fb-nl" href="#" target="_blank" rel="noopener">📘 Facebook</a>
+  <button class="social-share-btn btn-copy" onclick="copyLink('nl')">🔗 <span id="copy-nl">Kopieer link</span></button>
+</div>
+</section>
+
+<section id="beschikbaarheid-nl" class="lang-section">
+<h2>Beschikbaarheid</h2>
+<div class="calendar-wrap" id="cal-nl"></div>
+<p class="cal-note">🟢 Beschikbaar &nbsp; 🔴 Bezet &nbsp; Neem contact op om te boeken</p>
 </section>
 
 <section id="prijzen-nl" class="lang-section">
 <h2>Prijzen & Beschikbaarheid</h2>
 <p>Dag- en weektarieven, <strong>exclusief toeristenbelasting</strong>:</p>
 <table style="width:100%; border-collapse:collapse; margin:auto;">
-<tr style="background:#2E8B57; color:white;"><th>Seizoen</th><th>Dagprijs</th><th>Weekprijs</th></tr>
-<tr><td>Laagseizoen (Jan - Mrt, Okt - Dec)</td><td>€100</td><td>€700</td></tr>
-<tr><td>Middenseizoen (Apr - Jun, Sep)</td><td>€130</td><td>€900</td></tr>
-<tr><td>Hoogseizoen (Jul - Aug)</td><td>€160</td><td>€1.200</td></tr>
+<tr style="background:#2E8B57; color:white;"><th>Seizoen</th><th>Periode</th><th>Dagprijs</th><th>Weekprijs</th></tr>
+<tr style="background:#f8fdf8;"><td>🌿 Laagseizoen</td><td>Jan – Mrt &amp; Okt – Dec</td><td>€110</td><td>€750</td></tr>
+<tr><td>🌸 Middenseizoen</td><td>Apr – Jun &amp; Sep</td><td>€145</td><td>€1.050</td></tr>
+<tr style="background:#f8fdf8;"><td>☀️ Hoogseizoen</td><td>Jul – Aug</td><td>€185</td><td>€1.400</td></tr>
 </table>
+<div class="highlight-box" style="margin-top:1.2rem;">
+  <strong>Bijkomende kosten:</strong>
+  Schoonmaakkosten: <strong>€75</strong> per verblijf &nbsp;|&nbsp;
+  Toeristenbelasting: ca. <strong>€1–€2 p.p./nacht</strong> (wettelijk verplicht) &nbsp;|&nbsp;
+  Huisdieren: <strong>+€10/nacht</strong> op aanvraag<br>
+  <span style="font-size:0.85rem; color:#555;">Minimumverblijf: 2 nachten. Weekprijzen gelden bij boeking van 7 aaneengesloten nachten.</span>
+</div>
+</section>
+
+<section id="faq-nl" class="lang-section">
+<h2>Veelgestelde vragen</h2>
+<div class="faq-list">
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Is er gratis WiFi? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Ja, er is snel gratis WiFi door het hele huis beschikbaar.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Is er parkeergelegenheid? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Er is openbaar parkeren beschikbaar in de straten rondom het huis. Parkeren is gratis buiten het hoogseizoen.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Hoe ver is het strand? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Het strand van Cerbère is op loopafstand — circa 2 à 5 minuten lopen, afhankelijk van welk gedeelte.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Wordt er beddengoed en handdoeken voorzien? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Ja, beddengoed en handdoeken zijn inbegrepen bij uw verblijf.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Is een aanbetaling vereist? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Bij bevestiging van de boeking wordt een aanbetaling van 30% gevraagd. Het resterende bedrag is uiterlijk 4 weken voor aankomst verschuldigd.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Hoe kom ik er met het openbaar vervoer? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Het station van Cerbère ligt op slechts 5 minuten lopen. Er zijn regelmatige treinen vanuit Perpignan (ca. 1 uur) en Barcelona (ca. 2 uur). Ideaal voor een autovrij verblijf!</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Zijn huisdieren toegestaan? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Huisdieren zijn welkom op aanvraag. Neem vooraf contact met ons op om dit te bespreken.</div>
+  </div>
+</div>
 </section>
 
 <section id="reservering-nl" class="lang-section">
@@ -153,32 +406,103 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 </p>
 </section>
 
+<section id="voorzieningen-fr" class="lang-section hidden">
+<h2>Équipements &amp; Règles</h2>
+<div class="amenities-grid">
+  <div class="amenity-card"><div class="icon">🛏️</div><strong>2 chambres</strong><span>1 lit double, 1 avec deux lits simples</span></div>
+  <div class="amenity-card"><div class="icon">👥</div><strong>4 personnes max.</strong><span>Idéal pour les couples et les petites familles</span></div>
+  <div class="amenity-card"><div class="icon">🌊</div><strong>En bord de mer</strong><span>Vue sur la mer depuis toutes les pièces</span></div>
+  <div class="amenity-card"><div class="icon">📶</div><strong>WiFi gratuit</strong><span>Connexion rapide dans toute la maison</span></div>
+  <div class="amenity-card"><div class="icon">🍳</div><strong>Cuisine équipée</strong><span>Plaques, four, réfrigérateur, lave-vaisselle, cafetière</span></div>
+  <div class="amenity-card"><div class="icon">🌀</div><strong>Lave-linge</strong><span>Machine à laver disponible</span></div>
+  <div class="amenity-card"><div class="icon">❄️</div><strong>Climatisation</strong><span>Climatisation dans les chambres</span></div>
+  <div class="amenity-card"><div class="icon">🚂</div><strong>5 min de la gare</strong><span>Trains vers Perpignan, Barcelone &amp; Port-Bou</span></div>
+  <div class="amenity-card"><div class="icon">🇪🇸</div><strong>4 km de l'Espagne</strong><span>Excursions faciles à Portbou &amp; Llançà</span></div>
+  <div class="amenity-card"><div class="icon">🏖️</div><strong>Plage à pied</strong><span>Plage de Cerbère accessible à pied</span></div>
+</div>
+<h3 style="color:#2E8B57; margin-bottom:0.8rem;">Règles de la maison</h3>
+<div class="rules-grid">
+  <div class="rule-item"><span class="rule-icon">🕐</span><span>Arrivée : à partir de 15h00</span></div>
+  <div class="rule-item"><span class="rule-icon">🕙</span><span>Départ : avant 10h00</span></div>
+  <div class="rule-item"><span class="rule-icon">📅</span><span>Séjour minimum 2 nuits</span></div>
+  <div class="rule-item"><span class="rule-icon">🚭</span><span>Non-fumeur (extérieur autorisé)</span></div>
+  <div class="rule-item"><span class="rule-icon">🐾</span><span>Animaux sur demande</span></div>
+  <div class="rule-item"><span class="rule-icon">🎉</span><span>Pas de fêtes / événements</span></div>
+</div>
+<div class="highlight-box" style="margin-top:1.2rem;">
+  <strong>Politique d'annulation :</strong> Annulation gratuite jusqu'à 14 jours avant l'arrivée. Au-delà, 50 % du montant sera facturé.
+</div>
+</section>
+
 <section id="preview-fr" class="lang-section hidden">
 <h2>Exemples de photos</h2>
-<div class="preview-grid">
-<img src="huis1.jpg" alt="">
-<img src="huis2.jpg" alt="">
-<img src="huis3.jpg" alt="">
-<img src="huis4.jpg" alt="">
-<img src="huis5.jpg" alt="">
-<img src="huis6.jpg" alt="">
-<img src="huis7.jpg" alt="">
-<img src="huis8.jpg" alt="">
-<img src="huis9.jpg" alt="">
-</div>
+<div class="preview-grid" id="preview-grid-fr"></div>
 <a href="gallery.html" class="page-link">Voir toutes les photos</a>
 <a href="tips.html" class="page-link">Voir Tips & Activities</a>
+<div class="social-share-row">
+  <span style="align-self:center; color:#555; font-weight:bold;">Partager :</span>
+  <a class="social-share-btn btn-whatsapp" id="share-wa-fr" href="#" target="_blank" rel="noopener">📱 WhatsApp</a>
+  <a class="social-share-btn btn-facebook" id="share-fb-fr" href="#" target="_blank" rel="noopener">📘 Facebook</a>
+  <button class="social-share-btn btn-copy" onclick="copyLink('fr')">🔗 <span id="copy-fr">Copier le lien</span></button>
+</div>
+</section>
+
+<section id="beschikbaarheid-fr" class="lang-section hidden">
+<h2>Disponibilité</h2>
+<div class="calendar-wrap" id="cal-fr"></div>
+<p class="cal-note">🟢 Disponible &nbsp; 🔴 Occupé &nbsp; Contactez-nous pour réserver</p>
 </section>
 
 <section id="prijzen-fr" class="lang-section hidden">
 <h2>Tarifs & Disponibilité</h2>
 <p>Tarifs journaliers et hebdomadaires, <strong>hors taxe de séjour</strong> :</p>
 <table style="width:100%; border-collapse:collapse; margin:auto;">
-<tr style="background:#2E8B57; color:white;"><th>Saison</th><th>Prix par jour</th><th>Prix par semaine</th></tr>
-<tr><td>Basse saison (Jan - Mar, Oct - Dec)</td><td>€100</td><td>€700</td></tr>
-<tr><td>Saison moyenne (Avr - Jun, Sep)</td><td>€130</td><td>€900</td></tr>
-<tr><td>Haute saison (Juil - Août)</td><td>€160</td><td>€1.200</td></tr>
+<tr style="background:#2E8B57; color:white;"><th>Saison</th><th>Période</th><th>Prix / nuit</th><th>Prix / semaine</th></tr>
+<tr style="background:#f8fdf8;"><td>🌿 Basse saison</td><td>Jan – Mar &amp; Oct – Déc</td><td>€110</td><td>€750</td></tr>
+<tr><td>🌸 Saison moyenne</td><td>Avr – Jun &amp; Sep</td><td>€145</td><td>€1.050</td></tr>
+<tr style="background:#f8fdf8;"><td>☀️ Haute saison</td><td>Juil – Août</td><td>€185</td><td>€1.400</td></tr>
 </table>
+<div class="highlight-box" style="margin-top:1.2rem;">
+  <strong>Frais supplémentaires :</strong>
+  Frais de ménage : <strong>€75</strong> par séjour &nbsp;|&nbsp;
+  Taxe de séjour : env. <strong>€1–€2 p.p./nuit</strong> (obligatoire) &nbsp;|&nbsp;
+  Animaux : <strong>+€10/nuit</strong> sur demande<br>
+  <span style="font-size:0.85rem; color:#555;">Séjour minimum : 2 nuits. Les tarifs hebdomadaires s'appliquent pour 7 nuits consécutives.</span>
+</div>
+</section>
+
+<section id="faq-fr" class="lang-section hidden">
+<h2>Questions fréquentes</h2>
+<div class="faq-list">
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Y a-t-il le WiFi gratuit ? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Oui, le WiFi rapide est disponible gratuitement dans toute la maison.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Y a-t-il un parking ? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Un stationnement public est disponible dans les rues autour de la maison. Le stationnement est gratuit hors saison.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">À quelle distance est la plage ? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">La plage de Cerbère est accessible à pied — environ 2 à 5 minutes selon l'endroit.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Le linge de lit et les serviettes sont-ils fournis ? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Oui, le linge de lit et les serviettes sont inclus dans votre séjour.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Un acompte est-il requis ? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Un acompte de 30 % est demandé à la confirmation. Le solde est dû au plus tard 4 semaines avant l'arrivée.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Comment venir en transport en commun ? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">La gare de Cerbère est à 5 minutes à pied. Des trains réguliers desservent Perpignan (env. 1h) et Barcelone (env. 2h). Idéal pour un séjour sans voiture !</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Les animaux sont-ils acceptés ? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Les animaux sont les bienvenus sur demande. Contactez-nous à l'avance pour en discuter.</div>
+  </div>
+</div>
 </section>
 
 <section id="reservering-fr" class="lang-section hidden">
@@ -206,32 +530,103 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 </p>
 </section>
 
+<section id="voorzieningen-en" class="lang-section hidden">
+<h2>Amenities &amp; House Rules</h2>
+<div class="amenities-grid">
+  <div class="amenity-card"><div class="icon">🛏️</div><strong>2 bedrooms</strong><span>1 double bed, 1 with two single beds</span></div>
+  <div class="amenity-card"><div class="icon">👥</div><strong>Max. 4 guests</strong><span>Perfect for couples and small families</span></div>
+  <div class="amenity-card"><div class="icon">🌊</div><strong>Seafront</strong><span>Sea and beach views from all rooms</span></div>
+  <div class="amenity-card"><div class="icon">📶</div><strong>Free WiFi</strong><span>Fast connection throughout the house</span></div>
+  <div class="amenity-card"><div class="icon">🍳</div><strong>Fully equipped kitchen</strong><span>Hob, oven, fridge, dishwasher, coffee maker</span></div>
+  <div class="amenity-card"><div class="icon">🌀</div><strong>Washing machine</strong><span>Washing machine available</span></div>
+  <div class="amenity-card"><div class="icon">❄️</div><strong>Air conditioning</strong><span>A/C in all bedrooms</span></div>
+  <div class="amenity-card"><div class="icon">🚂</div><strong>5 min from station</strong><span>Trains to Perpignan, Barcelona &amp; Port-Bou</span></div>
+  <div class="amenity-card"><div class="icon">🇪🇸</div><strong>4 km from Spain</strong><span>Easy day trips to Portbou &amp; Llançà</span></div>
+  <div class="amenity-card"><div class="icon">🏖️</div><strong>Beach on foot</strong><span>Cerbère beach reachable on foot</span></div>
+</div>
+<h3 style="color:#2E8B57; margin-bottom:0.8rem;">House rules</h3>
+<div class="rules-grid">
+  <div class="rule-item"><span class="rule-icon">🕐</span><span>Check-in: from 3:00 PM</span></div>
+  <div class="rule-item"><span class="rule-icon">🕙</span><span>Check-out: before 10:00 AM</span></div>
+  <div class="rule-item"><span class="rule-icon">📅</span><span>Minimum stay: 2 nights</span></div>
+  <div class="rule-item"><span class="rule-icon">🚭</span><span>No smoking (outside permitted)</span></div>
+  <div class="rule-item"><span class="rule-icon">🐾</span><span>Pets on request</span></div>
+  <div class="rule-item"><span class="rule-icon">🎉</span><span>No parties / events</span></div>
+</div>
+<div class="highlight-box" style="margin-top:1.2rem;">
+  <strong>Cancellation policy:</strong> Free cancellation up to 14 days before arrival. After that, 50% of the rental amount will be charged.
+</div>
+</section>
+
 <section id="preview-en" class="lang-section hidden">
 <h2>Photo preview</h2>
-<div class="preview-grid">
-<img src="huis1.jpg" alt="">
-<img src="huis2.jpg" alt="">
-<img src="huis3.jpg" alt="">
-<img src="huis4.jpg" alt="">
-<img src="huis5.jpg" alt="">
-<img src="huis6.jpg" alt="">
-<img src="huis7.jpg" alt="">
-<img src="huis8.jpg" alt="">
-<img src="huis9.jpg" alt="">
-</div>
+<div class="preview-grid" id="preview-grid-en"></div>
 <a href="gallery.html" class="page-link">View all photos</a>
 <a href="tips.html" class="page-link">View Tips & Activities</a>
+<div class="social-share-row">
+  <span style="align-self:center; color:#555; font-weight:bold;">Share:</span>
+  <a class="social-share-btn btn-whatsapp" id="share-wa-en" href="#" target="_blank" rel="noopener">📱 WhatsApp</a>
+  <a class="social-share-btn btn-facebook" id="share-fb-en" href="#" target="_blank" rel="noopener">📘 Facebook</a>
+  <button class="social-share-btn btn-copy" onclick="copyLink('en')">🔗 <span id="copy-en">Copy link</span></button>
+</div>
+</section>
+
+<section id="beschikbaarheid-en" class="lang-section hidden">
+<h2>Availability</h2>
+<div class="calendar-wrap" id="cal-en"></div>
+<p class="cal-note">🟢 Available &nbsp; 🔴 Booked &nbsp; Contact us to book</p>
 </section>
 
 <section id="prijzen-en" class="lang-section hidden">
 <h2>Prices & Availability</h2>
 <p>Daily and weekly rates, <strong>excluding tourist tax</strong>:</p>
 <table style="width:100%; border-collapse:collapse; margin:auto;">
-<tr style="background:#2E8B57; color:white;"><th>Season</th><th>Day price</th><th>Week price</th></tr>
-<tr><td>Low season (Jan - Mar, Oct - Dec)</td><td>€100</td><td>€700</td></tr>
-<tr><td>Mid season (Apr - Jun, Sep)</td><td>€130</td><td>€900</td></tr>
-<tr><td>High season (Jul - Aug)</td><td>€160</td><td>€1.200</td></tr>
+<tr style="background:#2E8B57; color:white;"><th>Season</th><th>Period</th><th>Per night</th><th>Per week</th></tr>
+<tr style="background:#f8fdf8;"><td>🌿 Low season</td><td>Jan – Mar &amp; Oct – Dec</td><td>€110</td><td>€750</td></tr>
+<tr><td>🌸 Mid season</td><td>Apr – Jun &amp; Sep</td><td>€145</td><td>€1,050</td></tr>
+<tr style="background:#f8fdf8;"><td>☀️ High season</td><td>Jul – Aug</td><td>€185</td><td>€1,400</td></tr>
 </table>
+<div class="highlight-box" style="margin-top:1.2rem;">
+  <strong>Additional costs:</strong>
+  Cleaning fee: <strong>€75</strong> per stay &nbsp;|&nbsp;
+  Tourist tax: approx. <strong>€1–€2 p.p./night</strong> (legally required) &nbsp;|&nbsp;
+  Pets: <strong>+€10/night</strong> on request<br>
+  <span style="font-size:0.85rem; color:#555;">Minimum stay: 2 nights. Weekly rates apply for 7 consecutive nights.</span>
+</div>
+</section>
+
+<section id="faq-en" class="lang-section hidden">
+<h2>Frequently asked questions</h2>
+<div class="faq-list">
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Is there free WiFi? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Yes, fast free WiFi is available throughout the entire house.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Is there parking available? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Public parking is available on the streets around the house. Parking is free outside of peak season.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">How far is the beach? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Cerbère beach is within walking distance — about 2 to 5 minutes on foot depending on the spot.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Are bed linen and towels provided? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Yes, bed linen and towels are included with your stay.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Is a deposit required? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">A 30% deposit is required at the time of booking confirmation. The balance is due no later than 4 weeks before arrival.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">How do I get there by public transport? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Cerbère train station is just 5 minutes' walk away. Regular trains run from Perpignan (approx. 1 hour) and Barcelona (approx. 2 hours). Perfect for a car-free stay!</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Are pets allowed? <span class="faq-arrow">▼</span></button>
+    <div class="faq-a">Pets are welcome on request. Please contact us in advance to discuss.</div>
+  </div>
+</div>
 </section>
 
 <section id="reservering-en" class="lang-section hidden">
@@ -251,60 +646,307 @@ footer { background-color: #2E8B57; color:white; text-align:center; padding:1.5r
 </form>
 </section>
 
+<!-- Sticky Book Now bar -->
+<div class="book-cta-bar" id="book-cta-bar">
+  <span class="cta-label" id="cta-label">Direct boeken of meer info?</span>
+  <a class="btn-book btn-book-primary" onclick="scrollToSection('reservering')">📅 <span id="cta-book">Boek direct</span></a>
+  <a class="btn-book btn-book-airbnb" href="https://www.airbnb.com" target="_blank" rel="noopener" id="cta-airbnb">🏠 Airbnb</a>
+</div>
+
+<!-- Floating social buttons -->
+<div class="social-float">
+  <a class="sf-whatsapp" id="float-wa" href="#" target="_blank" rel="noopener" title="WhatsApp">📱</a>
+  <a class="sf-facebook" id="float-fb" href="#" target="_blank" rel="noopener" title="Facebook">📘</a>
+  <a class="sf-instagram" href="https://www.instagram.com/explore/tags/frontdemer/" target="_blank" rel="noopener" title="Instagram #frontdemer">📷</a>
+</div>
+
 <footer>
 <p>&copy; 2025 Front de Mer, Cerbère</p>
+<p style="font-size:0.9rem; margin-top:0.3rem;">
+  <a href="https://www.instagram.com/explore/tags/frontdemer/" target="_blank" rel="noopener" style="color:white;">📷 #frontdemer</a>
+  &nbsp;|&nbsp;
+  <a href="gallery.html" style="color:white;">Galerij / Galerie / Gallery</a>
+</p>
 </footer>
 
+<script src="js/google-photos-config.js"></script>
 <script>
-// ================= Meertaligheid =================
-function showLang(lang) {
-  const sections = document.querySelectorAll('.lang-section');
-  sections.forEach(sec => sec.classList.add('hidden'));
-  const visibleSections = document.querySelectorAll(`#over-${lang}, #preview-${lang}, #prijzen-${lang}, #reservering-${lang}, #contact-${lang}`);
-  visibleSections.forEach(sec => sec.classList.remove('hidden'));
-}
-function scrollToSection(id) {
-  const lang = document.querySelector('.lang-section:not(.hidden)').id.split('-')[1];
-  const section = document.getElementById(`${id}-${lang}`);
-  section.scrollIntoView({behavior:'smooth'});
+// =================================================================
+// AVAILABILITY CALENDAR CONFIG
+// Edit BOOKED_RANGES to mark dates as unavailable.
+// Format: ["YYYY-MM-DD", "YYYY-MM-DD"]  (start inclusive, end inclusive)
+// =================================================================
+const BOOKED_RANGES = [
+  // Example — replace with your real bookings:
+  // ["2025-07-05", "2025-07-19"],
+  // ["2025-08-02", "2025-08-16"],
+];
+
+// =================================================================
+// CTA bar translations
+const CTA_TEXT = {
+  nl: { label: 'Direct boeken of meer info?', book: 'Boek direct', airbnb: '🏠 Airbnb' },
+  fr: { label: 'Réserver ou plus d\'infos ?',  book: 'Réserver',    airbnb: '🏠 Airbnb' },
+  en: { label: 'Ready to book or want info?', book: 'Book now',    airbnb: '🏠 Airbnb' },
+};
+
+// =================================================================
+// Preview grid from config
+function renderPreviewGrids() {
+  ['nl','fr','en'].forEach(lang => {
+    const grid = document.getElementById(`preview-grid-${lang}`);
+    if (!grid) return;
+    grid.innerHTML = '';
+    PREVIEW_PHOTOS.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src; img.alt = ''; img.loading = 'lazy';
+      grid.appendChild(img);
+    });
+  });
 }
 
-// ================= Minimaal 2 nachten =================
-function setMinCheckout(lang) {
-  const checkin = document.getElementById(`checkin-${lang}`);
-  const checkout = document.getElementById(`checkout-${lang}`);
-  if(checkin.value){
-    const minDate = new Date(checkin.value);
-    minDate.setDate(minDate.getDate()+2);
-    checkout.min = minDate.toISOString().split('T')[0];
-    if(!checkout.value || new Date(checkout.value) < minDate) {
-      checkout.value = minDate.toISOString().split('T')[0];
+// =================================================================
+// Language switching
+let currentLang = 'nl';
+
+function showLang(lang) {
+  currentLang = lang;
+  const sections = document.querySelectorAll('.lang-section');
+  sections.forEach(sec => sec.classList.add('hidden'));
+  // All section prefixes that follow the {id}-{lang} pattern
+  const ids = ['over','voorzieningen','preview','beschikbaarheid','prijzen','faq','reservering','contact'];
+  ids.forEach(id => {
+    const el = document.getElementById(`${id}-${lang}`);
+    if (el) el.classList.remove('hidden');
+  });
+  updateSocialLinks(lang);
+  updateCtaBar(lang);
+  renderCalendars(lang);
+}
+
+function scrollToSection(id) {
+  const section = document.getElementById(`${id}-${currentLang}`);
+  if (section) section.scrollIntoView({behavior:'smooth'});
+}
+
+// =================================================================
+// CTA bar
+function updateCtaBar(lang) {
+  const t = CTA_TEXT[lang];
+  const label = document.getElementById('cta-label');
+  const book  = document.getElementById('cta-book');
+  if (label) label.textContent = t.label;
+  if (book)  book.textContent  = t.book;
+}
+
+// =================================================================
+// Calendar
+function isBooked(dateStr) {
+  const d = new Date(dateStr);
+  return BOOKED_RANGES.some(([start, end]) => {
+    return d >= new Date(start) && d <= new Date(end);
+  });
+}
+
+function renderCalendars(lang) {
+  const calIds = { nl: 'cal-nl', fr: 'cal-fr', en: 'cal-en' };
+  const monthNames = {
+    nl: ['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'],
+    fr: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+    en: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+  };
+  const dayNames = {
+    nl: ['Ma','Di','Wo','Do','Vr','Za','Zo'],
+    fr: ['Lu','Ma','Me','Je','Ve','Sa','Di'],
+    en: ['Mo','Tu','We','Th','Fr','Sa','Su'],
+  };
+
+  const calEl = document.getElementById(calIds[lang]);
+  if (!calEl) return;
+
+  // Use a shared offset stored on the element
+  if (calEl._monthOffset === undefined) calEl._monthOffset = 0;
+
+  const today = new Date();
+  const offset = calEl._monthOffset;
+
+  calEl.innerHTML = '';
+
+  // Nav row
+  const nav = document.createElement('div');
+  nav.className = 'cal-nav';
+  const prevBtn = document.createElement('button');
+  prevBtn.textContent = '◀';
+  prevBtn.onclick = () => { calEl._monthOffset -= 2; renderCalendars(lang); };
+  const nextBtn = document.createElement('button');
+  nextBtn.textContent = '▶';
+  nextBtn.onclick = () => { calEl._monthOffset += 2; renderCalendars(lang); };
+  const navTitle = document.createElement('h3');
+  navTitle.textContent = ''; // spacer
+  nav.appendChild(prevBtn); nav.appendChild(navTitle); nav.appendChild(nextBtn);
+  calEl.appendChild(nav);
+
+  // Two months side by side
+  const months = document.createElement('div');
+  months.className = 'cal-months';
+
+  for (let m = 0; m < 2; m++) {
+    const d = new Date(today.getFullYear(), today.getMonth() + offset + m, 1);
+    const year = d.getFullYear();
+    const month = d.getMonth();
+
+    const monthEl = document.createElement('div');
+    monthEl.className = 'cal-month';
+
+    const title = document.createElement('div');
+    title.className = 'cal-month-title';
+    title.textContent = `${monthNames[lang][month]} ${year}`;
+    monthEl.appendChild(title);
+
+    const grid = document.createElement('div');
+    grid.className = 'cal-grid';
+
+    // Day headers (Mon-Sun)
+    dayNames[lang].forEach(dn => {
+      const h = document.createElement('div');
+      h.className = 'cal-day-name';
+      h.textContent = dn;
+      grid.appendChild(h);
+    });
+
+    // First weekday offset (Mon=0)
+    let startDay = (new Date(year, month, 1).getDay() + 6) % 7;
+    for (let i = 0; i < startDay; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'cal-day empty';
+      grid.appendChild(empty);
     }
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+      const isPast = new Date(dateStr) < new Date(today.toDateString());
+      const isTodayDay = dateStr === today.toISOString().split('T')[0];
+      const booked = isBooked(dateStr);
+
+      const dayEl = document.createElement('div');
+      dayEl.className = 'cal-day';
+      dayEl.textContent = day;
+      if (isTodayDay) dayEl.classList.add('today');
+      else if (isPast) dayEl.classList.add('past');
+      else if (booked) dayEl.classList.add('booked');
+      else dayEl.classList.add('available');
+      grid.appendChild(dayEl);
+    }
+
+    monthEl.appendChild(grid);
+    months.appendChild(monthEl);
+  }
+
+  calEl.appendChild(months);
+
+  // Legend
+  const legend = document.createElement('div');
+  legend.className = 'cal-legend';
+  const legendData = {
+    nl: [['dot-avail','Beschikbaar'],['dot-booked','Bezet']],
+    fr: [['dot-avail','Disponible'],['dot-booked','Occupé']],
+    en: [['dot-avail','Available'],['dot-booked','Booked']],
+  };
+  legendData[lang].forEach(([cls, lbl]) => {
+    const s = document.createElement('span');
+    s.innerHTML = `<span class="dot ${cls}"></span> ${lbl}`;
+    legend.appendChild(s);
+  });
+  calEl.appendChild(legend);
+}
+
+// =================================================================
+// FAQ accordion
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  // Close all in same list
+  btn.closest('.faq-list').querySelectorAll('.faq-q').forEach(b => {
+    b.classList.remove('open');
+    b.nextElementSibling.classList.remove('open');
+  });
+  if (!isOpen) {
+    btn.classList.add('open');
+    answer.classList.add('open');
   }
 }
 
-// ================= Mailfunctie =================
-function sendMail(lang) {
-  const checkin = document.getElementById(`checkin-${lang}`);
+// =================================================================
+// Social sharing
+const shareMessages = {
+  nl: "Bekijk Front de Mer, ons vakantiehuisje direct aan zee in Cerbère! ",
+  fr: "Découvrez Front de Mer, notre maison de vacances en bord de mer à Cerbère ! ",
+  en: "Check out Front de Mer, our holiday house right by the sea in Cerbère! "
+};
+
+function updateSocialLinks(lang) {
+  const url   = window.location.href;
+  const msg   = encodeURIComponent(shareMessages[lang] + url);
+  const fbUrl = encodeURIComponent(url);
+  const wa = document.getElementById('float-wa');
+  const fb = document.getElementById('float-fb');
+  if (wa) wa.href = `https://api.whatsapp.com/send?text=${msg}`;
+  if (fb) fb.href = `https://www.facebook.com/sharer/sharer.php?u=${fbUrl}`;
+  ['nl','fr','en'].forEach(l => {
+    const swa = document.getElementById(`share-wa-${l}`);
+    const sfb = document.getElementById(`share-fb-${l}`);
+    if (swa) swa.href = `https://api.whatsapp.com/send?text=${msg}`;
+    if (sfb) sfb.href = `https://www.facebook.com/sharer/sharer.php?u=${fbUrl}`;
+  });
+}
+
+function copyLink(lang) {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const el = document.getElementById(`copy-${lang}`);
+    const orig = el.textContent;
+    el.textContent = { nl:'Gekopieerd!', fr:'Copié !', en:'Copied!' }[lang];
+    setTimeout(() => el.textContent = orig, 2000);
+  });
+}
+
+// =================================================================
+// Booking form helpers
+function setMinCheckout(lang) {
+  const checkin  = document.getElementById(`checkin-${lang}`);
   const checkout = document.getElementById(`checkout-${lang}`);
-  const nameInput = document.getElementById(`name-${lang}`);
-  const emailInput = document.getElementById(`email-${lang}`);
+  if (checkin.value) {
+    const minDate = new Date(checkin.value);
+    minDate.setDate(minDate.getDate() + 2);
+    checkout.min = minDate.toISOString().split('T')[0];
+    if (!checkout.value || new Date(checkout.value) < minDate)
+      checkout.value = minDate.toISOString().split('T')[0];
+  }
+}
+
+function sendMail(lang) {
+  const checkin  = document.getElementById(`checkin-${lang}`);
+  const checkout = document.getElementById(`checkout-${lang}`);
+  const nameInput    = document.getElementById(`name-${lang}`);
+  const emailInput   = document.getElementById(`email-${lang}`);
   const messageInput = document.getElementById(`message-${lang}`);
 
-  if(!checkin.value){ alert("Selecteer een aankomstdatum."); checkin.focus(); return false; }
-  if(!checkout.value){ alert("Selecteer een vertrekdatum."); checkout.focus(); return false; }
-  if(!nameInput.value.trim()){ alert("Vul uw naam in."); nameInput.focus(); return false; }
-  if(!emailInput.value.trim()){ alert("Vul uw e-mail in."); emailInput.focus(); return false; }
+  if (!checkin.value)            { alert({ nl:"Selecteer een aankomstdatum.", fr:"Sélectionnez une date d'arrivée.", en:"Please select an arrival date." }[lang]); checkin.focus(); return false; }
+  if (!checkout.value)           { alert({ nl:"Selecteer een vertrekdatum.",  fr:"Sélectionnez une date de départ.",  en:"Please select a departure date." }[lang]); checkout.focus(); return false; }
+  if (!nameInput.value.trim())   { alert({ nl:"Vul uw naam in.",              fr:"Entrez votre nom.",                 en:"Please enter your name." }[lang]); nameInput.focus(); return false; }
+  if (!emailInput.value.trim())  { alert({ nl:"Vul uw e-mail in.",            fr:"Entrez votre e-mail.",              en:"Please enter your email." }[lang]); emailInput.focus(); return false; }
 
   const subject = encodeURIComponent(`Reservering Front de Mer - ${checkin.value} t/m ${checkout.value}`);
-  const body = encodeURIComponent(`Naam: ${nameInput.value}\nE-mail: ${emailInput.value}\nAankomst: ${checkin.value}\nVertrek: ${checkout.value}\n\nExtra info:\n${messageInput.value}`);
+  const body    = encodeURIComponent(`Naam: ${nameInput.value}\nE-mail: ${emailInput.value}\nAankomst: ${checkin.value}\nVertrek: ${checkout.value}\n\nExtra info:\n${messageInput.value}`);
 
-  alert("Uw e-mail wordt geopend in uw mail-app. Controleer deze en klik op verzenden!");
-  window.location.href = `mailto:info@frontdemer-cerbere.fr?subject=${subject}&body=${body}`;
+  alert({ nl:"Uw e-mail wordt geopend in uw mail-app. Controleer en klik op verzenden!", fr:"Votre application email va s'ouvrir. Vérifiez et envoyez !", en:"Your email app will open. Please review and hit send!" }[lang]);
+  window.location.href = `mailto:cerbere@waagmeester.net?subject=${subject}&body=${body}`;
   return false;
 }
 
-// ================= Default taal =================
+// =================================================================
+// Init
+renderPreviewGrids();
 showLang('nl');
 </script>
 

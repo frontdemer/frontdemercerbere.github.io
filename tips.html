@@ -3,193 +3,546 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tips & Activities - Front de Mer</title>
+<title>Tips & Activities - Front de Mer, Cerbère</title>
 
-<link href='https://api.mapbox.com/mapbox-gl-js/v3.17.0-beta.1/mapbox-gl.css' rel='stylesheet' />
+<!-- Mapbox stable release -->
+<link href='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
 
 <style>
-body { margin:0; font-family:Arial,sans-serif; color:#333; }
-header { background:#2E8B57; color:white; padding:1rem; text-align:center; }
-.lang-btn { margin:0 0.5rem; padding:0.4rem 0.8rem; border:none; border-radius:4px; cursor:pointer; font-weight:bold; }
-.lang-btn:hover { background:#fff; color:#2E8B57; }
-.container { display:flex; flex-direction:row; height:calc(100vh - 70px); }
-.sidebar { width:300px; overflow-y:auto; padding:1rem; background:#f4f4f4; }
+* { box-sizing: border-box; }
+body { margin:0; font-family:'Helvetica Neue',Arial,sans-serif; color:#333; background:#fafafa; }
+
+/* ── Header ── */
+header { background:#2E8B57; color:white; padding:0.8rem 1rem; text-align:center; }
+header h1 { margin:0.3rem 0; font-size:1.6rem; }
+.lang-btn {
+  margin:0 0.3rem; padding:0.35rem 0.75rem;
+  background:rgba(255,255,255,0.85); color:#2E8B57;
+  border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:0.2s;
+}
+.lang-btn:hover, .lang-btn.active { background:white; }
+.home-btn {
+  display:inline-block; margin-left:0.5rem; padding:0.35rem 0.8rem;
+  background:rgba(255,255,255,0.2); color:white;
+  border:1px solid rgba(255,255,255,0.6); border-radius:4px;
+  font-size:0.9rem; text-decoration:none; transition:0.2s;
+}
+.home-btn:hover { background:rgba(255,255,255,0.35); }
+
+/* ── Layout ── */
+.container {
+  display:flex; flex-direction:row;
+  height: calc(100vh - 90px);
+}
+.sidebar {
+  width:300px; min-width:220px;
+  overflow-y:auto; padding:0.8rem 1rem;
+  background:white;
+  border-right:1px solid #ddd;
+  display:flex; flex-direction:column; gap:0.5rem;
+}
+.sidebar h2 { margin:0 0 0.5rem; font-size:1.1rem; color:#2E8B57; }
 #map { flex:1; }
-ul { list-style-type:none; margin:0; padding:0; }
-li { cursor:pointer; margin:0.5rem 0; }
-.type-heading { font-weight:bold; margin-top:1rem; }
 
-.hidden { display:none; }
+/* ── Legend ── */
+.legend {
+  margin-bottom:0.8rem;
+  padding:0.6rem 0.8rem;
+  background:#f0f8f0;
+  border-radius:6px;
+  border:1px solid #c8e6c9;
+  font-size:0.82rem;
+}
+.legend-title { font-weight:bold; margin-bottom:0.4rem; color:#2E8B57; font-size:0.85rem; }
+.legend-item {
+  display:flex; align-items:center; gap:0.4rem; margin:0.2rem 0; cursor:pointer;
+  padding:0.15rem 0.3rem; border-radius:3px; transition:background 0.15s;
+}
+.legend-item:hover { background:rgba(46,139,87,0.1); }
+.legend-dot {
+  width:12px; height:12px; border-radius:50%; flex-shrink:0;
+  border:1px solid rgba(0,0,0,0.2);
+}
 
+/* ── POI list ── */
+.category-block { margin-bottom:0.6rem; }
+.category-heading {
+  font-weight:bold; font-size:0.8rem; text-transform:uppercase;
+  letter-spacing:0.05em; color:#888; margin:0.6rem 0 0.3rem;
+  padding-bottom:0.2rem; border-bottom:1px solid #eee;
+}
+ul { list-style:none; margin:0; padding:0; }
+li.poi-item {
+  cursor:pointer; padding:0.35rem 0.5rem;
+  border-radius:5px; font-size:0.9rem;
+  display:flex; align-items:center; gap:0.5rem;
+  transition:background 0.15s;
+}
+li.poi-item:hover { background:#e8f5e9; }
+li.poi-item.active { background:#c8e6c9; font-weight:bold; }
+.poi-dot {
+  width:9px; height:9px; border-radius:50%; flex-shrink:0;
+  border:1px solid rgba(0,0,0,0.2);
+}
+
+/* ── No results ── */
+.no-data {
+  padding:1rem; color:#999; font-size:0.9rem; text-align:center;
+}
+
+/* ── Responsive ── */
 @media(max-width:768px){
   .container { flex-direction:column; height:auto; }
-  .sidebar { width:100%; height:auto; }
-  #map { height:400px; }
+  .sidebar { width:100%; height:auto; max-height:45vh; border-right:none; border-bottom:1px solid #ddd; }
+  #map { height:55vw; min-height:300px; }
 }
+
+/* ── Footer ── */
+footer { background:#2E8B57; color:white; text-align:center; padding:1rem; font-size:0.9rem; }
+footer a { color:white; }
+
+.hidden { display:none; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Front de Mer - Tips & Activities</h1>
-  <div>
-    <button class="lang-btn" onclick="showLang('nl')">NL</button>
-    <button class="lang-btn" onclick="showLang('fr')">FR</button>
-    <button class="lang-btn" onclick="showLang('en')">EN</button>
-    <a href="index.html" class="lang-btn">Home</a>
+  <h1 id="header-title">Tips & Activities – Front de Mer</h1>
+  <div style="margin-top:0.4rem;">
+    <button class="lang-btn active" id="btn-nl" onclick="showLang('nl')">NL</button>
+    <button class="lang-btn" id="btn-fr" onclick="showLang('fr')">FR</button>
+    <button class="lang-btn" id="btn-en" onclick="showLang('en')">EN</button>
+    <a href="index.html" class="home-btn" id="home-link">← Home</a>
   </div>
 </header>
 
 <div class="container">
   <div class="sidebar">
-    <h2>Locations</h2>
-    <div id="tips-list-nl" class="lang-section"></div>
-    <div id="tips-list-fr" class="lang-section hidden"></div>
-    <div id="tips-list-en" class="lang-section hidden"></div>
+
+    <!-- Legend -->
+    <div class="legend" id="map-legend">
+      <div class="legend-title" id="legend-title">Kaart legenda</div>
+      <!-- filled by JS -->
+    </div>
+
+    <h2 id="sidebar-title">Locaties</h2>
+
+    <!-- POI lists per language -->
+    <div id="tips-list-nl" class="lang-tips"></div>
+    <div id="tips-list-fr" class="lang-tips hidden"></div>
+    <div id="tips-list-en" class="lang-tips hidden"></div>
+
   </div>
   <div id="map"></div>
 </div>
 
-<script src='https://api.mapbox.com/mapbox-gl-js/v3.17.0-beta.1/mapbox-gl.js'></script>
+<footer>
+  <p>&copy; 2025 Front de Mer, Cerbère &nbsp;|&nbsp; <a href="index.html">← Home</a> &nbsp;|&nbsp; <a href="gallery.html">Gallery</a></p>
+</footer>
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js'></script>
 <script src="https://unpkg.com/n3@1.17.3/browser/n3.min.js"></script>
 
 <script>
-// Mapbox token
+// ── Mapbox ────────────────────────────────────────────────────────
 // (Mapbox removed)
+
 const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v12',
-    center: [3.164, 42.440],
-    zoom: 13
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v12',
+  center: [3.164, 42.440],
+  zoom: 13
 });
+map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
 map.markers = [];
 
-// Namespaces
-const GEO = 'http://www.opengis.net/ont/geosparql#';
-const OSM_KEY = 'https://www.openstreetmap.org/wiki/Key:';
+// ── RDF Namespaces ────────────────────────────────────────────────
+const GEO      = 'http://www.opengis.net/ont/geosparql#';
+const OSM_KEY  = 'https://www.openstreetmap.org/wiki/Key:';
 const OSM_ADDR = 'https://www.openstreetmap.org/wiki/Key:addr:';
 
 let currentLang = 'nl';
+let allFeatures = [];
 
-// Load RDF from file
+// ── Type config: OSM value → category + icon + colour ────────────
+const TYPE_CONFIG = {
+  // amenity
+  restaurant:    { cat:'restaurant', icon:'🍽️',  color:'#e74c3c' },
+  fast_food:     { cat:'restaurant', icon:'🍔',  color:'#e74c3c' },
+  cafe:          { cat:'restaurant', icon:'☕',  color:'#e74c3c' },
+  bar:           { cat:'restaurant', icon:'🍷',  color:'#e74c3c' },
+  dive_centre:   { cat:'activity',   icon:'🤿',  color:'#1abc9c' },
+  cinema:        { cat:'activity',   icon:'🎬',  color:'#9b59b6' },
+  parking:       { cat:'practical', icon:'🅿️',  color:'#7f8c8d' },
+  parking_space: { cat:'practical', icon:'🅿️',  color:'#7f8c8d' },
+  fuel:          { cat:'practical', icon:'⛽',  color:'#7f8c8d' },
+  // tourism
+  museum:        { cat:'culture',   icon:'🏛️',  color:'#e67e22' },
+  aquarium:      { cat:'culture',   icon:'🐟',  color:'#2980b9' },
+  theme_park:    { cat:'activity',  icon:'🎡',  color:'#9b59b6' },
+  hotel:         { cat:'stay',      icon:'🏨',  color:'#8e44ad' },
+  // shop
+  supermarket:   { cat:'shop',      icon:'🛒',  color:'#27ae60' },
+  convenience:   { cat:'shop',      icon:'🏪',  color:'#27ae60' },
+  bakery:        { cat:'shop',      icon:'🥖',  color:'#f39c12' },
+  // leisure
+  sports_centre: { cat:'activity',  icon:'⚽',  color:'#e74c3c' },
+  nature_reserve:{ cat:'nature',    icon:'🌿',  color:'#27ae60' },
+  // natural
+  beach:         { cat:'nature',    icon:'🏖️',  color:'#3498db' },
+  cave_entrance: { cat:'nature',    icon:'🕳️',  color:'#34495e' },
+  // sport
+  scuba_diving:  { cat:'activity',  icon:'🤿',  color:'#1abc9c' },
+  karting:       { cat:'activity',  icon:'🏎️',  color:'#e74c3c' },
+  // historic
+  building:      { cat:'culture',   icon:'🏯',  color:'#e67e22' },
+};
+
+const DEFAULT_TYPE = { cat:'poi', icon:'📍', color:'#2980b9' };
+
+// ── Category translations ─────────────────────────────────────────
+const CAT_LABELS = {
+  restaurant: { nl:'Eten & Drinken',    fr:'Restaurants & Bars',    en:'Food & Drink' },
+  activity:   { nl:'Activiteiten',      fr:'Activités',             en:'Activities' },
+  culture:    { nl:'Cultuur & Musea',   fr:'Culture & Musées',      en:'Culture & Museums' },
+  nature:     { nl:'Natuur & Stranden', fr:'Nature & Plages',       en:'Nature & Beaches' },
+  shop:       { nl:'Winkels',           fr:'Commerces',             en:'Shops' },
+  practical:  { nl:'Praktisch',         fr:'Pratique',              en:'Practical' },
+  stay:       { nl:'Verblijf',          fr:'Hébergement',           en:'Stay' },
+  poi:        { nl:'Overig',            fr:'Autre',                 en:'Other' },
+};
+
+// ── UI string translations ────────────────────────────────────────
+const UI = {
+  nl: {
+    headerTitle:  'Tips & Activiteiten – Front de Mer',
+    sidebarTitle: 'Locaties',
+    legendTitle:  'Kaart legenda',
+    homeLink:     '← Home',
+    noData:       'Geen locaties gevonden.',
+    clickHint:    'Klik op een locatie om in te zoomen',
+  },
+  fr: {
+    headerTitle:  'Conseils & Activités – Front de Mer',
+    sidebarTitle: 'Lieux',
+    legendTitle:  'Légende de la carte',
+    homeLink:     '← Accueil',
+    noData:       'Aucun lieu trouvé.',
+    clickHint:    'Cliquez sur un lieu pour zoomer',
+  },
+  en: {
+    headerTitle:  'Tips & Activities – Front de Mer',
+    sidebarTitle: 'Locations',
+    legendTitle:  'Map legend',
+    homeLink:     '← Home',
+    noData:       'No locations found.',
+    clickHint:    'Click a location to zoom in',
+  },
+};
+
+// ── Helpers ───────────────────────────────────────────────────────
+function firstValue(quads) {
+  return quads.length ? quads[0].object.value : null;
+}
+
+function parseWKT(wkt) {
+  let m = /POINT\s*\(\s*([-\d.]+)\s+([-\d.]+)\s*\)/i.exec(wkt);
+  if (m) return [parseFloat(m[1]), parseFloat(m[2])];
+  m = /POLYGON\s*\(\(([\d.,\s\-]+)\)\)/i.exec(wkt);
+  if (m) {
+    const pts = m[1].split(',')[0].trim().split(/\s+/);
+    return [parseFloat(pts[0]), parseFloat(pts[1])];
+  }
+  return null;
+}
+
+function getTypeConfig(osmValue) {
+  return TYPE_CONFIG[osmValue] || DEFAULT_TYPE;
+}
+
+function groupBy(array, keyFn) {
+  return array.reduce((acc, item) => {
+    const k = keyFn(item); if (!acc[k]) acc[k] = []; acc[k].push(item); return acc;
+  }, {});
+}
+
+// ── RDF loading ───────────────────────────────────────────────────
 async function loadRdf() {
   try {
     const resp = await fetch('osm.ttl');
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const ttl = await resp.text();
 
     const parser = new N3.Parser();
-    const store = new N3.Store();
+    const store  = new N3.Store();
     store.addQuads(parser.parse(ttl));
 
-    const features = extractFeaturesFromStore(store);
-    renderFeatures(features);
-  } catch(e){
-    console.error("Failed to load/parse RDF:", e);
+    allFeatures = extractFeaturesFromStore(store);
+    renderAll();
+  } catch(e) {
+    console.error('Failed to load/parse RDF:', e);
+    ['nl','fr','en'].forEach(l => {
+      const el = document.getElementById(`tips-list-${l}`);
+      if (el) el.innerHTML = `<div class="no-data">${UI[l].noData}</div>`;
+    });
   }
 }
 
-// Extract features
+// ── Feature extraction ────────────────────────────────────────────
 function extractFeaturesFromStore(store) {
   const features = [];
-  const quadsHasGeom = store.getQuads(null, GEO + 'hasGeometry', null, null);
 
-  for(const q of quadsHasGeom){
+  // Keys to check in order of priority
+  const typeKeys = ['amenity','tourism','leisure','shop','natural','sport','historic'];
+
+  for (const q of store.getQuads(null, GEO + 'hasGeometry', null, null)) {
     const subject = q.subject;
-    const geom = q.object;
-    const wktQuad = store.getQuads(geom, GEO + 'asWKT', null, null)[0];
-    if(!wktQuad) continue;
+    const geomNode = q.object;
 
-    const coords = parseWKT(wktQuad.object.value);
-    if(!coords) continue;
+    const wktQ = store.getQuads(geomNode, GEO + 'asWKT', null, null)[0];
+    if (!wktQ) continue;
+    const coords = parseWKT(wktQ.object.value);
+    if (!coords) continue;
 
-    const name = firstValue(store.getQuads(subject, OSM_KEY + 'name', null, null));
-    const tourism = firstValue(store.getQuads(subject, OSM_KEY + 'tourism', null, null));
-    const leisure = firstValue(store.getQuads(subject, OSM_KEY + 'leisure', null, null));
-    const shop = firstValue(store.getQuads(subject, OSM_KEY + 'shop', null, null));
-    const street = firstValue(store.getQuads(subject, OSM_ADDR + 'street', null, null));
+    const name    = firstValue(store.getQuads(subject, OSM_KEY + 'name', null, null));
+    const street  = firstValue(store.getQuads(subject, OSM_ADDR + 'street', null, null));
     const housenr = firstValue(store.getQuads(subject, OSM_ADDR + 'housenumber', null, null));
+    const city    = firstValue(store.getQuads(subject, OSM_ADDR + 'city', null, null));
+    const hours   = firstValue(store.getQuads(subject, OSM_KEY + 'opening_hours', null, null));
+    const website = firstValue(store.getQuads(subject, OSM_KEY + 'website', null, null))
+                 || firstValue(store.getQuads(subject, 'https://www.openstreetmap.org/wiki/Key:contact:website', null, null));
+    const phone   = firstValue(store.getQuads(subject, OSM_KEY + 'phone', null, null))
+                 || firstValue(store.getQuads(subject, 'https://www.openstreetmap.org/wiki/Key:contact:phone', null, null));
 
-    let label = name || (street && housenr ? `${street} ${housenr}` : subject.value);
+    const label = name
+      || (street && housenr ? `${street} ${housenr}` : null)
+      || subject.value.replace(/.*\//, '');
 
-    let type = 'poi';
-    if(shop) type = 'shop';
-    else if(tourism==='museum') type='museum';
-    else if(leisure==='sports_centre') type='sports';
-    else if(tourism==='restaurant') type='restaurant';
+    // Determine type from first matching key
+    let osmValue = null;
+    for (const key of typeKeys) {
+      const val = firstValue(store.getQuads(subject, OSM_KEY + key, null, null));
+      if (val) { osmValue = val; break; }
+    }
 
-    features.push({uri:subject.value, coords, label, type});
+    const typeCfg = getTypeConfig(osmValue);
+
+    features.push({
+      uri: subject.value,
+      coords,
+      label,
+      osmValue,
+      cat:     typeCfg.cat,
+      icon:    typeCfg.icon,
+      color:   typeCfg.color,
+      address: [street, housenr, city].filter(Boolean).join(' '),
+      hours,
+      website,
+      phone,
+    });
   }
 
   return features;
 }
 
-function firstValue(quads){ return quads.length ? quads[0].object.value : null; }
-
-function parseWKT(wkt){
-  let match = /POINT\s*\(\s*([0-9.\-]+)\s+([0-9.\-]+)\s*\)/i.exec(wkt);
-  if(match) return [parseFloat(match[1]), parseFloat(match[2])];
-  match = /POLYGON\s*\(\(([\d.,\s\-]+)\)\)/i.exec(wkt);
-  if(match){
-    const coords = match[1].split(',')[0].trim().split(' ');
-    return [parseFloat(coords[0]), parseFloat(coords[1])];
-  }
-  return null;
+// ── Render everything ─────────────────────────────────────────────
+function renderAll() {
+  renderMarkers();
+  renderLegend();
+  renderLists();
 }
 
-// Render features
-function renderFeatures(features){
-  ["nl","fr","en"].forEach(lang=>{
-    const container = document.getElementById(`tips-list-${lang}`);
-    container.innerHTML='';
+function renderMarkers() {
+  map.markers.forEach(m => m.remove());
+  map.markers = [];
+
+  allFeatures.forEach(f => {
+    const popupHtml = buildPopupHtml(f, currentLang);
+    const popup = new mapboxgl.Popup({ offset: 25, maxWidth: '240px' })
+      .setHTML(popupHtml);
+
+    const el = document.createElement('div');
+    el.style.cssText = `
+      width:28px; height:28px; border-radius:50%;
+      background:${f.color}; border:2px solid white;
+      box-shadow:0 2px 6px rgba(0,0,0,0.3);
+      display:flex; align-items:center; justify-content:center;
+      font-size:14px; cursor:pointer;
+    `;
+    el.textContent = f.icon;
+
+    const marker = new mapboxgl.Marker({ element: el })
+      .setLngLat(f.coords)
+      .setPopup(popup)
+      .addTo(map);
+    map.markers.push(marker);
+
+    // Store feature ref on marker for syncing with list
+    marker._featureUri = f.uri;
+  });
+}
+
+function buildPopupHtml(f, lang) {
+  const catLabel = CAT_LABELS[f.cat] ? CAT_LABELS[f.cat][lang] : f.cat;
+  let html = `<div style="font-family:Arial,sans-serif; font-size:13px; max-width:200px;">
+    <strong style="font-size:14px;">${f.icon} ${f.label}</strong>
+    <div style="color:#888; font-size:11px; margin-top:2px;">${catLabel}</div>`;
+  if (f.address) html += `<div style="margin-top:4px;">📍 ${f.address}</div>`;
+  if (f.hours)   html += `<div style="margin-top:2px;">🕐 ${f.hours}</div>`;
+  if (f.phone)   html += `<div style="margin-top:2px;">📞 <a href="tel:${f.phone}">${f.phone}</a></div>`;
+  if (f.website) html += `<div style="margin-top:4px;"><a href="${f.website}" target="_blank" rel="noopener" style="color:#2E8B57;">🌐 Website</a></div>`;
+  html += '</div>';
+  return html;
+}
+
+function renderLegend() {
+  const t = UI[currentLang];
+  document.getElementById('legend-title').textContent = t.legendTitle;
+
+  // Get unique cats actually present
+  const usedCats = [...new Set(allFeatures.map(f => f.cat))];
+  // Pick a representative color for each cat
+  const catColors = {};
+  const catIcons  = {};
+  allFeatures.forEach(f => {
+    catColors[f.cat] = f.color;
+    catIcons[f.cat]  = f.icon;
   });
 
-  map.markers.forEach(m=>m.remove());
-  map.markers=[];
+  const legend = document.getElementById('map-legend');
+  // Clear previous items except title
+  legend.querySelectorAll('.legend-item').forEach(el => el.remove());
 
-  const grouped = groupBy(features,f=>f.type);
+  usedCats.forEach(cat => {
+    const label = CAT_LABELS[cat] ? CAT_LABELS[cat][currentLang] : cat;
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `
+      <div class="legend-dot" style="background:${catColors[cat]};"></div>
+      <span>${catIcons[cat]} ${label}</span>`;
+    item.addEventListener('click', () => filterByCategory(cat));
+    legend.appendChild(item);
+  });
+}
 
-  for(const type in grouped){
-    ["nl","fr","en"].forEach(lang=>{
-      const container = document.getElementById(`tips-list-${lang}`);
-      const heading = document.createElement('div');
-      heading.className='type-heading';
-      heading.textContent = type; // use OSM value as heading
-      container.appendChild(heading);
+let activeFilter = null;
+function filterByCategory(cat) {
+  activeFilter = (activeFilter === cat) ? null : cat;
+  // Highlight legend item
+  document.querySelectorAll('.legend-item').forEach(el => {
+    el.style.fontWeight = '';
+    el.style.background = '';
+  });
+  if (activeFilter) {
+    document.querySelectorAll('.legend-item').forEach(el => {
+      if (el.textContent.trim().includes(CAT_LABELS[cat][currentLang])) {
+        el.style.fontWeight = 'bold';
+        el.style.background = 'rgba(46,139,87,0.15)';
+      }
+    });
+  }
+  renderLists();
+  // Show/hide markers
+  map.markers.forEach(marker => {
+    const f = allFeatures.find(f => f.uri === marker._featureUri);
+    if (f) {
+      const visible = !activeFilter || f.cat === activeFilter;
+      marker.getElement().style.opacity = visible ? '1' : '0.15';
+    }
+  });
+}
+
+function renderLists() {
+  const t = UI[currentLang];
+  ['nl','fr','en'].forEach(lang => {
+    const container = document.getElementById(`tips-list-${lang}`);
+    container.innerHTML = '';
+
+    const features = activeFilter ? allFeatures.filter(f => f.cat === activeFilter) : allFeatures;
+    if (!features.length) {
+      container.innerHTML = `<div class="no-data">${t.noData}</div>`;
+      return;
+    }
+
+    const grouped = groupBy(features, f => f.cat);
+    // Order categories nicely
+    const catOrder = ['nature','restaurant','activity','culture','shop','stay','practical','poi'];
+    const orderedCats = catOrder.filter(c => grouped[c]).concat(
+      Object.keys(grouped).filter(c => !catOrder.includes(c))
+    );
+
+    orderedCats.forEach(cat => {
+      const catLabel = CAT_LABELS[cat] ? CAT_LABELS[cat][lang] : cat;
+      const block = document.createElement('div');
+      block.className = 'category-block';
+
+      const h = document.createElement('div');
+      h.className = 'category-heading';
+      h.textContent = catLabel;
+      block.appendChild(h);
 
       const ul = document.createElement('ul');
-      grouped[type].forEach(f=>{
+      grouped[cat].forEach(f => {
         const li = document.createElement('li');
-        li.textContent = f.label;
-        li.dataset.lat=f.coords[1];
-        li.dataset.lon=f.coords[0];
-        li.addEventListener('click',()=>{ map.flyTo({center:f.coords, zoom:15}); });
+        li.className = 'poi-item';
+        li.dataset.uri = f.uri;
+        li.innerHTML = `<span class="poi-dot" style="background:${f.color};"></span>${f.icon} ${f.label}`;
+        li.addEventListener('click', () => {
+          map.flyTo({ center: f.coords, zoom: 15, duration: 800 });
+          // Open popup
+          map.markers.forEach(m => {
+            if (m._featureUri === f.uri) m.togglePopup();
+          });
+          // Highlight in list
+          document.querySelectorAll('.poi-item').forEach(el => el.classList.remove('active'));
+          li.classList.add('active');
+          // On mobile: scroll map into view
+          if (window.innerWidth <= 768) {
+            document.getElementById('map').scrollIntoView({ behavior:'smooth' });
+          }
+        });
         ul.appendChild(li);
-
-        if(lang==='nl'){ // only add markers once
-          const marker = new mapboxgl.Marker({color:getMarkerColor(f.type)})
-            .setLngLat(f.coords)
-            .setPopup(new mapboxgl.Popup({offset:25}).setText(f.label))
-            .addTo(map);
-          map.markers.push(marker);
-        }
       });
-      container.appendChild(ul);
+      block.appendChild(ul);
+      container.appendChild(block);
+    });
+  });
+}
+
+// ── Language switching ────────────────────────────────────────────
+function showLang(lang) {
+  currentLang = lang;
+  const t = UI[lang];
+
+  // UI labels
+  document.getElementById('header-title').textContent  = t.headerTitle;
+  document.getElementById('sidebar-title').textContent = t.sidebarTitle;
+  document.getElementById('home-link').textContent      = t.homeLink;
+
+  // Active button
+  ['nl','fr','en'].forEach(l => {
+    document.getElementById(`btn-${l}`).classList.toggle('active', l === lang);
+  });
+
+  // Show correct list
+  document.querySelectorAll('.lang-tips').forEach(el => el.classList.add('hidden'));
+  document.getElementById(`tips-list-${lang}`).classList.remove('hidden');
+
+  // Re-render legend labels
+  if (allFeatures.length) {
+    renderLegend();
+    renderLists();
+    // Refresh popup content on all markers
+    map.markers.forEach(marker => {
+      const f = allFeatures.find(f => f.uri === marker._featureUri);
+      if (f) marker.getPopup().setHTML(buildPopupHtml(f, lang));
     });
   }
 }
 
-function groupBy(array,keyFn){ return array.reduce((acc,item)=>{ const key=keyFn(item); if(!acc[key]) acc[key]=[]; acc[key].push(item); return acc; },{}); }
-function getMarkerColor(type){ switch(type){ case 'hotel': return 'purple'; case 'museum': return 'orange'; case 'sports': return 'red'; case 'restaurant': return 'green'; case 'shop': return 'brown'; default: return 'blue'; } }
-function showLang(lang){
-  currentLang=lang;
-  ["nl","fr","en"].forEach(l=>{
-    document.getElementById(`tips-list-${l}`).classList.add('hidden');
-  });
-  document.getElementById(`tips-list-${lang}`).classList.remove('hidden');
-}
-
-// Start
-loadRdf();
+// ── Init ──────────────────────────────────────────────────────────
+map.on('load', loadRdf);
 showLang('nl');
 </script>
 </body>
