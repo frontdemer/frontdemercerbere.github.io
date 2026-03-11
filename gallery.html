@@ -30,13 +30,22 @@ a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 
 /* ======= HEADER ======= */
-header {
+#site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
   background: var(--green-dark);
-  padding: 1.4rem 2.5rem;
+  padding: 1.2rem 2.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  transition: var(--t);
+}
+#site-header.scrolled {
+  background: white;
+  box-shadow: var(--shadow-sm);
+  padding: 0.75rem 2.5rem;
 }
 .logo {
   font-family: 'Playfair Display', serif;
@@ -45,8 +54,10 @@ header {
   color: white;
   letter-spacing: 0.02em;
   white-space: nowrap;
+  transition: var(--t);
 }
 .logo a { color: inherit; }
+#site-header.scrolled .logo { color: var(--green-dark); }
 .header-right { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .back-link {
   font-size: 0.8rem;
@@ -60,6 +71,8 @@ header {
   gap: 0.4rem;
 }
 .back-link:hover { color: white; }
+#site-header.scrolled .back-link { color: var(--text-muted); }
+#site-header.scrolled .back-link:hover { color: var(--green-dark); }
 .lang-switcher { display: flex; gap: 0.3rem; }
 .lang-btn {
   padding: 0.3rem 0.6rem;
@@ -75,11 +88,13 @@ header {
   letter-spacing: 0.05em;
 }
 .lang-btn:hover { background: rgba(255,255,255,0.15); border-color: white; }
+#site-header.scrolled .lang-btn { border-color: var(--green-dark); color: var(--green-dark); }
+#site-header.scrolled .lang-btn:hover { background: var(--green-dark); color: white; }
 
 /* ======= PAGE TITLE ======= */
 .page-header {
   background: var(--green-dark);
-  padding: 3rem 2.5rem 4rem;
+  padding: calc(3rem + 68px) 2.5rem 4rem;
   text-align: center;
   color: white;
 }
@@ -223,7 +238,7 @@ footer {
 </head>
 <body>
 
-<header>
+<header id="site-header">
   <div class="logo"><a href="index.html">Front de Mer</a></div>
   <div class="header-right">
     <a href="index.html" class="back-link">← <span id="back-label">Terug</span></a>
@@ -380,6 +395,10 @@ function showLang(lang) {
 }
 
 loadGalleryJson();
+
+window.addEventListener('scroll', () => {
+  document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 60);
+});
 </script>
 </body>
 </html>

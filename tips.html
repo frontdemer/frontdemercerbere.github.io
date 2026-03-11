@@ -3,36 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tips & Activities - Front de Mer, Cerbère</title>
-
-<!-- Mapbox stable release -->
+<title>Tips & Activities — Front de Mer, Cerbère</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <style>
+:root {
+  --green-dark: #1B4332;
+  --green-mid: #2D6A4F;
+  --gold: #C9943C;
+  --sand: #FAF6F0;
+  --text: #1C2B23;
+  --text-muted: #6B7E75;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.07);
+  --t: all 0.3s ease;
+}
 * { box-sizing: border-box; }
-body { margin:0; font-family:'Helvetica Neue',Arial,sans-serif; color:#333; background:#fafafa; }
+body { margin:0; font-family:'Nunito',sans-serif; color:var(--text); background:#fafafa; }
 
 /* ── Header ── */
-header { background:#2E8B57; color:white; padding:0.8rem 1rem; text-align:center; }
-header h1 { margin:0.3rem 0; font-size:1.6rem; }
+#site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: var(--green-dark);
+  padding: 1.2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: var(--t);
+}
+#site-header.scrolled {
+  background: white;
+  box-shadow: var(--shadow-sm);
+  padding: 0.75rem 2.5rem;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: var(--t);
+  text-decoration: none;
+}
+#site-header.scrolled .logo { color: var(--green-dark); }
+.header-right { display: flex; align-items: center; gap: 1rem; }
+.back-link {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  transition: var(--t);
+  text-decoration: none;
+}
+.back-link:hover { color: white; }
+#site-header.scrolled .back-link { color: var(--text-muted); }
+#site-header.scrolled .back-link:hover { color: var(--green-dark); }
+.lang-switcher { display: flex; gap: 0.3rem; }
 .lang-btn {
-  margin:0 0.3rem; padding:0.35rem 0.75rem;
-  background:rgba(255,255,255,0.85); color:#2E8B57;
-  border:none; border-radius:4px; cursor:pointer; font-weight:bold; transition:0.2s;
+  padding: 0.3rem 0.6rem;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  background: transparent;
+  color: white;
+  border-radius: 4px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--t);
+  letter-spacing: 0.05em;
 }
-.lang-btn:hover, .lang-btn.active { background:white; }
-.home-btn {
-  display:inline-block; margin-left:0.5rem; padding:0.35rem 0.8rem;
-  background:rgba(255,255,255,0.2); color:white;
-  border:1px solid rgba(255,255,255,0.6); border-radius:4px;
-  font-size:0.9rem; text-decoration:none; transition:0.2s;
-}
-.home-btn:hover { background:rgba(255,255,255,0.35); }
+.lang-btn:hover, .lang-btn.active { background: rgba(255,255,255,0.15); border-color: white; }
+#site-header.scrolled .lang-btn { border-color: var(--green-dark); color: var(--green-dark); }
+#site-header.scrolled .lang-btn:hover,
+#site-header.scrolled .lang-btn.active { background: var(--green-dark); color: white; }
 
 /* ── Layout ── */
 .container {
   display:flex; flex-direction:row;
-  height: calc(100vh - 90px);
+  height: calc(100vh - 68px);
+  margin-top: 68px;
 }
 .sidebar {
   width:300px; min-width:220px;
@@ -98,21 +154,24 @@ li.poi-item.active { background:#c8e6c9; font-weight:bold; }
 }
 
 /* ── Footer ── */
-footer { background:#2E8B57; color:white; text-align:center; padding:1rem; font-size:0.9rem; }
-footer a { color:white; }
+footer { background: var(--green-dark); color:rgba(255,255,255,0.55); text-align:center; padding:2rem; font-size:0.78rem; font-family:'Nunito',sans-serif; }
+footer a { color:rgba(255,255,255,0.75); }
+.footer-brand { font-family:'Playfair Display',serif; color:white; font-size:1.2rem; margin-bottom:0.3rem; }
 
 .hidden { display:none; }
 </style>
 </head>
 <body>
 
-<header>
-  <h1 id="header-title">Tips & Activities – Front de Mer</h1>
-  <div style="margin-top:0.4rem;">
-    <button class="lang-btn active" id="btn-nl" onclick="showLang('nl')">NL</button>
-    <button class="lang-btn" id="btn-fr" onclick="showLang('fr')">FR</button>
-    <button class="lang-btn" id="btn-en" onclick="showLang('en')">EN</button>
-    <a href="index.html" class="home-btn" id="home-link">← Home</a>
+<header id="site-header">
+  <a href="index.html" class="logo">Front de Mer</a>
+  <div class="header-right">
+    <a href="index.html" class="back-link" id="back-link">← <span id="back-label">Home</span></a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btn-nl" onclick="showLang('nl')">NL</button>
+      <button class="lang-btn" id="btn-fr" onclick="showLang('fr')">FR</button>
+      <button class="lang-btn" id="btn-en" onclick="showLang('en')">EN</button>
+    </div>
   </div>
 </header>
 
@@ -137,7 +196,8 @@ footer a { color:white; }
 </div>
 
 <footer>
-  <p>&copy; 2025 Front de Mer, Cerbère &nbsp;|&nbsp; <a href="index.html">← Home</a> &nbsp;|&nbsp; <a href="gallery.html">Gallery</a></p>
+  <div class="footer-brand">Front de Mer</div>
+  <div>&copy; 2025 Front de Mer, Cerbère &nbsp;|&nbsp; <a href="index.html">← Home</a> &nbsp;|&nbsp; <a href="gallery.html">Gallery</a></div>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -508,9 +568,8 @@ function showLang(lang) {
   const t = UI[lang];
 
   // UI labels
-  document.getElementById('header-title').textContent  = t.headerTitle;
   document.getElementById('sidebar-title').textContent = t.sidebarTitle;
-  document.getElementById('home-link').textContent      = t.homeLink;
+  document.getElementById('back-label').textContent    = t.homeLink;
 
   // Active button
   ['nl','fr','en'].forEach(l => {
@@ -536,6 +595,10 @@ function showLang(lang) {
 // ── Init ──────────────────────────────────────────────────────────
 loadRdf();
 showLang('nl');
+
+window.addEventListener('scroll', () => {
+  document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 60);
+});
 </script>
 </body>
 </html>
