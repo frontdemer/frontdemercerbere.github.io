@@ -1157,12 +1157,14 @@ showLang('nl');
   <div id="admin-modal">
     <button class="admin-close" onclick="adminClose()">✕</button>
 
-    <div id="admin-login">
+    <div id="admin-token-setup">
       <h3>Beheer — Prijzen</h3>
-      <p class="admin-sub">Voer het wachtwoord in</p>
-      <input type="password" id="admin-pw-input" placeholder="Wachtwoord" onkeydown="if(event.key==='Enter')adminLogin()">
-      <div id="admin-pw-error" class="admin-error admin-hidden">Verkeerd wachtwoord</div>
-      <button class="admin-btn-primary" onclick="adminLogin()">Inloggen</button>
+      <p class="admin-sub">Voer je GitHub Personal Access Token in</p>
+      <input type="password" id="admin-token-input" placeholder="github_pat_…"
+             onkeydown="if(event.key==='Enter')adminTokenSave()">
+      <p class="admin-token-hint">Fine-grained PAT · Repository Contents: Read &amp; Write</p>
+      <div id="admin-token-error" class="admin-error admin-hidden"></div>
+      <button class="admin-btn-primary" onclick="adminTokenSave()">Doorgaan</button>
     </div>
 
     <div id="admin-editor" class="admin-hidden">
@@ -1194,10 +1196,14 @@ showLang('nl');
           </tr>
         </tbody>
       </table>
-      <div id="admin-save-msg" class="admin-save-msg admin-hidden">✓ Prijzen opgeslagen</div>
+      <div id="admin-save-msg" class="admin-save-msg admin-hidden">✓ Prijzen opgeslagen op GitHub</div>
+      <div id="admin-save-error" class="admin-error admin-hidden"></div>
       <div class="admin-actions">
         <button class="admin-btn-secondary" onclick="adminReset()">Standaardwaarden</button>
-        <button class="admin-btn-primary" onclick="adminSave()">Opslaan</button>
+        <button class="admin-btn-primary" id="admin-save-btn" onclick="adminSave()">Opslaan</button>
+      </div>
+      <div class="admin-token-change">
+        <a href="#" onclick="adminClearToken();return false;">🔑 Ander token gebruiken</a>
       </div>
     </div>
   </div>
@@ -1231,7 +1237,7 @@ showLang('nl');
   background: white;
   border-radius: 12px;
   padding: 2rem;
-  width: min(420px, 92vw);
+  width: min(440px, 92vw);
   box-shadow: 0 12px 40px rgba(0,0,0,0.25);
   position: relative;
 }
@@ -1248,15 +1254,16 @@ showLang('nl');
   color: var(--green-dark);
   font-size: 1.3rem;
 }
-.admin-sub { margin: 0 0 1rem; color: #777; font-size: 0.85rem; }
-#admin-pw-input {
+.admin-sub { margin: 0 0 0.8rem; color: #777; font-size: 0.85rem; }
+#admin-token-input {
   width: 100%; padding: 0.6rem 0.8rem;
   border: 1.5px solid #ddd; border-radius: 6px;
-  font-size: 1rem; margin-bottom: 0.6rem;
+  font-size: 0.9rem; margin-bottom: 0.3rem;
   font-family: 'Nunito', sans-serif;
 }
-#admin-pw-input:focus { outline: none; border-color: var(--green-mid); }
-.admin-error { color: #c0392b; font-size: 0.82rem; margin-bottom: 0.5rem; }
+#admin-token-input:focus { outline: none; border-color: var(--green-mid); }
+.admin-token-hint { margin: 0 0 0.9rem; color: #aaa; font-size: 0.75rem; }
+.admin-error { color: #c0392b; font-size: 0.82rem; margin-bottom: 0.6rem; }
 
 /* ── Table ── */
 .admin-table { width: 100%; border-collapse: collapse; margin: 1rem 0 0.5rem; }
@@ -1290,7 +1297,8 @@ showLang('nl');
   font-family: 'Nunito', sans-serif; font-weight: 700;
   cursor: pointer; transition: background 0.2s;
 }
-.admin-btn-primary:hover { background: var(--green-mid); }
+.admin-btn-primary:hover:not(:disabled) { background: var(--green-mid); }
+.admin-btn-primary:disabled { opacity: 0.6; cursor: default; }
 .admin-btn-secondary {
   background: #f5f5f5; color: #555;
   border: 1.5px solid #ddd; border-radius: 6px;
@@ -1300,18 +1308,18 @@ showLang('nl');
 }
 .admin-btn-secondary:hover { background: #eee; }
 .admin-save-msg { color: #2D6A4F; font-size: 0.85rem; margin-top: 0.5rem; font-weight: 600; }
+.admin-token-change { margin-top: 1rem; text-align: center; font-size: 0.8rem; }
+.admin-token-change a { color: #bbb; text-decoration: none; }
+.admin-token-change a:hover { color: var(--green-dark); }
 .admin-hidden { display: none !important; }
 </style>
 
 <script>
 // ======= ADMIN PANEL =======
-const ADMIN_PW = 'fdm2025'; // ← wachtwoord hier aanpassen
+const REPO = 'frontdemer/frontdemercerbere.github.io';
+const PRICES_FILE = 'prices.json';
 const PRICE_DEFAULTS = { 'low-n': 100, 'low-w': 700, 'mid-n': 130, 'mid-w': 900, 'high-n': 160, 'high-w': 1200, 'special-n': 140, 'special-w': 380 };
-
-function loadPrices() {
-  const stored = localStorage.getItem('fdm_prices');
-  return stored ? { ...PRICE_DEFAULTS, ...JSON.parse(stored) } : { ...PRICE_DEFAULTS };
-}
+const KEYS = ['low-n','low-w','mid-n','mid-w','high-n','high-w','special-n','special-w'];
 
 function fmtPrice(n) {
   return '€' + Number(n).toLocaleString('nl-NL');
@@ -1324,57 +1332,124 @@ function applyPrices(prices) {
   });
 }
 
+async function initPrices() {
+  try {
+    const res = await fetch('/prices.json?_=' + Date.now());
+    const prices = res.ok ? { ...PRICE_DEFAULTS, ...await res.json() } : { ...PRICE_DEFAULTS };
+    applyPrices(prices);
+  } catch (e) {
+    applyPrices(PRICE_DEFAULTS);
+  }
+}
+
+// ── Admin open/close ──
 function adminOpen() {
   document.getElementById('admin-overlay').classList.remove('admin-hidden');
-  document.getElementById('admin-login').classList.remove('admin-hidden');
-  document.getElementById('admin-editor').classList.add('admin-hidden');
-  document.getElementById('admin-pw-input').value = '';
-  document.getElementById('admin-pw-error').classList.add('admin-hidden');
-  setTimeout(() => document.getElementById('admin-pw-input').focus(), 50);
+  localStorage.getItem('fdm_gh_token') ? showEditor() : showTokenSetup();
 }
 
 function adminClose() {
   document.getElementById('admin-overlay').classList.add('admin-hidden');
 }
 
-function adminLogin() {
-  const val = document.getElementById('admin-pw-input').value;
-  if (val === ADMIN_PW) {
-    document.getElementById('admin-login').classList.add('admin-hidden');
-    document.getElementById('admin-editor').classList.remove('admin-hidden');
-    const prices = loadPrices();
-    ['low-n','low-w','mid-n','mid-w','high-n','high-w','special-n','special-w'].forEach(k => {
-      document.getElementById('ap-' + k).value = prices[k];
-    });
-    document.getElementById('admin-save-msg').classList.add('admin-hidden');
-  } else {
-    document.getElementById('admin-pw-error').classList.remove('admin-hidden');
+function showTokenSetup() {
+  document.getElementById('admin-token-setup').classList.remove('admin-hidden');
+  document.getElementById('admin-editor').classList.add('admin-hidden');
+  document.getElementById('admin-token-input').value = '';
+  document.getElementById('admin-token-error').classList.add('admin-hidden');
+  setTimeout(() => document.getElementById('admin-token-input').focus(), 50);
+}
+
+async function showEditor() {
+  document.getElementById('admin-token-setup').classList.add('admin-hidden');
+  document.getElementById('admin-editor').classList.remove('admin-hidden');
+  document.getElementById('admin-save-msg').classList.add('admin-hidden');
+  document.getElementById('admin-save-error').classList.add('admin-hidden');
+  try {
+    const res = await fetch('/prices.json?_=' + Date.now());
+    const prices = res.ok ? { ...PRICE_DEFAULTS, ...await res.json() } : { ...PRICE_DEFAULTS };
+    KEYS.forEach(k => { document.getElementById('ap-' + k).value = prices[k]; });
+  } catch (e) {
+    KEYS.forEach(k => { document.getElementById('ap-' + k).value = PRICE_DEFAULTS[k]; });
   }
 }
 
-function adminSave() {
-  const prices = {};
-  ['low-n','low-w','mid-n','mid-w','high-n','high-w','special-n','special-w'].forEach(k => {
-    prices[k] = parseInt(document.getElementById('ap-' + k).value) || 0;
-  });
-  localStorage.setItem('fdm_prices', JSON.stringify(prices));
-  applyPrices(prices);
-  document.getElementById('admin-save-msg').classList.remove('admin-hidden');
+function adminTokenSave() {
+  const token = document.getElementById('admin-token-input').value.trim();
+  if (!token) return;
+  localStorage.setItem('fdm_gh_token', token);
+  showEditor();
+}
+
+function adminClearToken() {
+  localStorage.removeItem('fdm_gh_token');
+  showTokenSetup();
 }
 
 function adminReset() {
-  ['low-n','low-w','mid-n','mid-w','high-n','high-w','special-n','special-w'].forEach(k => {
-    document.getElementById('ap-' + k).value = PRICE_DEFAULTS[k];
-  });
+  KEYS.forEach(k => { document.getElementById('ap-' + k).value = PRICE_DEFAULTS[k]; });
 }
 
-// Close on overlay click
+async function adminSave() {
+  const token = localStorage.getItem('fdm_gh_token');
+  if (!token) { showTokenSetup(); return; }
+
+  const prices = {};
+  KEYS.forEach(k => { prices[k] = parseInt(document.getElementById('ap-' + k).value) || 0; });
+
+  const btn = document.getElementById('admin-save-btn');
+  btn.disabled = true; btn.textContent = 'Opslaan…';
+  document.getElementById('admin-save-msg').classList.add('admin-hidden');
+  document.getElementById('admin-save-error').classList.add('admin-hidden');
+
+  try {
+    // Haal huidige SHA op (nodig voor GitHub API update)
+    const getRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${PRICES_FILE}`, {
+      headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' }
+    });
+    if (!getRes.ok && getRes.status !== 404) throw new Error('GitHub API fout: ' + getRes.status);
+    const sha = getRes.ok ? (await getRes.json()).sha : undefined;
+
+    // Commit nieuwe prices.json
+    const body = {
+      message: 'Prijzen bijgewerkt via admin',
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(prices, null, 2) + '\n')))
+    };
+    if (sha) body.sha = sha;
+
+    const putRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${PRICES_FILE}`, {
+      method: 'PUT',
+      headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+
+    if (!putRes.ok) {
+      const err = await putRes.json();
+      if (putRes.status === 401 || putRes.status === 403) {
+        localStorage.removeItem('fdm_gh_token');
+        throw new Error('Token ongeldig of verlopen — voer een nieuw token in.');
+      }
+      throw new Error(err.message || 'Opslaan mislukt (status ' + putRes.status + ')');
+    }
+
+    applyPrices(prices);
+    document.getElementById('admin-save-msg').classList.remove('admin-hidden');
+  } catch (e) {
+    document.getElementById('admin-save-error').textContent = e.message;
+    document.getElementById('admin-save-error').classList.remove('admin-hidden');
+    if (e.message.includes('token')) showTokenSetup();
+  } finally {
+    btn.disabled = false; btn.textContent = 'Opslaan';
+  }
+}
+
+// Sluit bij klik buiten modal
 document.getElementById('admin-overlay').addEventListener('click', function(e) {
   if (e.target === this) adminClose();
 });
 
-// Load prices on startup
-applyPrices(loadPrices());
+// Prijzen laden bij start
+initPrices();
 </script>
 </body>
 </html>
