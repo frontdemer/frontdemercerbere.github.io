@@ -501,7 +501,7 @@ footer {
   <div class="hero-content">
     <span class="hero-tag">Cerbère, France</span>
     <h1 class="hero-title" id="hero-title">Direct aan zee,<br>midden in de natuur</h1>
-    <p class="hero-subtitle" id="hero-subtitle">Vakantiehuis met prachtig zeezicht aan de Middellandse Zee</p>
+    <p class="hero-subtitle" id="hero-subtitle">Ontwaak met de zonsopgang boven zee en loop in seconden naar het strand, de haven en restaurants.<br>Perfect voor een ontspannen vakantie, duiken, wandelen in de Pyreneeën of thuiswerken met snel internet.</p>
     <div class="hero-cta">
       <a class="btn-gold" id="hero-btn-book" onclick="scrollToSection('reservering')">Reserveer nu</a>
       <a class="btn-outline-white" id="hero-btn-photos" onclick="scrollToSection('preview')">Bekijk foto's</a>
@@ -1039,7 +1039,7 @@ footer {
 const langStrings = {
   nl: {
     heroTitle: 'Direct aan zee,<br>midden in de natuur',
-    heroSubtitle: 'Vakantiehuis met prachtig zeezicht aan de Middellandse Zee',
+    heroSubtitle: 'Ontwaak met de zonsopgang boven zee en loop in seconden naar het strand, de haven en restaurants.<br>Perfect voor een ontspannen vakantie, duiken, wandelen in de Pyreneeën of thuiswerken met snel internet.',
     heroBtnBook: 'Reserveer nu',
     heroBtnPhotos: "Bekijk foto's",
     feat1: 'Zeezicht', feat1v: 'Vanuit elke kamer',
@@ -1052,7 +1052,7 @@ const langStrings = {
   },
   fr: {
     heroTitle: 'En bord de mer,<br>au cœur de la nature',
-    heroSubtitle: 'Maison de vacances avec vue sur la Méditerranée',
+    heroSubtitle: 'Réveillez-vous au lever du soleil sur la mer et rejoignez la plage, le port et les restaurants en quelques secondes.<br>Idéal pour des vacances relaxantes, la plongée, la randonnée dans les Pyrénées ou le télétravail avec internet rapide.',
     heroBtnBook: 'Réservez maintenant',
     heroBtnPhotos: 'Voir les photos',
     feat1: 'Vue mer', feat1v: 'Depuis chaque chambre',
@@ -1065,7 +1065,7 @@ const langStrings = {
   },
   en: {
     heroTitle: 'Right on the sea,<br>in the heart of nature',
-    heroSubtitle: 'Holiday home with stunning Mediterranean sea views',
+    heroSubtitle: 'Wake up with the sunrise over the sea and walk to the beach, harbour, and restaurants within seconds.<br>Perfect for relaxing holidays, diving, hiking in the Pyrenees or working remotely with fast internet.',
     heroBtnBook: 'Book now',
     heroBtnPhotos: 'View photos',
     feat1: 'Sea view', feat1v: 'From every room',
@@ -1087,7 +1087,7 @@ function showLang(lang) {
   });
   const s = langStrings[lang];
   document.getElementById('hero-title').innerHTML = s.heroTitle;
-  document.getElementById('hero-subtitle').textContent = s.heroSubtitle;
+  document.getElementById('hero-subtitle').innerHTML = s.heroSubtitle;
   document.getElementById('hero-btn-book').textContent = s.heroBtnBook;
   document.getElementById('hero-btn-photos').textContent = s.heroBtnPhotos;
   document.getElementById('feat1-label').textContent = s.feat1;
