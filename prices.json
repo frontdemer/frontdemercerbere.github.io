@@ -3,8 +3,8 @@
   "low-w": 700,
   "mid-n": 130,
   "mid-w": 900,
-  "high-n": 230,
+  "high-n": 0,
   "high-w": 1600,
-  "special-n": 140,
+  "special-n": 0,
   "special-w": 380
 }
