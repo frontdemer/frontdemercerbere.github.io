@@ -329,6 +329,7 @@ img { max-width: 100%; display: block; }
 }
 .pricing-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
 .pricing-card.peak { border-top-color: var(--gold); }
+.pricing-card.special { border-top-color: #7B9E87; }
 .pricing-season {
   font-size: 0.72rem;
   text-transform: uppercase;
@@ -649,6 +650,16 @@ footer {
           <span data-pk="high-w">€1.200</span>
         </div>
       </div>
+      <div class="pricing-card special">
+        <div class="pricing-season">Speciale Tarieven</div>
+        <div class="pricing-period">Lange weekenden &amp; feestdagen</div>
+        <div class="pricing-day-price" data-pk="special-n">€140</div>
+        <div class="pricing-per-night">per nacht</div>
+        <div class="pricing-week-row">
+          <div class="pricing-week-label">Per weekend (3 nachten)</div>
+          <span data-pk="special-w">€380</span>
+        </div>
+      </div>
     </div>
     <p class="pricing-footnote">Minimaal verblijf: 2 nachten</p>
   </div>
@@ -796,6 +807,16 @@ footer {
           <span data-pk="high-w">€1.200</span>
         </div>
       </div>
+      <div class="pricing-card special">
+        <div class="pricing-season">Tarifs Spéciaux</div>
+        <div class="pricing-period">Longs week-ends &amp; jours fériés</div>
+        <div class="pricing-day-price" data-pk="special-n">€140</div>
+        <div class="pricing-per-night">par nuit</div>
+        <div class="pricing-week-row">
+          <div class="pricing-week-label">Par week-end (3 nuits)</div>
+          <span data-pk="special-w">€380</span>
+        </div>
+      </div>
     </div>
     <p class="pricing-footnote">Séjour minimum : 2 nuits</p>
   </div>
@@ -941,6 +962,16 @@ footer {
         <div class="pricing-week-row">
           <div class="pricing-week-label">Per week</div>
           <span data-pk="high-w">€1.200</span>
+        </div>
+      </div>
+      <div class="pricing-card special">
+        <div class="pricing-season">Special Rates</div>
+        <div class="pricing-period">Long weekends &amp; public holidays</div>
+        <div class="pricing-day-price" data-pk="special-n">€140</div>
+        <div class="pricing-per-night">per night</div>
+        <div class="pricing-week-row">
+          <div class="pricing-week-label">Per weekend (3 nights)</div>
+          <span data-pk="special-w">€380</span>
         </div>
       </div>
     </div>
@@ -1156,6 +1187,11 @@ showLang('nl');
             <td><input type="number" id="ap-high-n" min="0"></td>
             <td><input type="number" id="ap-high-w" min="0"></td>
           </tr>
+          <tr class="admin-special">
+            <td>Lange weekenden &amp; feestdagen</td>
+            <td><input type="number" id="ap-special-n" min="0"></td>
+            <td><input type="number" id="ap-special-w" min="0"><br><small style="color:#aaa">per weekend (3 nachten)</small></td>
+          </tr>
         </tbody>
       </table>
       <div id="admin-save-msg" class="admin-save-msg admin-hidden">✓ Prijzen opgeslagen</div>
@@ -1243,6 +1279,7 @@ showLang('nl');
 }
 .admin-table input:focus { outline: none; border-color: var(--green-mid); }
 .admin-peak td { background: #fffbf0; }
+.admin-special td { background: #f0f7f3; }
 
 /* ── Buttons ── */
 .admin-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.2rem; }
@@ -1263,17 +1300,17 @@ showLang('nl');
 }
 .admin-btn-secondary:hover { background: #eee; }
 .admin-save-msg { color: #2D6A4F; font-size: 0.85rem; margin-top: 0.5rem; font-weight: 600; }
-.admin-hidden { display: none; }
+.admin-hidden { display: none !important; }
 </style>
 
 <script>
 // ======= ADMIN PANEL =======
 const ADMIN_PW = 'fdm2025'; // ← wachtwoord hier aanpassen
-const PRICE_DEFAULTS = { 'low-n': 100, 'low-w': 700, 'mid-n': 130, 'mid-w': 900, 'high-n': 160, 'high-w': 1200 };
+const PRICE_DEFAULTS = { 'low-n': 100, 'low-w': 700, 'mid-n': 130, 'mid-w': 900, 'high-n': 160, 'high-w': 1200, 'special-n': 140, 'special-w': 380 };
 
 function loadPrices() {
   const stored = localStorage.getItem('fdm_prices');
-  return stored ? JSON.parse(stored) : { ...PRICE_DEFAULTS };
+  return stored ? { ...PRICE_DEFAULTS, ...JSON.parse(stored) } : { ...PRICE_DEFAULTS };
 }
 
 function fmtPrice(n) {
@@ -1306,7 +1343,7 @@ function adminLogin() {
     document.getElementById('admin-login').classList.add('admin-hidden');
     document.getElementById('admin-editor').classList.remove('admin-hidden');
     const prices = loadPrices();
-    ['low-n','low-w','mid-n','mid-w','high-n','high-w'].forEach(k => {
+    ['low-n','low-w','mid-n','mid-w','high-n','high-w','special-n','special-w'].forEach(k => {
       document.getElementById('ap-' + k).value = prices[k];
     });
     document.getElementById('admin-save-msg').classList.add('admin-hidden');
@@ -1317,7 +1354,7 @@ function adminLogin() {
 
 function adminSave() {
   const prices = {};
-  ['low-n','low-w','mid-n','mid-w','high-n','high-w'].forEach(k => {
+  ['low-n','low-w','mid-n','mid-w','high-n','high-w','special-n','special-w'].forEach(k => {
     prices[k] = parseInt(document.getElementById('ap-' + k).value) || 0;
   });
   localStorage.setItem('fdm_prices', JSON.stringify(prices));
@@ -1326,7 +1363,7 @@ function adminSave() {
 }
 
 function adminReset() {
-  ['low-n','low-w','mid-n','mid-w','high-n','high-w'].forEach(k => {
+  ['low-n','low-w','mid-n','mid-w','high-n','high-w','special-n','special-w'].forEach(k => {
     document.getElementById('ap-' + k).value = PRICE_DEFAULTS[k];
   });
 }
