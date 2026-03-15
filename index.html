@@ -622,31 +622,31 @@ footer {
       <div class="pricing-card">
         <div class="pricing-season">Laagseizoen</div>
         <div class="pricing-period">Januari – Maart<br>Oktober – December</div>
-        <div class="pricing-day-price">€100</div>
+        <div class="pricing-day-price" data-pk="low-n">€100</div>
         <div class="pricing-per-night">per nacht</div>
         <div class="pricing-week-row">
           <div class="pricing-week-label">Per week</div>
-          €700
+          <span data-pk="low-w">€700</span>
         </div>
       </div>
       <div class="pricing-card">
         <div class="pricing-season">Middenseizoen</div>
         <div class="pricing-period">April – Juni<br>September</div>
-        <div class="pricing-day-price">€130</div>
+        <div class="pricing-day-price" data-pk="mid-n">€130</div>
         <div class="pricing-per-night">per nacht</div>
         <div class="pricing-week-row">
           <div class="pricing-week-label">Per week</div>
-          €900
+          <span data-pk="mid-w">€900</span>
         </div>
       </div>
       <div class="pricing-card peak">
         <div class="pricing-season">Hoogseizoen</div>
         <div class="pricing-period">Juli – Augustus</div>
-        <div class="pricing-day-price">€160</div>
+        <div class="pricing-day-price" data-pk="high-n">€160</div>
         <div class="pricing-per-night">per nacht</div>
         <div class="pricing-week-row">
           <div class="pricing-week-label">Per week</div>
-          €1.200
+          <span data-pk="high-w">€1.200</span>
         </div>
       </div>
     </div>
@@ -769,31 +769,31 @@ footer {
       <div class="pricing-card">
         <div class="pricing-season">Basse saison</div>
         <div class="pricing-period">Janvier – Mars<br>Octobre – Décembre</div>
-        <div class="pricing-day-price">€100</div>
+        <div class="pricing-day-price" data-pk="low-n">€100</div>
         <div class="pricing-per-night">par nuit</div>
         <div class="pricing-week-row">
           <div class="pricing-week-label">Par semaine</div>
-          €700
+          <span data-pk="low-w">€700</span>
         </div>
       </div>
       <div class="pricing-card">
         <div class="pricing-season">Saison moyenne</div>
         <div class="pricing-period">Avril – Juin<br>Septembre</div>
-        <div class="pricing-day-price">€130</div>
+        <div class="pricing-day-price" data-pk="mid-n">€130</div>
         <div class="pricing-per-night">par nuit</div>
         <div class="pricing-week-row">
           <div class="pricing-week-label">Par semaine</div>
-          €900
+          <span data-pk="mid-w">€900</span>
         </div>
       </div>
       <div class="pricing-card peak">
         <div class="pricing-season">Haute saison</div>
         <div class="pricing-period">Juillet – Août</div>
-        <div class="pricing-day-price">€160</div>
+        <div class="pricing-day-price" data-pk="high-n">€160</div>
         <div class="pricing-per-night">par nuit</div>
         <div class="pricing-week-row">
           <div class="pricing-week-label">Par semaine</div>
-          €1.200
+          <span data-pk="high-w">€1.200</span>
         </div>
       </div>
     </div>
@@ -916,31 +916,31 @@ footer {
       <div class="pricing-card">
         <div class="pricing-season">Low season</div>
         <div class="pricing-period">January – March<br>October – December</div>
-        <div class="pricing-day-price">€100</div>
+        <div class="pricing-day-price" data-pk="low-n">€100</div>
         <div class="pricing-per-night">per night</div>
         <div class="pricing-week-row">
           <div class="pricing-week-label">Per week</div>
-          €700
+          <span data-pk="low-w">€700</span>
         </div>
       </div>
       <div class="pricing-card">
         <div class="pricing-season">Mid season</div>
         <div class="pricing-period">April – June<br>September</div>
-        <div class="pricing-day-price">€130</div>
+        <div class="pricing-day-price" data-pk="mid-n">€130</div>
         <div class="pricing-per-night">per night</div>
         <div class="pricing-week-row">
           <div class="pricing-week-label">Per week</div>
-          €900
+          <span data-pk="mid-w">€900</span>
         </div>
       </div>
       <div class="pricing-card peak">
         <div class="pricing-season">High season</div>
         <div class="pricing-period">July – August</div>
-        <div class="pricing-day-price">€160</div>
+        <div class="pricing-day-price" data-pk="high-n">€160</div>
         <div class="pricing-per-night">per night</div>
         <div class="pricing-week-row">
           <div class="pricing-week-label">Per week</div>
-          €1.200
+          <span data-pk="high-w">€1.200</span>
         </div>
       </div>
     </div>
@@ -1117,6 +1117,227 @@ function sendMail(lang) {
 
 // ======= Initialize =======
 showLang('nl');
+</script>
+
+<!-- ======= ADMIN PANEL ======= -->
+<button id="admin-key" title="Admin" onclick="adminOpen()" aria-label="Admin">🔑</button>
+
+<div id="admin-overlay" class="admin-hidden">
+  <div id="admin-modal">
+    <button class="admin-close" onclick="adminClose()">✕</button>
+
+    <div id="admin-login">
+      <h3>Beheer — Prijzen</h3>
+      <p class="admin-sub">Voer het wachtwoord in</p>
+      <input type="password" id="admin-pw-input" placeholder="Wachtwoord" onkeydown="if(event.key==='Enter')adminLogin()">
+      <div id="admin-pw-error" class="admin-error admin-hidden">Verkeerd wachtwoord</div>
+      <button class="admin-btn-primary" onclick="adminLogin()">Inloggen</button>
+    </div>
+
+    <div id="admin-editor" class="admin-hidden">
+      <h3>Prijzen bewerken</h3>
+      <table class="admin-table">
+        <thead>
+          <tr><th>Seizoen</th><th>Per nacht (€)</th><th>Per week (€)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Laagseizoen<br><small>jan–mrt, okt–dec</small></td>
+            <td><input type="number" id="ap-low-n" min="0"></td>
+            <td><input type="number" id="ap-low-w" min="0"></td>
+          </tr>
+          <tr>
+            <td>Middenseizoen<br><small>apr–jun, sep</small></td>
+            <td><input type="number" id="ap-mid-n" min="0"></td>
+            <td><input type="number" id="ap-mid-w" min="0"></td>
+          </tr>
+          <tr class="admin-peak">
+            <td>Hoogseizoen<br><small>jul–aug</small></td>
+            <td><input type="number" id="ap-high-n" min="0"></td>
+            <td><input type="number" id="ap-high-w" min="0"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div id="admin-save-msg" class="admin-save-msg admin-hidden">✓ Prijzen opgeslagen</div>
+      <div class="admin-actions">
+        <button class="admin-btn-secondary" onclick="adminReset()">Standaardwaarden</button>
+        <button class="admin-btn-primary" onclick="adminSave()">Opslaan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ── Admin key button ── */
+#admin-key {
+  position: fixed;
+  bottom: 1.5rem; right: 1.5rem;
+  z-index: 9000;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  opacity: 0.12;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  padding: 0.4rem;
+  line-height: 1;
+}
+#admin-key:hover { opacity: 0.55; }
+
+/* ── Overlay & modal ── */
+#admin-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 9001;
+  display: flex; align-items: center; justify-content: center;
+}
+#admin-modal {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  width: min(420px, 92vw);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  position: relative;
+}
+.admin-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none;
+  font-size: 1.1rem; cursor: pointer;
+  color: #999; line-height: 1;
+}
+.admin-close:hover { color: #333; }
+#admin-modal h3 {
+  margin: 0 0 0.3rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--green-dark);
+  font-size: 1.3rem;
+}
+.admin-sub { margin: 0 0 1rem; color: #777; font-size: 0.85rem; }
+#admin-pw-input {
+  width: 100%; padding: 0.6rem 0.8rem;
+  border: 1.5px solid #ddd; border-radius: 6px;
+  font-size: 1rem; margin-bottom: 0.6rem;
+  font-family: 'Nunito', sans-serif;
+}
+#admin-pw-input:focus { outline: none; border-color: var(--green-mid); }
+.admin-error { color: #c0392b; font-size: 0.82rem; margin-bottom: 0.5rem; }
+
+/* ── Table ── */
+.admin-table { width: 100%; border-collapse: collapse; margin: 1rem 0 0.5rem; }
+.admin-table th {
+  text-align: left; font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.05em; color: #888; padding: 0 0.5rem 0.6rem;
+  border-bottom: 1.5px solid #eee;
+}
+.admin-table td {
+  padding: 0.5rem 0.5rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f3f3f3;
+  vertical-align: middle;
+}
+.admin-table td small { color: #aaa; font-size: 0.75rem; }
+.admin-table input[type=number] {
+  width: 90px; padding: 0.4rem 0.5rem;
+  border: 1.5px solid #ddd; border-radius: 5px;
+  font-size: 0.95rem; font-family: 'Nunito', sans-serif;
+}
+.admin-table input:focus { outline: none; border-color: var(--green-mid); }
+.admin-peak td { background: #fffbf0; }
+
+/* ── Buttons ── */
+.admin-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.2rem; }
+.admin-btn-primary {
+  background: var(--green-dark); color: white;
+  border: none; border-radius: 6px;
+  padding: 0.55rem 1.2rem; font-size: 0.9rem;
+  font-family: 'Nunito', sans-serif; font-weight: 700;
+  cursor: pointer; transition: background 0.2s;
+}
+.admin-btn-primary:hover { background: var(--green-mid); }
+.admin-btn-secondary {
+  background: #f5f5f5; color: #555;
+  border: 1.5px solid #ddd; border-radius: 6px;
+  padding: 0.55rem 1rem; font-size: 0.9rem;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer; transition: background 0.2s;
+}
+.admin-btn-secondary:hover { background: #eee; }
+.admin-save-msg { color: #2D6A4F; font-size: 0.85rem; margin-top: 0.5rem; font-weight: 600; }
+.admin-hidden { display: none; }
+</style>
+
+<script>
+// ======= ADMIN PANEL =======
+const ADMIN_PW = 'fdm2025'; // ← wachtwoord hier aanpassen
+const PRICE_DEFAULTS = { 'low-n': 100, 'low-w': 700, 'mid-n': 130, 'mid-w': 900, 'high-n': 160, 'high-w': 1200 };
+
+function loadPrices() {
+  const stored = localStorage.getItem('fdm_prices');
+  return stored ? JSON.parse(stored) : { ...PRICE_DEFAULTS };
+}
+
+function fmtPrice(n) {
+  return '€' + Number(n).toLocaleString('nl-NL');
+}
+
+function applyPrices(prices) {
+  document.querySelectorAll('[data-pk]').forEach(el => {
+    const key = el.getAttribute('data-pk');
+    if (prices[key] !== undefined) el.textContent = fmtPrice(prices[key]);
+  });
+}
+
+function adminOpen() {
+  document.getElementById('admin-overlay').classList.remove('admin-hidden');
+  document.getElementById('admin-login').classList.remove('admin-hidden');
+  document.getElementById('admin-editor').classList.add('admin-hidden');
+  document.getElementById('admin-pw-input').value = '';
+  document.getElementById('admin-pw-error').classList.add('admin-hidden');
+  setTimeout(() => document.getElementById('admin-pw-input').focus(), 50);
+}
+
+function adminClose() {
+  document.getElementById('admin-overlay').classList.add('admin-hidden');
+}
+
+function adminLogin() {
+  const val = document.getElementById('admin-pw-input').value;
+  if (val === ADMIN_PW) {
+    document.getElementById('admin-login').classList.add('admin-hidden');
+    document.getElementById('admin-editor').classList.remove('admin-hidden');
+    const prices = loadPrices();
+    ['low-n','low-w','mid-n','mid-w','high-n','high-w'].forEach(k => {
+      document.getElementById('ap-' + k).value = prices[k];
+    });
+    document.getElementById('admin-save-msg').classList.add('admin-hidden');
+  } else {
+    document.getElementById('admin-pw-error').classList.remove('admin-hidden');
+  }
+}
+
+function adminSave() {
+  const prices = {};
+  ['low-n','low-w','mid-n','mid-w','high-n','high-w'].forEach(k => {
+    prices[k] = parseInt(document.getElementById('ap-' + k).value) || 0;
+  });
+  localStorage.setItem('fdm_prices', JSON.stringify(prices));
+  applyPrices(prices);
+  document.getElementById('admin-save-msg').classList.remove('admin-hidden');
+}
+
+function adminReset() {
+  ['low-n','low-w','mid-n','mid-w','high-n','high-w'].forEach(k => {
+    document.getElementById('ap-' + k).value = PRICE_DEFAULTS[k];
+  });
+}
+
+// Close on overlay click
+document.getElementById('admin-overlay').addEventListener('click', function(e) {
+  if (e.target === this) adminClose();
+});
+
+// Load prices on startup
+applyPrices(loadPrices());
 </script>
 </body>
 </html>
