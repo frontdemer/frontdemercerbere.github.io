@@ -1191,7 +1191,7 @@ function sendMail(lang) {
   const subject = encodeURIComponent(`Reservering Front de Mer - ${checkin.value} t/m ${checkout.value}`);
   const body = encodeURIComponent(`Naam: ${nameInput.value}\nE-mail: ${emailInput.value}\nAankomst: ${checkin.value}\nVertrek: ${checkout.value}\n\nExtra info:\n${messageInput.value}`);
   alert('Uw e-mail wordt geopend in uw mail-app. Controleer deze en klik op verzenden!');
-  window.location.href = `mailto:info@frontdemer-cerbere.fr?subject=${subject}&body=${body}`;
+  window.location.href = `mailto:cerbere@waagmeester.net?subject=${subject}&body=${body}`;
   return false;
 }
 
