@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Front de Mer — Galerij / Gallery</title>
+<meta name="description" content="Foto's van Front de Mer: het vakantiehuis, zeezicht, stranden, wandelingen en de omgeving van Cerbère aan de Frans-Spaanse grens.">
+<link rel="canonical" href="https://visiblenatu.re/gallery.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Front de Mer">
+<meta property="og:title" content="Front de Mer — Galerij / Gallery">
+<meta property="og:description" content="Foto's van het vakantiehuis, zeezicht, stranden en de omgeving van Cerbère.">
+<meta property="og:image" content="https://visiblenatu.re/hero.jpg">
+<meta property="og:url" content="https://visiblenatu.re/gallery.html">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -391,6 +401,7 @@ document.addEventListener('keydown', e => {
 
 function showLang(lang) {
   currentLang = lang;
+  document.documentElement.lang = lang;
   renderGallery();
 }
 

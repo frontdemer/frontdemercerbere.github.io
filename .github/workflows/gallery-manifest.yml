@@ -1,0 +1,33 @@
+name: Regenerate gallery manifest
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "gallery/images/**"
+      - "gallery/createGalleryManifest.py"
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerate images.json
+        run: python3 createGalleryManifest.py
+        working-directory: gallery
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- gallery/images.json; then
+            git add gallery/images.json
+            git commit -m "Regenerate gallery/images.json [skip ci]"
+            git push
+          else
+            echo "No changes to gallery/images.json"
+          fi

@@ -4,13 +4,16 @@ import json
 # Paths
 images_dir = "images"
 output_json = "images.json"
+# gallery.html lives at the repo root and fetches these paths directly as
+# <img src>, so they must be root-relative (not relative to this script).
+url_prefix = "gallery/images"
 
 # Build gallery structure
 gallery = {}
 for category in sorted(os.listdir(images_dir)):
     category_path = os.path.join(images_dir, category)
     if os.path.isdir(category_path):
-        images = [os.path.join(category, f) for f in sorted(os.listdir(category_path))
+        images = [f"{url_prefix}/{category}/{f}" for f in sorted(os.listdir(category_path))
                   if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp', '.gif'))]
         if images:
             gallery[category] = images
