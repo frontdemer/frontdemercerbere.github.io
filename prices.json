@@ -1,10 +1,10 @@
 {
   "low-n": 100,
   "low-w": 680,
-  "mid-n": 145,
-  "mid-w": 950,
+  "mid-n": 155,
+  "mid-w": 1000,
   "high-n": 230,
   "high-w": 1600,
-  "special-n": 150,
-  "special-w": 450
+  "special-n": 165,
+  "special-w": 495
 }
