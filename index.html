@@ -499,6 +499,14 @@ img { max-width: 100%; display: block; }
 .cal-note { font-size: 0.78rem; color: var(--text-muted); }
 .date-box { padding: 0.75rem 1rem; border: 1.5px solid #DDE5E0; border-radius: 8px; background: var(--sand); font-size: 0.95rem; min-height: 46px; }
 
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.form-feedback { margin-top: 0.8rem; font-size: 0.9rem; }
+.form-feedback.error { color: #B3261E; }
+.form-feedback.error a { text-decoration: underline; }
+.form-success { text-align: center; padding: 1rem 0; }
+.form-success h3 { font-family: 'Playfair Display', serif; color: var(--green-dark); font-size: 1.5rem; margin-bottom: 0.6rem; }
+.form-success p { color: var(--text-muted); }
+
 /* ======= CONTACT ======= */
 .contact-email {
   display: inline-flex;
@@ -751,7 +759,7 @@ footer {
     <p class="eyebrow">Boeken</p>
     <h2 class="section-title">Reserveer uw verblijf</h2>
     <div class="form-card">
-      <form id="form-nl" onsubmit="return sendMail('nl')">
+      <form id="form-nl" onsubmit="submitReservation('nl'); return false;">
         <div class="avail-cal" data-lang="nl"></div>
         <div class="form-row-2">
           <div class="form-group">
@@ -777,7 +785,9 @@ footer {
           <label for="message-nl">Opmerkingen</label>
           <textarea id="message-nl" placeholder="Extra informatie of vragen..."></textarea>
         </div>
+        <input type="text" class="hp" id="website-nl" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit" class="btn-submit">Verstuur reserveringsverzoek</button>
+        <div class="form-feedback" id="feedback-nl" aria-live="polite"></div>
       </form>
     </div>
   </div>
@@ -914,7 +924,7 @@ footer {
     <p class="eyebrow">Réservation</p>
     <h2 class="section-title">Réservez votre séjour</h2>
     <div class="form-card">
-      <form id="form-fr" onsubmit="return sendMail('fr')">
+      <form id="form-fr" onsubmit="submitReservation('fr'); return false;">
         <div class="avail-cal" data-lang="fr"></div>
         <div class="form-row-2">
           <div class="form-group">
@@ -940,7 +950,9 @@ footer {
           <label for="message-fr">Remarques</label>
           <textarea id="message-fr" placeholder="Informations supplémentaires ou questions..."></textarea>
         </div>
+        <input type="text" class="hp" id="website-fr" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit" class="btn-submit">Envoyer la demande de réservation</button>
+        <div class="form-feedback" id="feedback-fr" aria-live="polite"></div>
       </form>
     </div>
   </div>
@@ -1077,7 +1089,7 @@ footer {
     <p class="eyebrow">Booking</p>
     <h2 class="section-title">Book your stay</h2>
     <div class="form-card">
-      <form id="form-en" onsubmit="return sendMail('en')">
+      <form id="form-en" onsubmit="submitReservation('en'); return false;">
         <div class="avail-cal" data-lang="en"></div>
         <div class="form-row-2">
           <div class="form-group">
@@ -1103,7 +1115,9 @@ footer {
           <label for="message-en">Notes</label>
           <textarea id="message-en" placeholder="Additional information or questions..."></textarea>
         </div>
+        <input type="text" class="hp" id="website-en" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit" class="btn-submit">Send booking request</button>
+        <div class="form-feedback" id="feedback-en" aria-live="polite"></div>
       </form>
     </div>
   </div>
@@ -1225,7 +1239,10 @@ const CAL_TEXT = {
     note: 'Een aanvraag is pas definitief na onze bevestiging.',
     needIn: 'Selecteer een aankomstdatum.', needOut: 'Selecteer een vertrekdatum.',
     needName: 'Vul uw naam in.', needEmail: 'Vul uw e-mail in.',
-    opening: 'Uw e-mail wordt geopend in uw mail-app. Controleer deze en klik op verzenden!',
+    sending: 'Versturen…',
+    okTitle: 'Bedankt voor uw aanvraag!',
+    okText: 'We hebben uw reserveringsaanvraag ontvangen en nemen zo snel mogelijk contact met u op via het opgegeven e-mailadres.',
+    fail: 'Het versturen is niet gelukt. Probeer het later opnieuw of neem contact met ons op via',
   },
   fr: {
     prev: 'Mois précédent', next: 'Mois suivant',
@@ -1238,7 +1255,10 @@ const CAL_TEXT = {
     note: 'Une demande n\'est définitive qu\'après notre confirmation.',
     needIn: "Sélectionnez une date d'arrivée.", needOut: 'Sélectionnez une date de départ.',
     needName: 'Indiquez votre nom.', needEmail: 'Indiquez votre e-mail.',
-    opening: "Votre e-mail va s'ouvrir dans votre application de messagerie. Vérifiez-le puis cliquez sur envoyer !",
+    sending: 'Envoi…',
+    okTitle: 'Merci pour votre demande !',
+    okText: 'Nous avons bien reçu votre demande de réservation et vous répondrons dès que possible à l\'adresse e-mail indiquée.',
+    fail: 'L\'envoi a échoué. Réessayez plus tard ou contactez-nous à',
   },
   en: {
     prev: 'Previous month', next: 'Next month',
@@ -1251,7 +1271,10 @@ const CAL_TEXT = {
     note: 'A request is only final once we have confirmed it.',
     needIn: 'Please select an arrival date.', needOut: 'Please select a departure date.',
     needName: 'Please enter your name.', needEmail: 'Please enter your email.',
-    opening: 'Your email will open in your mail app. Please check it and press send!',
+    sending: 'Sending…',
+    okTitle: 'Thank you for your request!',
+    okText: 'We have received your booking request and will contact you as soon as possible at the email address you gave.',
+    fail: 'Sending failed. Please try again later or contact us at',
   },
 };
 
@@ -1314,6 +1337,7 @@ function calDayState(iso, today) {
 }
 
 function renderCalendars() {
+  if (cal.done) return;
   const todayIso = isoOf(new Date());
   document.querySelectorAll('.avail-cal').forEach(box => {
     const lang = box.dataset.lang;
@@ -1407,24 +1431,59 @@ function initAvailabilityCal() {
   loadAvailability();
 }
 
-// ======= Send mail =======
-function sendMail(lang) {
+// ======= Send reservation =======
+// Vul na het deployen van de Worker de URL in (zie worker/README.md).
+const RESERVATION_ENDPOINT = '';
+
+async function submitReservation(lang) {
   const t = CAL_TEXT[lang];
-  const checkin = document.getElementById(`checkin-${lang}`);
-  const checkout = document.getElementById(`checkout-${lang}`);
-  const nameInput = document.getElementById(`name-${lang}`);
-  const emailInput = document.getElementById(`email-${lang}`);
-  const messageInput = document.getElementById(`message-${lang}`);
+  const val = id => document.getElementById(`${id}-${lang}`).value;
   const calBox = document.querySelector(`.avail-cal[data-lang="${lang}"]`);
-  if (!checkin.value) { alert(t.needIn); calBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); return false; }
-  if (!checkout.value) { alert(t.needOut); calBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); return false; }
-  if (!nameInput.value.trim()) { alert(t.needName); nameInput.focus(); return false; }
-  if (!emailInput.value.trim()) { alert(t.needEmail); emailInput.focus(); return false; }
-  const subject = encodeURIComponent(`Reservering Front de Mer - ${checkin.value} t/m ${checkout.value}`);
-  const body = encodeURIComponent(`Naam: ${nameInput.value}\nE-mail: ${emailInput.value}\nAankomst: ${checkin.value}\nVertrek: ${checkout.value}\n\nExtra info:\n${messageInput.value}`);
-  alert(t.opening);
-  window.location.href = `mailto:cerbere@waagmeester.net?subject=${subject}&body=${body}`;
-  return false;
+  if (!val('checkin')) { alert(t.needIn); calBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+  if (!val('checkout')) { alert(t.needOut); calBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+  if (!val('name').trim()) { alert(t.needName); document.getElementById(`name-${lang}`).focus(); return; }
+  if (!val('email').trim()) { alert(t.needEmail); document.getElementById(`email-${lang}`).focus(); return; }
+
+  const btn = document.querySelector(`#form-${lang} .btn-submit`);
+  const feedback = document.getElementById(`feedback-${lang}`);
+  const label = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = t.sending;
+  feedback.className = 'form-feedback';
+  feedback.textContent = '';
+  try {
+    if (!RESERVATION_ENDPOINT) throw new Error('no endpoint configured');
+    const res = await fetch(RESERVATION_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        lang,
+        name: val('name'),
+        email: val('email'),
+        message: val('message'),
+        checkin: val('checkin'),
+        checkout: val('checkout'),
+        website: val('website'),
+      }),
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    showReservationSuccess();
+  } catch (err) {
+    console.error('Reservation failed:', err);
+    feedback.className = 'form-feedback error';
+    feedback.innerHTML = `${t.fail} <a href="mailto:cerbere@waagmeester.net">cerbere@waagmeester.net</a>.`;
+    btn.disabled = false;
+    btn.textContent = label;
+  }
+}
+
+function showReservationSuccess() {
+  cal.done = true;
+  ['nl', 'fr', 'en'].forEach(lang => {
+    const t = CAL_TEXT[lang];
+    document.getElementById(`form-${lang}`).closest('.form-card').innerHTML =
+      `<div class="form-success"><h3>${t.okTitle}</h3><p>${t.okText}</p></div>`;
+  });
 }
 
 // ======= Initialize =======

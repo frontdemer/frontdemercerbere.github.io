@@ -1,0 +1,11 @@
+name = "fdm-reservations"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+ALLOWED_ORIGINS = "https://visiblenatu.re"
+GITHUB_REPO = "frontdemer/reserveringen"
+AVAILABILITY_URL = "https://visiblenatu.re/availability.json"
+
+# Secret (niet hier invullen):
+#   npx wrangler secret put GITHUB_TOKEN
