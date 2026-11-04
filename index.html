@@ -180,6 +180,7 @@ img { max-width: 100%; display: block; }
   line-height: 1.15;
   margin-bottom: 1.3rem;
   font-weight: 600;
+  text-wrap: balance;
   text-shadow: 0 2px 20px rgba(0,0,0,0.15);
 }
 .hero-subtitle {
@@ -468,6 +469,36 @@ img { max-width: 100%; display: block; }
 }
 .btn-submit:hover { background: var(--green-mid); box-shadow: var(--shadow); transform: translateY(-1px); }
 
+/* ======= AVAILABILITY CALENDAR ======= */
+.avail-cal { margin-bottom: 1.2rem; }
+.cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem; }
+.cal-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--green-dark); text-transform: capitalize; }
+.cal-nav { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid #DDE5E0; background: white; color: var(--green-dark); font-size: 1.2rem; line-height: 1; cursor: pointer; transition: var(--t); }
+.cal-nav:hover:not(:disabled) { background: var(--sand); border-color: var(--green-mid); }
+.cal-nav:disabled { opacity: 0.3; cursor: default; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.cal-wd { text-align: center; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); padding: 0.2rem 0; }
+.cal-day { aspect-ratio: 1; border: none; border-radius: 8px; background: var(--sand); font-family: inherit; font-size: 0.9rem; color: var(--text); cursor: pointer; transition: background 0.15s; }
+.cal-day:hover:not(:disabled) { background: #d4ecdf; }
+.cal-day:disabled { cursor: default; }
+.cal-day.past { background: transparent; color: #c3ccc7; }
+.cal-day.blocked { color: #aab5b0; }
+.cal-day.booked { background: #ECECEC; color: #8d9994; text-decoration: line-through; }
+.cal-day.turnover { background: linear-gradient(135deg, var(--sand) 50%, #ECECEC 50%); }
+.cal-day.inrange { background: #cfe8da; border-radius: 0; }
+.cal-day.sel { background: var(--green-dark); color: white; text-decoration: none; }
+.cal-day.today { box-shadow: inset 0 0 0 1.5px var(--gold); }
+.cal-day:focus-visible, .cal-nav:focus-visible { outline: 2px solid var(--green-mid); outline-offset: 2px; }
+.cal-legend { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 0.7rem; font-size: 0.75rem; color: var(--text-muted); }
+.cal-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.cal-swatch { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+.cal-swatch.free { background: var(--sand); border: 1px solid #DDE5E0; }
+.cal-swatch.booked { background: #ECECEC; }
+.cal-status { margin-top: 0.5rem; min-height: 1.4em; font-size: 0.85rem; color: var(--green-mid); font-weight: 600; }
+.cal-status.warn { color: #9A6B1C; }
+.cal-note { font-size: 0.78rem; color: var(--text-muted); }
+.date-box { padding: 0.75rem 1rem; border: 1.5px solid #DDE5E0; border-radius: 8px; background: var(--sand); font-size: 0.95rem; min-height: 46px; }
+
 /* ======= CONTACT ======= */
 .contact-email {
   display: inline-flex;
@@ -721,14 +752,17 @@ footer {
     <h2 class="section-title">Reserveer uw verblijf</h2>
     <div class="form-card">
       <form id="form-nl" onsubmit="return sendMail('nl')">
+        <div class="avail-cal" data-lang="nl"></div>
         <div class="form-row-2">
           <div class="form-group">
-            <label for="checkin-nl">Aankomst</label>
-            <input type="date" id="checkin-nl" required onchange="setMinCheckout('nl')">
+            <label>Aankomst</label>
+            <div class="date-box" id="checkin-box-nl">—</div>
+            <input type="hidden" id="checkin-nl">
           </div>
           <div class="form-group">
-            <label for="checkout-nl">Vertrek</label>
-            <input type="date" id="checkout-nl" required>
+            <label>Vertrek</label>
+            <div class="date-box" id="checkout-box-nl">—</div>
+            <input type="hidden" id="checkout-nl">
           </div>
         </div>
         <div class="form-group">
@@ -881,14 +915,17 @@ footer {
     <h2 class="section-title">Réservez votre séjour</h2>
     <div class="form-card">
       <form id="form-fr" onsubmit="return sendMail('fr')">
+        <div class="avail-cal" data-lang="fr"></div>
         <div class="form-row-2">
           <div class="form-group">
-            <label for="checkin-fr">Arrivée</label>
-            <input type="date" id="checkin-fr" required onchange="setMinCheckout('fr')">
+            <label>Arrivée</label>
+            <div class="date-box" id="checkin-box-fr">—</div>
+            <input type="hidden" id="checkin-fr">
           </div>
           <div class="form-group">
-            <label for="checkout-fr">Départ</label>
-            <input type="date" id="checkout-fr" required>
+            <label>Départ</label>
+            <div class="date-box" id="checkout-box-fr">—</div>
+            <input type="hidden" id="checkout-fr">
           </div>
         </div>
         <div class="form-group">
@@ -1041,14 +1078,17 @@ footer {
     <h2 class="section-title">Book your stay</h2>
     <div class="form-card">
       <form id="form-en" onsubmit="return sendMail('en')">
+        <div class="avail-cal" data-lang="en"></div>
         <div class="form-row-2">
           <div class="form-group">
-            <label for="checkin-en">Check-in</label>
-            <input type="date" id="checkin-en" required onchange="setMinCheckout('en')">
+            <label>Check-in</label>
+            <div class="date-box" id="checkin-box-en">—</div>
+            <input type="hidden" id="checkin-en">
           </div>
           <div class="form-group">
-            <label for="checkout-en">Check-out</label>
-            <input type="date" id="checkout-en" required>
+            <label>Check-out</label>
+            <div class="date-box" id="checkout-box-en">—</div>
+            <input type="hidden" id="checkout-en">
           </div>
         </div>
         <div class="form-group">
@@ -1171,40 +1211,225 @@ window.addEventListener('scroll', () => {
   document.getElementById('site-header').classList.toggle('scrolled', window.scrollY > 60);
 });
 
-// ======= Min 2 nights =======
-function setMinCheckout(lang) {
-  const checkin = document.getElementById(`checkin-${lang}`);
-  const checkout = document.getElementById(`checkout-${lang}`);
-  if (checkin.value) {
-    const minDate = new Date(checkin.value);
-    minDate.setDate(minDate.getDate() + 2);
-    checkout.min = minDate.toISOString().split('T')[0];
-    if (!checkout.value || new Date(checkout.value) < minDate) {
-      checkout.value = minDate.toISOString().split('T')[0];
-    }
+// ======= Availability calendar =======
+const CAL_LOCALE = { nl: 'nl-NL', fr: 'fr-FR', en: 'en-GB' };
+const CAL_TEXT = {
+  nl: {
+    prev: 'Vorige maand', next: 'Volgende maand',
+    free: 'Vrij', booked: 'Bezet',
+    pickIn: 'Kies uw aankomstdatum.',
+    pickOut: 'Kies nu uw vertrekdatum.',
+    nights: n => `${n} nachten`,
+    minStay: n => `Let op: het minimale verblijf in dit seizoen is ${n} nachten.`,
+    loadFail: 'De beschikbaarheid kon niet worden geladen. Wij controleren uw data bij de aanvraag.',
+    note: 'Een aanvraag is pas definitief na onze bevestiging.',
+    needIn: 'Selecteer een aankomstdatum.', needOut: 'Selecteer een vertrekdatum.',
+    needName: 'Vul uw naam in.', needEmail: 'Vul uw e-mail in.',
+    opening: 'Uw e-mail wordt geopend in uw mail-app. Controleer deze en klik op verzenden!',
+  },
+  fr: {
+    prev: 'Mois précédent', next: 'Mois suivant',
+    free: 'Libre', booked: 'Occupé',
+    pickIn: "Choisissez votre date d'arrivée.",
+    pickOut: 'Choisissez maintenant votre date de départ.',
+    nights: n => `${n} nuits`,
+    minStay: n => `Attention : le séjour minimum pour cette saison est de ${n} nuits.`,
+    loadFail: 'Les disponibilités n\'ont pas pu être chargées. Nous vérifierons vos dates lors de la demande.',
+    note: 'Une demande n\'est définitive qu\'après notre confirmation.',
+    needIn: "Sélectionnez une date d'arrivée.", needOut: 'Sélectionnez une date de départ.',
+    needName: 'Indiquez votre nom.', needEmail: 'Indiquez votre e-mail.',
+    opening: "Votre e-mail va s'ouvrir dans votre application de messagerie. Vérifiez-le puis cliquez sur envoyer !",
+  },
+  en: {
+    prev: 'Previous month', next: 'Next month',
+    free: 'Available', booked: 'Booked',
+    pickIn: 'Choose your arrival date.',
+    pickOut: 'Now choose your departure date.',
+    nights: n => `${n} nights`,
+    minStay: n => `Please note: the minimum stay in this season is ${n} nights.`,
+    loadFail: 'Availability could not be loaded. We will check your dates when handling the request.',
+    note: 'A request is only final once we have confirmed it.',
+    needIn: 'Please select an arrival date.', needOut: 'Please select a departure date.',
+    needName: 'Please enter your name.', needEmail: 'Please enter your email.',
+    opening: 'Your email will open in your mail app. Please check it and press send!',
+  },
+};
+
+const cal = { checkin: null, checkout: null, year: 0, month: 0, bookedNights: new Set(), loaded: false, failed: false };
+
+function isoOf(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function dateOf(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+function addDays(iso, n) {
+  const d = dateOf(iso);
+  d.setDate(d.getDate() + n);
+  return isoOf(d);
+}
+function nightsBetweenIso(a, b) {
+  return Math.round((dateOf(b) - dateOf(a)) / 86400000);
+}
+function rangeIsFree(from, to) {
+  for (let d = from; d < to; d = addDays(d, 1)) if (cal.bookedNights.has(d)) return false;
+  return true;
+}
+function seasonMinNights(iso) {
+  const m = dateOf(iso).getMonth() + 1;
+  if (m === 7 || m === 8) return 7;
+  if ([4, 5, 6, 9].includes(m)) return 3;
+  return 2;
+}
+
+async function loadAvailability() {
+  try {
+    const res = await fetch('availability.json?_=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    (data.booked || []).forEach(([start, end]) => {
+      for (let d = start; d < end; d = addDays(d, 1)) cal.bookedNights.add(d);
+    });
+    cal.loaded = true;
+  } catch (e) {
+    cal.failed = true;
   }
+  renderCalendars();
+}
+
+function calDayState(iso, today) {
+  if (iso < today) return { cls: 'past', disabled: true };
+  const booked = cal.bookedNights.has(iso);
+  let enabled;
+  if (cal.checkin && !cal.checkout && iso > cal.checkin) {
+    enabled = nightsBetweenIso(cal.checkin, iso) >= 2 && rangeIsFree(cal.checkin, iso);
+  } else {
+    enabled = !booked;
+  }
+  const cls = [];
+  if (booked) cls.push(enabled ? 'turnover' : 'booked');
+  else if (!enabled) cls.push('blocked');
+  return { cls: cls.join(' '), disabled: !enabled };
+}
+
+function renderCalendars() {
+  const todayIso = isoOf(new Date());
+  document.querySelectorAll('.avail-cal').forEach(box => {
+    const lang = box.dataset.lang;
+    const t = CAL_TEXT[lang];
+    const locale = CAL_LOCALE[lang];
+    const first = new Date(cal.year, cal.month, 1);
+    const title = first.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
+    const weekdays = [...Array(7)].map((_, i) =>
+      new Date(2024, 0, 1 + i).toLocaleDateString(locale, { weekday: 'short' }));
+    const offset = (first.getDay() + 6) % 7;
+    const days = new Date(cal.year, cal.month + 1, 0).getDate();
+    const now = new Date();
+    const curMonthIdx = now.getFullYear() * 12 + now.getMonth();
+    const viewIdx = cal.year * 12 + cal.month;
+
+    let cells = '';
+    for (let i = 0; i < offset; i++) cells += '<span></span>';
+    for (let day = 1; day <= days; day++) {
+      const iso = isoOf(new Date(cal.year, cal.month, day));
+      const st = calDayState(iso, todayIso);
+      const classes = ['cal-day', st.cls];
+      if (iso === cal.checkin || iso === cal.checkout) classes.push('sel');
+      else if (cal.checkin && cal.checkout && iso > cal.checkin && iso < cal.checkout) classes.push('inrange');
+      if (iso === todayIso) classes.push('today');
+      const label = dateOf(iso).toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      cells += `<button type="button" class="${classes.join(' ')}" data-iso="${iso}" aria-label="${label}"${st.disabled ? ' disabled' : ''}>${day}</button>`;
+    }
+
+    let status = cal.failed ? t.loadFail : (!cal.checkin ? t.pickIn : (!cal.checkout ? t.pickOut : ''));
+    let warn = cal.failed;
+    if (cal.checkin && cal.checkout) {
+      const n = nightsBetweenIso(cal.checkin, cal.checkout);
+      const min = seasonMinNights(cal.checkin);
+      status = t.nights(n);
+      if (n < min) { status += ' — ' + t.minStay(min); warn = true; }
+    }
+
+    box.innerHTML = `
+      <div class="cal-head">
+        <button type="button" class="cal-nav" data-step="-1" aria-label="${t.prev}"${viewIdx <= curMonthIdx ? ' disabled' : ''}>‹</button>
+        <span class="cal-title">${title}</span>
+        <button type="button" class="cal-nav" data-step="1" aria-label="${t.next}"${viewIdx >= curMonthIdx + 18 ? ' disabled' : ''}>›</button>
+      </div>
+      <div class="cal-grid">${weekdays.map(w => `<span class="cal-wd">${w}</span>`).join('')}${cells}</div>
+      <div class="cal-legend">
+        <span><i class="cal-swatch free"></i>${t.free}</span>
+        <span><i class="cal-swatch booked"></i>${t.booked}</span>
+      </div>
+      <p class="cal-status${warn ? ' warn' : ''}" aria-live="polite">${status}</p>
+      <p class="cal-note">${t.note}</p>`;
+  });
+
+  ['nl', 'fr', 'en'].forEach(lang => {
+    const fmt = iso => iso
+      ? dateOf(iso).toLocaleDateString(CAL_LOCALE[lang], { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
+      : '—';
+    document.getElementById(`checkin-${lang}`).value = cal.checkin || '';
+    document.getElementById(`checkout-${lang}`).value = cal.checkout || '';
+    document.getElementById(`checkin-box-${lang}`).textContent = fmt(cal.checkin);
+    document.getElementById(`checkout-box-${lang}`).textContent = fmt(cal.checkout);
+  });
+}
+
+function onCalendarClick(e) {
+  const nav = e.target.closest('.cal-nav');
+  if (nav) {
+    const d = new Date(cal.year, cal.month + Number(nav.dataset.step), 1);
+    cal.year = d.getFullYear();
+    cal.month = d.getMonth();
+    renderCalendars();
+    return;
+  }
+  const btn = e.target.closest('.cal-day');
+  if (!btn || btn.disabled) return;
+  const iso = btn.dataset.iso;
+  if (cal.checkin && !cal.checkout && iso > cal.checkin) {
+    cal.checkout = iso;
+  } else {
+    cal.checkin = iso;
+    cal.checkout = null;
+  }
+  renderCalendars();
+}
+
+function initAvailabilityCal() {
+  const now = new Date();
+  cal.year = now.getFullYear();
+  cal.month = now.getMonth();
+  document.querySelectorAll('.avail-cal').forEach(box => box.addEventListener('click', onCalendarClick));
+  renderCalendars();
+  loadAvailability();
 }
 
 // ======= Send mail =======
 function sendMail(lang) {
+  const t = CAL_TEXT[lang];
   const checkin = document.getElementById(`checkin-${lang}`);
   const checkout = document.getElementById(`checkout-${lang}`);
   const nameInput = document.getElementById(`name-${lang}`);
   const emailInput = document.getElementById(`email-${lang}`);
   const messageInput = document.getElementById(`message-${lang}`);
-  if (!checkin.value) { alert('Selecteer een aankomstdatum.'); checkin.focus(); return false; }
-  if (!checkout.value) { alert('Selecteer een vertrekdatum.'); checkout.focus(); return false; }
-  if (!nameInput.value.trim()) { alert('Vul uw naam in.'); nameInput.focus(); return false; }
-  if (!emailInput.value.trim()) { alert('Vul uw e-mail in.'); emailInput.focus(); return false; }
+  const calBox = document.querySelector(`.avail-cal[data-lang="${lang}"]`);
+  if (!checkin.value) { alert(t.needIn); calBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); return false; }
+  if (!checkout.value) { alert(t.needOut); calBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); return false; }
+  if (!nameInput.value.trim()) { alert(t.needName); nameInput.focus(); return false; }
+  if (!emailInput.value.trim()) { alert(t.needEmail); emailInput.focus(); return false; }
   const subject = encodeURIComponent(`Reservering Front de Mer - ${checkin.value} t/m ${checkout.value}`);
   const body = encodeURIComponent(`Naam: ${nameInput.value}\nE-mail: ${emailInput.value}\nAankomst: ${checkin.value}\nVertrek: ${checkout.value}\n\nExtra info:\n${messageInput.value}`);
-  alert('Uw e-mail wordt geopend in uw mail-app. Controleer deze en klik op verzenden!');
+  alert(t.opening);
   window.location.href = `mailto:cerbere@waagmeester.net?subject=${subject}&body=${body}`;
   return false;
 }
 
 // ======= Initialize =======
 showLang('nl');
+initAvailabilityCal();
 </script>
 
 <!-- ======= ADMIN PANEL ======= -->
