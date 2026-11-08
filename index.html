@@ -399,6 +399,16 @@ img { max-width: 100%; display: block; }
   font-weight: 600;
   line-height: 1;
 }
+.pricing-split { display: flex; justify-content: center; gap: 1.6rem; }
+.pricing-split .pricing-day-price { font-size: 2.5rem; }
+.pricing-split-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
 .pricing-per-night { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem; }
 .pricing-week-row {
   margin-top: 1.2rem;
@@ -730,7 +740,10 @@ footer {
       <div class="pricing-card peak">
         <div class="pricing-season">Hoogseizoen</div>
         <div class="pricing-period">Juli – Augustus</div>
-        <div class="pricing-day-price" data-pk="high-n">€125</div>
+        <div class="pricing-split">
+          <div><div class="pricing-split-label">Juli</div><div class="pricing-day-price" data-pk="high-n">€125</div></div>
+          <div><div class="pricing-split-label">Augustus</div><div class="pricing-day-price" data-pk="aug-n">€135</div></div>
+        </div>
         <div class="pricing-per-night">per nacht</div>
         <div class="pricing-week-row">
           <div class="pricing-week-label">Per week</div>
@@ -895,7 +908,10 @@ footer {
       <div class="pricing-card peak">
         <div class="pricing-season">Haute saison</div>
         <div class="pricing-period">Juillet – Août</div>
-        <div class="pricing-day-price" data-pk="high-n">€125</div>
+        <div class="pricing-split">
+          <div><div class="pricing-split-label">Juillet</div><div class="pricing-day-price" data-pk="high-n">€125</div></div>
+          <div><div class="pricing-split-label">Août</div><div class="pricing-day-price" data-pk="aug-n">€135</div></div>
+        </div>
         <div class="pricing-per-night">par nuit</div>
         <div class="pricing-week-row">
           <div class="pricing-week-label">Par semaine</div>
@@ -1060,7 +1076,10 @@ footer {
       <div class="pricing-card peak">
         <div class="pricing-season">High season</div>
         <div class="pricing-period">July – August</div>
-        <div class="pricing-day-price" data-pk="high-n">€125</div>
+        <div class="pricing-split">
+          <div><div class="pricing-split-label">July</div><div class="pricing-day-price" data-pk="high-n">€125</div></div>
+          <div><div class="pricing-split-label">August</div><div class="pricing-day-price" data-pk="aug-n">€135</div></div>
+        </div>
         <div class="pricing-per-night">per night</div>
         <div class="pricing-week-row">
           <div class="pricing-week-label">Per week</div>
@@ -1526,9 +1545,14 @@ initAvailabilityCal();
             <td><input type="number" id="ap-mid-w" min="0"></td>
           </tr>
           <tr class="admin-peak">
-            <td>Hoogseizoen<br><small>jul–aug</small></td>
-            <td><input type="number" id="ap-high-n" min="0"></td>
+            <td>Hoogseizoen<br><small>jul–aug (weekprijs geldt voor beide)</small></td>
+            <td><input type="number" id="ap-high-n" min="0"><br><small style="color:#aaa">juli</small></td>
             <td><input type="number" id="ap-high-w" min="0"></td>
+          </tr>
+          <tr class="admin-peak">
+            <td>Augustus<br><small>nachtprijs</small></td>
+            <td><input type="number" id="ap-aug-n" min="0"></td>
+            <td></td>
           </tr>
           <tr class="admin-special">
             <td>Lange weekenden &amp; feestdagen</td>
@@ -1659,8 +1683,8 @@ initAvailabilityCal();
 // ======= ADMIN PANEL =======
 const REPO = 'frontdemer/frontdemercerbere.github.io';
 const PRICES_FILE = 'prices.json';
-const PRICE_DEFAULTS = { 'low-n': 75, 'low-w': 475, 'mid-n': 95, 'mid-w': 600, 'high-n': 125, 'high-w': 800, 'special-n': 110, 'special-w': 330 };
-const KEYS = ['low-n','low-w','mid-n','mid-w','high-n','high-w','special-n','special-w'];
+const PRICE_DEFAULTS = { 'low-n': 75, 'low-w': 475, 'mid-n': 95, 'mid-w': 600, 'high-n': 125, 'high-w': 800, 'aug-n': 135, 'special-n': 110, 'special-w': 330 };
+const KEYS = ['low-n','low-w','mid-n','mid-w','high-n','high-w','aug-n','special-n','special-w'];
 
 function fmtPrice(n) {
   return '€' + Number(n).toLocaleString('nl-NL');
