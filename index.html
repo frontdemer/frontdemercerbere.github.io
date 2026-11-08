@@ -443,6 +443,7 @@ img { max-width: 100%; display: block; }
   margin-bottom: 0.4rem;
 }
 .form-group input,
+.form-group select,
 .form-group textarea {
   width: 100%;
   padding: 0.75rem 1rem;
@@ -455,6 +456,7 @@ img { max-width: 100%; display: block; }
   transition: var(--t);
 }
 .form-group input:focus,
+.form-group select:focus,
 .form-group textarea:focus {
   outline: none;
   border-color: var(--green-mid);
@@ -793,6 +795,16 @@ footer {
           <label for="email-nl">E-mailadres</label>
           <input type="email" id="email-nl" placeholder="uw@email.nl" required>
         </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="adults-nl">Volwassenen</label>
+            <select id="adults-nl"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option></select>
+          </div>
+          <div class="form-group">
+            <label for="children-nl">Kinderen (onder 18)</label>
+            <select id="children-nl"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+          </div>
+        </div>
         <div class="form-group">
           <label for="message-nl">Opmerkingen</label>
           <textarea id="message-nl" placeholder="Extra informatie of vragen..."></textarea>
@@ -958,6 +970,16 @@ footer {
         <div class="form-group">
           <label for="email-fr">Adresse e-mail</label>
           <input type="email" id="email-fr" placeholder="votre@email.fr" required>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="adults-fr">Adultes</label>
+            <select id="adults-fr"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option></select>
+          </div>
+          <div class="form-group">
+            <label for="children-fr">Enfants (moins de 18 ans)</label>
+            <select id="children-fr"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+          </div>
         </div>
         <div class="form-group">
           <label for="message-fr">Remarques</label>
@@ -1125,6 +1147,16 @@ footer {
           <label for="email-en">Email address</label>
           <input type="email" id="email-en" placeholder="your@email.com" required>
         </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="adults-en">Adults</label>
+            <select id="adults-en"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option></select>
+          </div>
+          <div class="form-group">
+            <label for="children-en">Children (under 18)</label>
+            <select id="children-en"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select>
+          </div>
+        </div>
         <div class="form-group">
           <label for="message-en">Notes</label>
           <textarea id="message-en" placeholder="Additional information or questions..."></textarea>
@@ -1253,6 +1285,7 @@ const CAL_TEXT = {
     note: 'Een aanvraag is pas definitief na onze bevestiging.',
     needIn: 'Selecteer een aankomstdatum.', needOut: 'Selecteer een vertrekdatum.',
     needName: 'Vul uw naam in.', needEmail: 'Vul uw e-mail in.',
+    needGuests: 'Maximaal 4 gasten (volwassenen en kinderen samen).',
     sending: 'Versturen…',
     okTitle: 'Bedankt voor uw aanvraag!',
     okText: 'We hebben uw reserveringsaanvraag ontvangen en nemen zo snel mogelijk contact met u op via het opgegeven e-mailadres.',
@@ -1269,6 +1302,7 @@ const CAL_TEXT = {
     note: 'Une demande n\'est définitive qu\'après notre confirmation.',
     needIn: "Sélectionnez une date d'arrivée.", needOut: 'Sélectionnez une date de départ.',
     needName: 'Indiquez votre nom.', needEmail: 'Indiquez votre e-mail.',
+    needGuests: '4 personnes maximum (adultes et enfants ensemble).',
     sending: 'Envoi…',
     okTitle: 'Merci pour votre demande !',
     okText: 'Nous avons bien reçu votre demande de réservation et vous répondrons dès que possible à l\'adresse e-mail indiquée.',
@@ -1285,6 +1319,7 @@ const CAL_TEXT = {
     note: 'A request is only final once we have confirmed it.',
     needIn: 'Please select an arrival date.', needOut: 'Please select a departure date.',
     needName: 'Please enter your name.', needEmail: 'Please enter your email.',
+    needGuests: 'Maximum 4 guests (adults and children together).',
     sending: 'Sending…',
     okTitle: 'Thank you for your request!',
     okText: 'We have received your booking request and will contact you as soon as possible at the email address you gave.',
@@ -1457,6 +1492,7 @@ async function submitReservation(lang) {
   if (!val('checkout')) { alert(t.needOut); calBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
   if (!val('name').trim()) { alert(t.needName); document.getElementById(`name-${lang}`).focus(); return; }
   if (!val('email').trim()) { alert(t.needEmail); document.getElementById(`email-${lang}`).focus(); return; }
+  if (Number(val('adults')) + Number(val('children')) > 4) { alert(t.needGuests); document.getElementById(`adults-${lang}`).focus(); return; }
 
   const btn = document.querySelector(`#form-${lang} .btn-submit`);
   const feedback = document.getElementById(`feedback-${lang}`);
@@ -1474,6 +1510,8 @@ async function submitReservation(lang) {
         lang,
         name: val('name'),
         email: val('email'),
+        adults: Number(val('adults')),
+        children: Number(val('children')),
         message: val('message'),
         checkin: val('checkin'),
         checkout: val('checkout'),

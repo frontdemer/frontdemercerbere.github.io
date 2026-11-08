@@ -1,11 +1,16 @@
 // Cloudflare Worker: turns a booking request from visiblenatu.re into an issue
 // in a private GitHub repo. The GitHub token lives only in the Worker's secrets.
 //
-// Config (wrangler.toml [vars]): ALLOWED_ORIGINS, GITHUB_REPO, AVAILABILITY_URL, PRICES_URL
+// Config (wrangler.toml [vars]): ALLOWED_ORIGINS, GITHUB_REPO, AVAILABILITY_URL, PRICES_URL, TOURIST_TAX_RATE
 // Secret (wrangler secret put): GITHUB_TOKEN  (fine-grained, Issues: read/write on GITHUB_REPO only)
 
 const LANGS = ["nl", "fr", "en"];
 const MAX = { name: 100, email: 200, message: 2000 };
+const MAX_GUESTS = 4;
+// Taxe de séjour Cerbère, € per adult per night. Unverified: same 2024 rate as the admin app
+// (meublé classé 2-3 étoiles). Override with TOURIST_TAX_RATE in wrangler.toml once confirmed
+// with the commune / Communauté de communes ACVI. Minors (<18) are exempt.
+const DEFAULT_TAX_RATE = 0.88;
 
 // Fallback when prices.json cannot be fetched; keep in sync with prices.json on the site.
 const DEFAULT_PRICES = {
@@ -58,6 +63,12 @@ export default {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return reply({ error: "email" }, 400, cors);
     if (!isIsoDate(checkin) || !isIsoDate(checkout)) return reply({ error: "dates" }, 400, cors);
 
+    const adults = Number(data.adults);
+    const children = Number(data.children ?? 0);
+    if (!Number.isInteger(adults) || !Number.isInteger(children) || adults < 1 || children < 0 || adults + children > MAX_GUESTS) {
+      return reply({ error: "guests" }, 400, cors);
+    }
+
     const nights = daysBetween(checkin, checkout);
     const today = new Date().toISOString().slice(0, 10);
     if (checkin < addDays(today, -1) || nights < 2 || nights > 90) {
@@ -65,11 +76,11 @@ export default {
     }
 
     const conflict = await overlapsBooked(env, checkin, checkout);
-    const quote = calcQuote(await loadPrices(env), checkin, nights);
+    const quote = calcQuote(await loadPrices(env), checkin, nights, adults, Number(env.TOURIST_TAX_RATE) || DEFAULT_TAX_RATE);
 
     const issue = {
       title: `Reservering ${checkin} → ${checkout} – ${name}`.slice(0, 200),
-      body: buildBody({ lang, name, email, message, checkin, checkout, nights, conflict, quote }),
+      body: buildBody({ lang, name, email, message, checkin, checkout, nights, conflict, quote, adults, children }),
       labels: conflict ? ["nieuw", "beschikbaarheid-conflict"] : ["nieuw"],
     };
 
@@ -144,7 +155,7 @@ function priceKey(iso) {
 
 // Full weeks at the weekly rate of the week's first day, remaining nights at each night's own rate.
 // Special rates (long weekends, holidays) are not detected; this is an indication only.
-function calcQuote(prices, checkin, nights) {
+function calcQuote(prices, checkin, nights, adults, taxRate) {
   const lines = [];
   let total = 0;
   let date = checkin;
@@ -163,7 +174,8 @@ function calcQuote(prices, checkin, nights) {
     date = addDays(date, 1);
     left -= 1;
   }
-  return { total, lines };
+  const tax = Math.round(adults * nights * taxRate * 100) / 100;
+  return { total, lines, tax, taxRate, adults, nights };
 }
 
 // Soft check only: flag the issue, never reject (availability.json can lag an hour).
@@ -179,11 +191,13 @@ async function overlapsBooked(env, checkin, checkout) {
   }
 }
 
+const eur = n => `€${Number.isInteger(n) ? n : n.toFixed(2).replace(".", ",")}`;
+
 // No @mentions from guests, no breaking out of the code fence, no table breakage.
 const noMention = s => s.replace(/(^|\s)@/g, "$1@​");
 const cell = s => noMention(s).replace(/\|/g, "\\|").replace(/\s+/g, " ");
 
-function buildBody({ lang, name, email, message, checkin, checkout, nights, conflict, quote }) {
+function buildBody({ lang, name, email, message, checkin, checkout, nights, conflict, quote, adults, children }) {
   const lines = [
     `Aanvraag via visiblenatu.re (taal gast: ${lang.toUpperCase()})`,
     "",
@@ -194,7 +208,10 @@ function buildBody({ lang, name, email, message, checkin, checkout, nights, conf
     `| Aankomst | ${checkin} |`,
     `| Vertrek | ${checkout} |`,
     `| Nachten | ${nights} |`,
-    `| Berekende prijs | **€${quote.total}** (indicatief, excl. toeristenbelasting) |`,
+    `| Gasten | ${adults} ${adults === 1 ? "volwassene" : "volwassenen"}${children ? `, ${children} ${children === 1 ? "kind" : "kinderen"} (onder 18)` : ""} |`,
+    `| Berekende prijs | **${eur(quote.total)}** (indicatief, excl. toeristenbelasting) |`,
+    `| Toeristenbelasting Cerbère | **${eur(quote.tax)}** (${adults} × ${nights} nachten × ${eur(quote.taxRate)}, kinderen onder 18 vrij; tarief nog te controleren, ter plaatse of vooraf te betalen) |`,
+    `| Totaal te betalen | **${eur(quote.total + quote.tax)}** |`,
   ];
   if (conflict) {
     lines.push("", "> ⚠️ De gekozen data overlappen met nachten die in de beschikbaarheidskalender als bezet staan. Controleer dit voordat je bevestigt.");
