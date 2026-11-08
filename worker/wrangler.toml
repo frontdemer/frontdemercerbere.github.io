@@ -6,6 +6,7 @@ compatibility_date = "2025-01-01"
 ALLOWED_ORIGINS = "https://visiblenatu.re"
 GITHUB_REPO = "frontdemer/reserveringen"
 AVAILABILITY_URL = "https://visiblenatu.re/availability.json"
+PRICES_URL = "https://visiblenatu.re/prices.json"
 
 # Secret (niet hier invullen):
 #   npx wrangler secret put GITHUB_TOKEN

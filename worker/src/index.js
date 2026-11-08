@@ -1,11 +1,18 @@
 // Cloudflare Worker: turns a booking request from visiblenatu.re into an issue
 // in a private GitHub repo. The GitHub token lives only in the Worker's secrets.
 //
-// Config (wrangler.toml [vars]): ALLOWED_ORIGINS, GITHUB_REPO, AVAILABILITY_URL
+// Config (wrangler.toml [vars]): ALLOWED_ORIGINS, GITHUB_REPO, AVAILABILITY_URL, PRICES_URL
 // Secret (wrangler secret put): GITHUB_TOKEN  (fine-grained, Issues: read/write on GITHUB_REPO only)
 
 const LANGS = ["nl", "fr", "en"];
 const MAX = { name: 100, email: 200, message: 2000 };
+
+// Fallback when prices.json cannot be fetched; keep in sync with prices.json on the site.
+const DEFAULT_PRICES = {
+  "low-n": 75, "low-w": 475, "mid-n": 95, "mid-w": 600,
+  "high-n": 125, "high-w": 800, "jul2-n": 150, "jul2-w": 950,
+  "aug-n": 175, "aug-w": 1100, "aug2-n": 135, "aug2-w": 850,
+};
 
 export default {
   async fetch(request, env) {
@@ -58,10 +65,11 @@ export default {
     }
 
     const conflict = await overlapsBooked(env, checkin, checkout);
+    const quote = calcQuote(await loadPrices(env), checkin, nights);
 
     const issue = {
       title: `Reservering ${checkin} → ${checkout} – ${name}`.slice(0, 200),
-      body: buildBody({ lang, name, email, message, checkin, checkout, nights, conflict }),
+      body: buildBody({ lang, name, email, message, checkin, checkout, nights, conflict, quote }),
       labels: conflict ? ["nieuw", "beschikbaarheid-conflict"] : ["nieuw"],
     };
 
@@ -114,6 +122,50 @@ function daysBetween(a, b) {
   return Math.round((new Date(b + "T00:00:00Z") - new Date(a + "T00:00:00Z")) / 86400000);
 }
 
+async function loadPrices(env) {
+  if (!env.PRICES_URL) return DEFAULT_PRICES;
+  try {
+    const res = await fetch(env.PRICES_URL, { cf: { cacheTtl: 300 } });
+    if (!res.ok) return DEFAULT_PRICES;
+    return { ...DEFAULT_PRICES, ...(await res.json()) };
+  } catch {
+    return DEFAULT_PRICES;
+  }
+}
+
+// Same seasons as the site: low jan-mar/oct-dec, mid apr-jun/sep, high jul-aug in four periods.
+function priceKey(iso) {
+  const month = Number(iso.slice(5, 7));
+  const day = Number(iso.slice(8, 10));
+  if (month === 7) return day <= 18 ? "high" : "jul2";
+  if (month === 8) return day <= 20 ? "aug" : "aug2";
+  return [4, 5, 6, 9].includes(month) ? "mid" : "low";
+}
+
+// Full weeks at the weekly rate of the week's first day, remaining nights at each night's own rate.
+// Special rates (long weekends, holidays) are not detected; this is an indication only.
+function calcQuote(prices, checkin, nights) {
+  const lines = [];
+  let total = 0;
+  let date = checkin;
+  let left = nights;
+  while (left >= 7) {
+    const amount = prices[`${priceKey(date)}-w`];
+    lines.push({ label: `Week vanaf ${date}`, amount });
+    total += amount;
+    date = addDays(date, 7);
+    left -= 7;
+  }
+  while (left > 0) {
+    const amount = prices[`${priceKey(date)}-n`];
+    lines.push({ label: `Nacht ${date}`, amount });
+    total += amount;
+    date = addDays(date, 1);
+    left -= 1;
+  }
+  return { total, lines };
+}
+
 // Soft check only: flag the issue, never reject (availability.json can lag an hour).
 async function overlapsBooked(env, checkin, checkout) {
   if (!env.AVAILABILITY_URL) return false;
@@ -131,7 +183,7 @@ async function overlapsBooked(env, checkin, checkout) {
 const noMention = s => s.replace(/(^|\s)@/g, "$1@​");
 const cell = s => noMention(s).replace(/\|/g, "\\|").replace(/\s+/g, " ");
 
-function buildBody({ lang, name, email, message, checkin, checkout, nights, conflict }) {
+function buildBody({ lang, name, email, message, checkin, checkout, nights, conflict, quote }) {
   const lines = [
     `Aanvraag via visiblenatu.re (taal gast: ${lang.toUpperCase()})`,
     "",
@@ -142,10 +194,12 @@ function buildBody({ lang, name, email, message, checkin, checkout, nights, conf
     `| Aankomst | ${checkin} |`,
     `| Vertrek | ${checkout} |`,
     `| Nachten | ${nights} |`,
+    `| Berekende prijs | **€${quote.total}** (indicatief, excl. toeristenbelasting) |`,
   ];
   if (conflict) {
     lines.push("", "> ⚠️ De gekozen data overlappen met nachten die in de beschikbaarheidskalender als bezet staan. Controleer dit voordat je bevestigt.");
   }
+  lines.push("", "<details><summary>Prijsberekening</summary>", "", ...quote.lines.map(l => `- ${l.label}: €${l.amount}`), "", "</details>");
   if (message) {
     const safe = noMention(message).replace(/`{3,}/g, "``");
     lines.push("", "**Opmerkingen**", "", "```text", safe, "```");
