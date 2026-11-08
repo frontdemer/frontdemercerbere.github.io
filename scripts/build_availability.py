@@ -22,6 +22,11 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 SOURCES = ["AIRBNB_ICAL_URL", "GOOGLE_ICAL_URL"]
+# Airbnb marks everything beyond its booking window as unavailable, as one block that ends
+# at the edge of that window (about a year ahead). That is "not open yet", not a booking,
+# and direct requests are allowed there. Ignore Airbnb events ending within this margin of
+# the horizon.
+AIRBNB_HORIZON_DAYS = 360
 OUTPUT = Path(__file__).resolve().parent.parent / "availability.json"
 
 
@@ -88,6 +93,12 @@ def main():
         except Exception as exc:  # message only: the URL itself is secret
             sys.exit(f"{var}: could not read calendar ({type(exc).__name__}: {exc})")
         print(f"{var}: {len(found)} events")
+        if var == "AIRBNB_ICAL_URL":
+            horizon = date.today() + timedelta(days=AIRBNB_HORIZON_DAYS)
+            kept = [r for r in found if r[1] < horizon]
+            if len(kept) != len(found):
+                print(f"{var}: ignored {len(found) - len(kept)} event(s) at the end of Airbnb's booking window")
+            found = kept
         ranges.extend(found)
 
     today = date.today()
