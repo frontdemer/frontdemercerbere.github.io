@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-Build availability.json from the Airbnb and Google Calendar iCal feeds.
+Build availability.json from the Google Calendar iCal feed (the leading calendar).
+Airbnb reservations are copied into that calendar by tools/airbnb-to-google.gs. The
+Airbnb feed itself is only read when AIRBNB_ICAL_URL is set (not used by default).
 
 The feed URLs contain secret tokens, so they are read from the environment
 (GitHub Actions secrets) and never written to disk. The output only holds
 merged ranges of booked nights -- no names, descriptions or reservation codes.
 
-    AIRBNB_ICAL_URL=... GOOGLE_ICAL_URL=... python3 scripts/build_availability.py
+    GOOGLE_ICAL_URL=... python3 scripts/build_availability.py
 
 Output format (half-open ranges, "end" is the checkout day, which stays free
 for a new arrival):
@@ -20,8 +22,11 @@ import sys
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
-SOURCES = ["AIRBNB_ICAL_URL", "GOOGLE_ICAL_URL"]
+# (variable, required)
+SOURCES = [("GOOGLE_ICAL_URL", True), ("AIRBNB_ICAL_URL", False)]
+LOCAL_TZ = ZoneInfo("Europe/Paris")
 # Airbnb marks everything beyond its booking window as unavailable, as one block that ends
 # at the edge of that window (about a year ahead). That is "not open yet", not a booking,
 # and direct requests are allowed there. Ignore Airbnb events ending within this margin of
@@ -49,6 +54,11 @@ def prop(body, name):
 
 
 def parse_day(value):
+    # Google's free/busy feed uses UTC times (20270724T130000Z); take the day in the house's
+    # time zone so a local midnight start does not land on the previous day.
+    if re.fullmatch(r"\d{8}T\d{6}Z", value):
+        dt = datetime.strptime(value, "%Y%m%dT%H%M%SZ").replace(tzinfo=timezone.utc)
+        return dt.astimezone(LOCAL_TZ).date()
     return date(int(value[0:4]), int(value[4:6]), int(value[6:8]))
 
 
@@ -84,10 +94,12 @@ def merge(ranges):
 
 def main():
     ranges = []
-    for var in SOURCES:
+    for var, required in SOURCES:
         url = os.environ.get(var)
         if not url:
-            sys.exit(f"{var} is not set")
+            if required:
+                sys.exit(f"{var} is not set")
+            continue
         try:
             found = list(events(fetch(url)))
         except Exception as exc:  # message only: the URL itself is secret
