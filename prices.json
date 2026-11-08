@@ -5,7 +5,12 @@
   "mid-w": 600,
   "high-n": 125,
   "high-w": 800,
-  "aug-n": 135,
+  "jul2-n": 150,
+  "jul2-w": 950,
+  "aug-n": 175,
+  "aug-w": 1100,
+  "aug2-n": 135,
+  "aug2-w": 850,
   "special-n": 110,
   "special-w": 330
 }

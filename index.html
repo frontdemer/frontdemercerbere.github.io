@@ -399,8 +399,9 @@ img { max-width: 100%; display: block; }
   font-weight: 600;
   line-height: 1;
 }
-.pricing-split { display: flex; justify-content: center; gap: 1.6rem; }
-.pricing-split .pricing-day-price { font-size: 2.5rem; }
+.pricing-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 1rem; }
+.pricing-split .pricing-day-price { font-size: 2.1rem; }
+.pricing-cell-week { font-size: 0.8rem; color: var(--green-mid); font-weight: 700; margin-top: 0.4rem; }
 .pricing-split-label {
   font-size: 0.7rem;
   text-transform: uppercase;
@@ -741,14 +742,12 @@ footer {
         <div class="pricing-season">Hoogseizoen</div>
         <div class="pricing-period">Juli – Augustus</div>
         <div class="pricing-split">
-          <div><div class="pricing-split-label">Juli</div><div class="pricing-day-price" data-pk="high-n">€125</div></div>
-          <div><div class="pricing-split-label">Augustus</div><div class="pricing-day-price" data-pk="aug-n">€135</div></div>
+          <div><div class="pricing-split-label">1–18 juli</div><div class="pricing-day-price" data-pk="high-n">€125</div><div class="pricing-cell-week"><span data-pk="high-w">€800</span> / per week</div></div>
+          <div><div class="pricing-split-label">19–31 juli</div><div class="pricing-day-price" data-pk="jul2-n">€150</div><div class="pricing-cell-week"><span data-pk="jul2-w">€950</span> / per week</div></div>
+          <div><div class="pricing-split-label">1–20 augustus</div><div class="pricing-day-price" data-pk="aug-n">€175</div><div class="pricing-cell-week"><span data-pk="aug-w">€1100</span> / per week</div></div>
+          <div><div class="pricing-split-label">21–31 augustus</div><div class="pricing-day-price" data-pk="aug2-n">€135</div><div class="pricing-cell-week"><span data-pk="aug2-w">€850</span> / per week</div></div>
         </div>
         <div class="pricing-per-night">per nacht</div>
-        <div class="pricing-week-row">
-          <div class="pricing-week-label">Per week</div>
-          <span data-pk="high-w">€800</span>
-        </div>
       </div>
       <div class="pricing-card special">
         <div class="pricing-season">Speciale Tarieven</div>
@@ -909,14 +908,12 @@ footer {
         <div class="pricing-season">Haute saison</div>
         <div class="pricing-period">Juillet – Août</div>
         <div class="pricing-split">
-          <div><div class="pricing-split-label">Juillet</div><div class="pricing-day-price" data-pk="high-n">€125</div></div>
-          <div><div class="pricing-split-label">Août</div><div class="pricing-day-price" data-pk="aug-n">€135</div></div>
+          <div><div class="pricing-split-label">1–18 juillet</div><div class="pricing-day-price" data-pk="high-n">€125</div><div class="pricing-cell-week"><span data-pk="high-w">€800</span> / par semaine</div></div>
+          <div><div class="pricing-split-label">19–31 juillet</div><div class="pricing-day-price" data-pk="jul2-n">€150</div><div class="pricing-cell-week"><span data-pk="jul2-w">€950</span> / par semaine</div></div>
+          <div><div class="pricing-split-label">1–20 août</div><div class="pricing-day-price" data-pk="aug-n">€175</div><div class="pricing-cell-week"><span data-pk="aug-w">€1100</span> / par semaine</div></div>
+          <div><div class="pricing-split-label">21–31 août</div><div class="pricing-day-price" data-pk="aug2-n">€135</div><div class="pricing-cell-week"><span data-pk="aug2-w">€850</span> / par semaine</div></div>
         </div>
         <div class="pricing-per-night">par nuit</div>
-        <div class="pricing-week-row">
-          <div class="pricing-week-label">Par semaine</div>
-          <span data-pk="high-w">€800</span>
-        </div>
       </div>
       <div class="pricing-card special">
         <div class="pricing-season">Tarifs Spéciaux</div>
@@ -1077,14 +1074,12 @@ footer {
         <div class="pricing-season">High season</div>
         <div class="pricing-period">July – August</div>
         <div class="pricing-split">
-          <div><div class="pricing-split-label">July</div><div class="pricing-day-price" data-pk="high-n">€125</div></div>
-          <div><div class="pricing-split-label">August</div><div class="pricing-day-price" data-pk="aug-n">€135</div></div>
+          <div><div class="pricing-split-label">1–18 July</div><div class="pricing-day-price" data-pk="high-n">€125</div><div class="pricing-cell-week"><span data-pk="high-w">€800</span> / per week</div></div>
+          <div><div class="pricing-split-label">19–31 July</div><div class="pricing-day-price" data-pk="jul2-n">€150</div><div class="pricing-cell-week"><span data-pk="jul2-w">€950</span> / per week</div></div>
+          <div><div class="pricing-split-label">1–20 August</div><div class="pricing-day-price" data-pk="aug-n">€175</div><div class="pricing-cell-week"><span data-pk="aug-w">€1100</span> / per week</div></div>
+          <div><div class="pricing-split-label">21–31 August</div><div class="pricing-day-price" data-pk="aug2-n">€135</div><div class="pricing-cell-week"><span data-pk="aug2-w">€850</span> / per week</div></div>
         </div>
         <div class="pricing-per-night">per night</div>
-        <div class="pricing-week-row">
-          <div class="pricing-week-label">Per week</div>
-          <span data-pk="high-w">€800</span>
-        </div>
       </div>
       <div class="pricing-card special">
         <div class="pricing-season">Special Rates</div>
@@ -1545,14 +1540,24 @@ initAvailabilityCal();
             <td><input type="number" id="ap-mid-w" min="0"></td>
           </tr>
           <tr class="admin-peak">
-            <td>Hoogseizoen<br><small>jul–aug (weekprijs geldt voor beide)</small></td>
-            <td><input type="number" id="ap-high-n" min="0"><br><small style="color:#aaa">juli</small></td>
+            <td>Hoogseizoen<br><small>1–18 juli</small></td>
+            <td><input type="number" id="ap-high-n" min="0"></td>
             <td><input type="number" id="ap-high-w" min="0"></td>
           </tr>
           <tr class="admin-peak">
-            <td>Augustus<br><small>nachtprijs</small></td>
+            <td>Hoogseizoen<br><small>19–31 juli</small></td>
+            <td><input type="number" id="ap-jul2-n" min="0"></td>
+            <td><input type="number" id="ap-jul2-w" min="0"></td>
+          </tr>
+          <tr class="admin-peak">
+            <td>Hoogseizoen<br><small>1–20 augustus</small></td>
             <td><input type="number" id="ap-aug-n" min="0"></td>
-            <td></td>
+            <td><input type="number" id="ap-aug-w" min="0"></td>
+          </tr>
+          <tr class="admin-peak">
+            <td>Hoogseizoen<br><small>21–31 augustus</small></td>
+            <td><input type="number" id="ap-aug2-n" min="0"></td>
+            <td><input type="number" id="ap-aug2-w" min="0"></td>
           </tr>
           <tr class="admin-special">
             <td>Lange weekenden &amp; feestdagen</td>
@@ -1683,8 +1688,8 @@ initAvailabilityCal();
 // ======= ADMIN PANEL =======
 const REPO = 'frontdemer/frontdemercerbere.github.io';
 const PRICES_FILE = 'prices.json';
-const PRICE_DEFAULTS = { 'low-n': 75, 'low-w': 475, 'mid-n': 95, 'mid-w': 600, 'high-n': 125, 'high-w': 800, 'aug-n': 135, 'special-n': 110, 'special-w': 330 };
-const KEYS = ['low-n','low-w','mid-n','mid-w','high-n','high-w','aug-n','special-n','special-w'];
+const PRICE_DEFAULTS = { 'low-n': 75, 'low-w': 475, 'mid-n': 95, 'mid-w': 600, 'high-n': 125, 'high-w': 800, 'jul2-n': 150, 'jul2-w': 950, 'aug-n': 175, 'aug-w': 1100, 'aug2-n': 135, 'aug2-w': 850, 'special-n': 110, 'special-w': 330 };
+const KEYS = ['low-n','low-w','mid-n','mid-w','high-n','high-w','jul2-n','jul2-w','aug-n','aug-w','aug2-n','aug2-w','special-n','special-w'];
 
 function fmtPrice(n) {
   return '€' + Number(n).toLocaleString('nl-NL');
